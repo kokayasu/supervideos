@@ -1,0 +1,6 @@
+boto3
+lingua-language-detector
+requests
+beautifulsoup4
+pandas
+psycopg2

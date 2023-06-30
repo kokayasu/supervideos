@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.videopurple.com
+
+# Sitemaps
+Sitemap: https://www.videopurple.com/sitemap.xml
+Sitemap: https://www.videopurple.com/server-sitemap-index.xml
