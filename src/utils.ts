@@ -47,7 +47,7 @@ export function getPopularCategories(rows: any): string[] {
     (a, b) => categoryCounts[b] - categoryCounts[a]
   );
 
-  return sortedCategories.slice(0, 20);
+  return sortedCategories.slice(0, 15);
 }
 
 export function getLastPageNum(videoCount: number) {

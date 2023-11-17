@@ -18,6 +18,12 @@ module.exports = {
         port: "",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "ei.phncdn.com",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
 };

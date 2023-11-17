@@ -67,7 +67,7 @@ export default function Home({
         <meta name="description" content="" />
         <meta name="keywords" content="" />
       </Head>
-      <Grid lg={12}>
+      <Grid lg={16}>
         <Typography variant="h2" mt={2}>
           {translate(t, "PopularCategories")}
         </Typography>
@@ -78,9 +78,6 @@ export default function Home({
         </Typography>
         <VideoList videos={videos} />
         <Pagination page={parseInt(page)} linkPath={""} videoCount={3000} />
-      </Grid>
-      <Grid lg={4}>
-        <Ads />
       </Grid>
     </PageContainer>
   );

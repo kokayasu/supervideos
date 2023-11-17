@@ -15,13 +15,13 @@ export default function Media({ videos }: { videos: any[] }) {
     <Grid container>
       {videos.map((video, index) => {
         return (
-          <Grid key={video.id} item xs={12} sm={6} md={4}>
+          <Grid key={video.id} item xs={6} sm={4} md={3}>
             <Link
               href={"/videos/" + video.id}
               prefetch={false}
               style={{ color: "inherit", textDecoration: "none" }}
             >
-              <Paper variant="outlined" sx={{ m: 1, borderRadius: "8px" }}>
+              <Paper variant="outlined" sx={{ m: 0.5, borderRadius: "4px" }}>
                 <Box
                   style={{
                     width: "100%",
@@ -29,14 +29,14 @@ export default function Media({ videos }: { videos: any[] }) {
                     paddingTop: "56.25%",
                     position: "relative",
                     overflow: "hidden",
-                    borderTopLeftRadius: "8px",
-                    borderTopRightRadius: "8px",
+                    borderTopLeftRadius: "4px",
+                    borderTopRightRadius: "4px",
                   }}
                 >
                   <Image
                     // src={video.thumbnail}
                     src="https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ"
-                    alt="Picture of the author"
+                    alt={video.title_en}
                     layout="fill"
                     objectFit="cover"
                     objectPosition="center"
@@ -48,7 +48,7 @@ export default function Media({ videos }: { videos: any[] }) {
                     variant="h5"
                     overflow="hidden"
                     textOverflow="ellipsis"
-                    sx={{ height: "4em" }}
+                    sx={{ height: "2.5em" }}
                   >
                     {getTitle(video, locale)}
                   </Typography>

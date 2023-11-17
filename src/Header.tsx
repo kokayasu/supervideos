@@ -8,6 +8,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
+const sections = [
+  { name: "categories" },
+  { name: "categories" },
+]
+
 export default function SearchAppBar() {
   const [searchQuery, setSearchQuery] = React.useState("");
   const router = useRouter();
@@ -25,14 +30,15 @@ export default function SearchAppBar() {
 
   return (
     <AppBar
-      position="fixed"
       elevation={0}
       sx={{
         backgroundColor: "white",
         borderBottom: "1px solid #000000"
       }}
     >
-      <Toolbar>
+      <Toolbar
+        variant="dense"
+      >
         <Link
           href="/"
           prefetch={false}
@@ -67,6 +73,23 @@ export default function SearchAppBar() {
           />
         </form>
         <div style={{ flexGrow: 0.5 }} />
+      </Toolbar>
+      <Toolbar
+        component="nav"
+        variant="dense"
+        sx={{ justifyContent: 'space-around' }}
+      >
+        {["hello", "hi", "category", "online"].map((section) => (
+          <Link
+            key={section}
+            href={"hello"}
+            sx={{ p: 1, flexShrink: 0 }}
+          >
+            <Typography variant="body2" fontWeight="bold">
+              {section}
+            </Typography>
+          </Link>
+        ))}
       </Toolbar>
     </AppBar>
   );

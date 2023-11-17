@@ -82,7 +82,7 @@ export async function searchVideoById(id: string): Promise<any> {
 
 export async function getTopCategories(): Promise<QueryResult> {
   const query = `
-        SELECT * FROM categories LIMIT 20;
+        SELECT * FROM categories LIMIT 15;
     `;
   return await conn!.query(query);
 }
