@@ -33,43 +33,42 @@ def translate_text(text, source_lang, target_lang):
 
 
 def update_translations(limit):
-    # Establish a connection to the PostgreSQL database
-    connection = psycopg2.connect(**DB_PARAMS)
+    logging.info(f"Start translating titles")
 
+    connection = psycopg2.connect(**DB_PARAMS)
     try:
         # Create a cursor to execute SQL queries
         with connection.cursor() as cursor:
-            # Execute the SQL query to retrieve rows that need translation
-            query = """
-                SELECT id, title_en
-                FROM videos
-                WHERE title_en IS NOT NULL AND title_ja IS NULL
-                ORDER BY view_count DESC
-                LIMIT %s;
-            """
-            cursor.execute(query, (limit,))
-
-            # Fetch all rows
-            rows = cursor.fetchall()
-
-            logging.info(f"Translating titles for {len(rows)} videos.")
-
-            # Update each row with the translated title
-            for video_id, title_en in rows:
-                translated_title_ja = translate_text(title_en, "en", "ja")
-
-                # Update the row in the database
-                update_query = """
-                    UPDATE videos
-                    SET title_ja = %s
-                    WHERE id = %s;
+            total_ch = 0
+            while total_ch < limit:
+                query = """
+                    SELECT id, title_en
+                    FROM videos
+                    WHERE title_en IS NOT NULL AND title_ja IS NULL
+                    ORDER BY view_count DESC
+                    LIMIT 1000;
                 """
-                cursor.execute(update_query, (translated_title_ja, video_id))
+                cursor.execute(query)
+                rows = cursor.fetchall()
 
-                logging.info(f"Updated translation for video ID {video_id}")
+                for video_id, title_en in rows:
+                    total_ch += len(title_en)
+                    if total_ch >= limit:
+                        logging.info(
+                            f"Stopped to translate because the total translated charactor will exceed the limit"
+                        )
+                        done = True
+                        break
 
-        # Commit the changes to the database
-        connection.commit()
+                    translated_title_ja = translate_text(title_en, "en", "ja")
+                    update_query = """
+                        UPDATE videos
+                        SET title_ja = %s
+                        WHERE id = %s;
+                    """
+                    cursor.execute(update_query, (translated_title_ja, video_id))
+                    connection.commit()
+                    logging.info(f"Updated translation for video ID {video_id}")
 
     except Exception as e:
         logging.error(f"Error updating translations: {e}")
@@ -87,7 +86,7 @@ def main():
     )
 
     # Example usage
-    update_translations(1)
+    update_translations(200)
 
 
 if __name__ == "__main__":
