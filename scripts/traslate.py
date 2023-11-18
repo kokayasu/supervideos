@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
+import os
 import psycopg2
 import boto3
 import logging
 
+# Get database parameters from environment variables
 DB_PARAMS = {
-    "host": "localhost",
-    "port": "5432",
-    "database": "supervideos",
-    "user": "postgres",
-    "password": "postgres",
+    "host": os.getenv("DB_HOST", "localhost"),
+    "port": os.getenv("DB_PORT", "5432"),
+    "database": os.getenv("DB_NAME", "supervideos"),
+    "user": os.getenv("DB_USER", "postgres"),
+    "password": os.getenv("DB_PASSWORD", "postgres"),
 }
 # DB_PARAMS = {
 #     "host": "database-1.c7pdgnl5hc90.us-west-1.rds.amazonaws.com",
@@ -18,10 +20,13 @@ DB_PARAMS = {
 #     "password": "5ZacDYV4eBaXflrQfNJU",
 # }
 
+# Get AWS region from environment variable
+AWS_REGION = os.getenv("AWS_REGION", "us-west-1")
 
-def translate_text(text, source_lang, target_lang):
+
+def translate_text(text, source_lang, target_lang, region):
     # Initialize the AWS Translate client
-    translate_client = boto3.client("translate", region_name="us-west-1")
+    translate_client = boto3.client("translate", region_name=region)
 
     # Translate the text
     response = translate_client.translate_text(
@@ -33,59 +38,57 @@ def translate_text(text, source_lang, target_lang):
 
 
 def update_translations(limit):
-    logging.info(f"Start translating titles")
+    logging.info("Start translating titles")
 
-    connection = psycopg2.connect(**DB_PARAMS)
-    try:
-        # Create a cursor to execute SQL queries
-        with connection.cursor() as cursor:
-            total_ch = 0
-            while total_ch < limit:
-                query = """
-                    SELECT id, title_en
-                    FROM videos
-                    WHERE title_en IS NOT NULL AND title_ja IS NULL
-                    ORDER BY view_count DESC
-                    LIMIT 1000;
-                """
-                cursor.execute(query)
-                rows = cursor.fetchall()
-
-                for video_id, title_en in rows:
-                    total_ch += len(title_en)
-                    if total_ch >= limit:
-                        logging.info(
-                            f"Stopped to translate because the total translated charactor will exceed the limit"
-                        )
-                        done = True
-                        break
-
-                    translated_title_ja = translate_text(title_en, "en", "ja")
-                    update_query = """
-                        UPDATE videos
-                        SET title_ja = %s
-                        WHERE id = %s;
+    # Establish a connection to the PostgreSQL database
+    with psycopg2.connect(**DB_PARAMS) as connection:
+        try:
+            # Create a cursor to execute SQL queries
+            with connection.cursor() as cursor:
+                total_ch = 0
+                done = False
+                while not done:
+                    query = """
+                        SELECT id, title_en
+                        FROM videos
+                        WHERE title_en IS NOT NULL AND title_ja IS NULL
+                        ORDER BY view_count DESC
+                        LIMIT 1000;
                     """
-                    cursor.execute(update_query, (translated_title_ja, video_id))
-                    connection.commit()
-                    logging.info(f"Updated translation for video ID {video_id}")
+                    cursor.execute(query)
+                    rows = cursor.fetchall()
 
-    except Exception as e:
-        logging.error(f"Error updating translations: {e}")
+                    for video_id, title_en in rows:
+                        total_ch += len(title_en)
+                        if total_ch >= limit:
+                            logging.info(
+                                "Stopped translating because the total translated character will exceed the limit"
+                            )
+                            done = True
+                            break
 
-    finally:
-        # Close the database connection
-        connection.close()
+                        translated_title_ja = translate_text(
+                            title_en, "en", "ja", AWS_REGION
+                        )
+                        update_query = """
+                            UPDATE videos
+                            SET title_ja = %s
+                            WHERE id = %s;
+                        """
+                        cursor.execute(update_query, (translated_title_ja, video_id))
+                        connection.commit()
+                        logging.info(f"Updated translation for video ID {video_id}")
+
+        except psycopg2.Error as e:
+            logging.error(f"Error updating translations: {e}")
 
 
 def main():
     logging.basicConfig(
-        level=logging.INFO,  # Set the desired log level
+        level=logging.INFO,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[logging.StreamHandler()],  # Log to the console
+        handlers=[logging.StreamHandler()],
     )
-
-    # Example usage
     update_translations(200)
 
 
