@@ -1,24 +1,22 @@
-#!/usr/bin/env python3
 import os
 import psycopg2
 import boto3
 import logging
+from psycopg2 import sql
+
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 
 # Get database parameters from environment variables
 DB_PARAMS = {
-    "host": os.getenv("DB_HOST", "localhost"),
-    "port": os.getenv("DB_PORT", "5432"),
-    "database": os.getenv("DB_NAME", "supervideos"),
-    "user": os.getenv("DB_USER", "postgres"),
-    "password": os.getenv("DB_PASSWORD", "postgres"),
+    "host": os.getenv("DB_HOST"),
+    "port": os.getenv("DB_PORT"),
+    "database": os.getenv("DB_NAME"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
 }
-# DB_PARAMS = {
-#     "host": "database-1.c7pdgnl5hc90.us-west-1.rds.amazonaws.com",
-#     "port": "5432",
-#     "database": "supervideos",
-#     "user": "postgres",
-#     "password": "5ZacDYV4eBaXflrQfNJU",
-# }
 
 # Get AWS region from environment variable
 AWS_REGION = os.getenv("AWS_REGION", "us-west-1")
@@ -48,14 +46,16 @@ def update_translations(limit):
                 total_ch = 0
                 done = False
                 while not done:
-                    query = """
+                    query = sql.SQL(
+                        """
                         SELECT id, title_en
                         FROM videos
                         WHERE title_en IS NOT NULL AND title_ja IS NULL
                         ORDER BY view_count DESC
-                        LIMIT 1000;
+                        LIMIT %s;
                     """
-                    cursor.execute(query)
+                    )
+                    cursor.execute(query, (1000,))
                     rows = cursor.fetchall()
 
                     for video_id, title_en in rows:
@@ -70,11 +70,13 @@ def update_translations(limit):
                         translated_title_ja = translate_text(
                             title_en, "en", "ja", AWS_REGION
                         )
-                        update_query = """
+                        update_query = sql.SQL(
+                            """
                             UPDATE videos
                             SET title_ja = %s
                             WHERE id = %s;
                         """
+                        )
                         cursor.execute(update_query, (translated_title_ja, video_id))
                         connection.commit()
                         logging.info(f"Updated translation for video ID {video_id}")
@@ -83,14 +85,5 @@ def update_translations(limit):
             logging.error(f"Error updating translations: {e}")
 
 
-def main():
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[logging.StreamHandler()],
-    )
+def lambda_handler(event, context):
     update_translations(200)
-
-
-if __name__ == "__main__":
-    main()
