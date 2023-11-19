@@ -5,11 +5,6 @@ export const NUM_VIDEOS_IN_PAGE = 21
 
 let conn: Pool | null = null;
 if (!conn) {
-  console.log("PGSQL_HOST: " + process.env.PGSQL_HOST);
-  console.log("PGSQL_PORT: " + process.env.PGSQL_PORT);
-  console.log("PGSQL_DATABASE: " + process.env.PGSQL_DATABASE);
-  console.log("PGSQL_USER: " + process.env.PGSQL_USER);
-  console.log("PGSQL_PASSWORD: " + process.env.PGSQL_PASSWORD);
   const port = process.env.PGSQL_PORT
     ? parseInt(process.env.PGSQL_PORT)
     : undefined;

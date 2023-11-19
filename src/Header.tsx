@@ -83,7 +83,6 @@ export default function SearchAppBar() {
           <Link
             key={section}
             href={"hello"}
-            sx={{ p: 1, flexShrink: 0 }}
           >
             <Typography variant="body2" fontWeight="bold">
               {section}
