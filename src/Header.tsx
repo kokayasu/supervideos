@@ -6,16 +6,96 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+
+import React from 'react';
+import Popover from '@mui/material/Popover';
+import Grid from '@mui/material/Grid';
+import { Button } from "@mui/base";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
+const categories = [
+  'Category 1',
+  'Category 2',
+  'Category 3',
+  // Add more categories as needed
+];
+
+function CategoryLink() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+
+  return (
+    <div>
+      <Button
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}
+        style={{ textDecoration: 'none', color: 'inherit' }}
+      >
+        Hover me
+      </Button>
+      <Popover
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handlePopoverClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+
+        PaperProps={{
+          style: {
+            width: '100%', // Set the width to 100%
+          },
+        }}
+      >
+        <Grid container>
+          {/* Create columns based on the number of categories */}
+          {categories.map((category, index) => (
+            <Grid item key={index} xs={4}>
+              <Typography>{category}</Typography>
+            </Grid>
+          ))}
+        </Grid>
+      </Popover>
+    </div>
+  );
+}
 
 const sections = [
-  { name: "categories" },
-  { name: "categories" },
+  { id: "home", link: "/", en: "Home", ja: "ホーム" },
+  { id: "categories", link: "/", en: "Categories", ja: "カテゴリー" },
+  { id: "livecam", link: "/", en: "Live Cam", ja: "ライブカメラ" },
+  { id: "meetup", link: "/", en: "Online Dating", ja: "出会い" },
+  { id: "onlinegame", link: "/", en: "Online Game", ja: "オンラインゲーム" },
 ]
 
 export default function SearchAppBar() {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
   const [searchQuery, setSearchQuery] = React.useState("");
   const router = useRouter();
+  const locale: string = router.locale as string;
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +110,7 @@ export default function SearchAppBar() {
 
   return (
     <AppBar
+      position={"static"}
       elevation={0}
       sx={{
         backgroundColor: "white",
@@ -79,14 +160,34 @@ export default function SearchAppBar() {
         variant="dense"
         sx={{ justifyContent: 'space-around' }}
       >
-        {["hello", "hi", "category", "online"].map((section) => (
+        {sections.map((section) => (
           <Link
-            key={section}
-            href={"hello"}
+            key={section.id}
+            href={section.link}
+            style={{
+              textDecoration: 'none',
+              color: 'inherit',
+            }}
           >
-            <Typography variant="body2" fontWeight="bold">
-              {section}
+            <Typography
+              variant="body2" fontWeight="bold"
+              onMouseEnter={handlePopoverOpen}
+            >
+              {section[locale]}
             </Typography>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handlePopoverClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+            >
+              <MenuItem >Profile</MenuItem>
+              <MenuItem >My account</MenuItem>
+              <MenuItem >Logout</MenuItem>
+            </Menu>
           </Link>
         ))}
       </Toolbar>
