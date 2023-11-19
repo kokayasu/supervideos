@@ -75,7 +75,7 @@ export default function Home({
         />
         <meta name="keywords" content={words.replaceAll(" ", ", ")} />
       </Head>
-      <Grid lg={12}>
+      <Grid lg={16}>
         {videos.length == 0 ? (
           <Typography variant="h4" my={2}>
             {translate(t, "SearchReultNotFound", { words })}
@@ -93,9 +93,6 @@ export default function Home({
           {translate(t, "RelatedCategories")}
         </Typography>
         <CategoryList categories={moreCategories} />
-      </Grid>
-      <Grid lg={4}>
-        <Ads />
       </Grid>
     </PageContainer>
   );

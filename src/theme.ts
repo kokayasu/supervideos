@@ -48,15 +48,7 @@ const theme = createTheme({
         shape: "rounded",
         variant: "outlined",
       },
-    },
-    MuiPaginationItem: {
-      styleOverrides: {
-        root: {
-          width: "45px",
-          height: "45px",
-        },
-      },
-    },
+    }
   },
 });
 

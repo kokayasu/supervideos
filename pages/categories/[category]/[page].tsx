@@ -100,7 +100,7 @@ export default function Home({
         />
         <meta name="keywords" content={category} />
       </Head>
-      <Grid lg={12}>
+      <Grid lg={16}>
         <Typography variant="h1" mt={2}>
           {translate(t, "CategoryVideos", { category: translatedCategory })}
         </Typography>
@@ -122,9 +122,6 @@ export default function Home({
           {translate(t, "MoreCategories")}
         </Typography>
         <CategoryList categories={moreCategories} />
-      </Grid>
-      <Grid lg={4}>
-        <Ads />
       </Grid>
     </PageContainer>
   );

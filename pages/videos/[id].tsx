@@ -73,13 +73,15 @@ export default function Home({
       <Grid lg={12}>
         <Video video={video} />
         <Divider sx={{ my: 2 }} />
+      </Grid>
+      <Grid lg={4}>
+        <Ads />
+      </Grid>
+      <Grid lg={16}>
         <Typography variant="h4" gutterBottom>
           {translate(t, "MoreVideos")}
         </Typography>
         <VideoList videos={moreVideos} />
-      </Grid>
-      <Grid lg={4}>
-        <Ads />
       </Grid>
     </PageContainer>
   );

@@ -9,7 +9,7 @@ export default function PageContainer({ children }: { children: ReactNode }) {
     <>
       <Header />
       <Grid container spacing={2} columns={16} sx={{
-        m: { sm: 1, md: 6, lg: 10 }, mt: 12
+        mx: { sm: 1, md: 6, lg: 10 },
       }}>
         {children}
       </Grid>
