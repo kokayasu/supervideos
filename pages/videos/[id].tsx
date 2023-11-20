@@ -4,6 +4,7 @@ import { GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 
 import Ads from "@src/Ads";
@@ -11,7 +12,7 @@ import PageContainer from "@src/PageContainer";
 import Video from "@src/Video";
 import VideoList from "@src/VideoList";
 import { searchVideoById, searchVideosByCategory } from "@src/db";
-import { translate } from "@src/utils";
+import { getTitle, translate } from "@src/utils";
 
 export async function getStaticPaths() {
   return {
@@ -53,18 +54,21 @@ export default function Home({
   video,
   moreVideos,
 }: {
-  video: any,
-  moreVideos: any[],
+  video: any;
+  moreVideos: any[];
 }) {
   const { t } = useTranslation();
+  const router = useRouter();
+  const locale: string = router.locale as string;
+  const title = getTitle(video, locale);
   return (
     <PageContainer>
       <Head>
-        <title>{video.title_en} | SuperVideos</title>
+        <title>{title + " | SuperVideos"}</title>
         <meta
           name="description"
           content={translate(t, "VideoPageDescription", {
-            title: video.title_en,
+            title: title,
             categories: video.categories.join(", "),
           })}
         />
