@@ -1,7 +1,8 @@
 import SearchIcon from "@mui/icons-material/Search";
 import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
-import InputBase from "@mui/material/InputBase";
+import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { alpha, styled } from "@mui/material/styles";
@@ -20,10 +21,9 @@ const sections = [
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  borderColor: "black",
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.black, 0.15),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.black, 0.25),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -34,33 +34,9 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
-
-export default function PrimarySearchAppBar() {
+export default function Header() {
   const router = useRouter();
-  const locale: string = router.locale as string;
+  const locale = router.locale as string;
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const handleSearch = (e: React.FormEvent) => {
@@ -92,15 +68,22 @@ export default function PrimarySearchAppBar() {
           </Typography>
           <div style={{ flexGrow: 0.5 }} />
           <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              value={searchQuery}
-              onChange={handleChange}
-            />
+            <form onSubmit={handleSearch}>
+              <TextField
+                placeholder="Search..."
+                size="small"
+                value={searchQuery}
+                onChange={handleChange}
+                InputProps={{
+                  endAdornment: (
+                    <IconButton edge="end" aria-label="search" type="submit">
+                      <SearchIcon />
+                    </IconButton>
+                  ),
+                }}
+                sx={{ width: "100%" }}
+              />
+            </form>
           </Search>
           <div style={{ flexGrow: 1 }} />
         </Toolbar>
