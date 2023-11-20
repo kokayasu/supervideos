@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
-const sections = [
+const sections: { [key: string]: string }[] = [
   { id: "home", link: "/", en: "Home", ja: "ホーム" },
   { id: "categories", link: "/", en: "Categories", ja: "カテゴリー" },
   { id: "livecam", link: "/", en: "Live Cam", ja: "ライブカメラ" },
