@@ -39,7 +39,6 @@ export default function Media({ videos }: { videos: any[] }) {
                     alt={video.title_en}
                     layout="fill"
                     objectFit="cover"
-                    objectPosition="center"
                   />
                 </Box>
                 <Box sx={{ p: 1 }}>
