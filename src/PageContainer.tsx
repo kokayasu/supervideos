@@ -1,19 +1,21 @@
 import Grid from "@mui/material/Unstable_Grid2";
+import Container from '@mui/material/Container';
 import { ReactNode } from "react";
 
 import Footer from "@src/Footer";
-import Header from "@src/Header";
+import Header from "@src/Header2";
 
 export default function PageContainer({ children }: { children: ReactNode }) {
   return (
     <>
       <Header />
-      <Grid container spacing={2} columns={16} sx={{
-        mx: { sm: 1, md: 6, lg: 10 },
-      }}>
-        {children}
-      </Grid>
-      <Footer />
+      <Container maxWidth="xl" sx={{p:0}}>
+        <Grid container spacing={2} columns={16} sx={{mx: 1}}
+        >
+          {children}
+        </Grid>
+        <Footer />
+      </Container>
     </>
   );
 }
