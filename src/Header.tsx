@@ -186,8 +186,16 @@ export default function Header() {
               sx={{
                 width: "calc(25% - 8px)",
               }}
+              onClick={() => setShow(false)}
             >
-              {translateCategory(category, locale)}
+              <Link
+                key={category}
+                href={"/categories/" + category + "/1"}
+                prefetch={false}
+                style={{ width: "100%" }}
+              >
+                {translateCategory(category, locale)}
+              </Link>
             </MenuItem>
           );
         })}
