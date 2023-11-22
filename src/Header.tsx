@@ -141,6 +141,8 @@ export default function Header() {
               if (section.id == "categories") {
                 return (
                   <Button
+                    key={section.id}
+                    color={"inherit"}
                     ref={buttonRef}
                     onMouseEnter={() => setShow(true)}
                     onMouseLeave={() => setShow(false)}
@@ -159,9 +161,7 @@ export default function Header() {
                       color: "inherit",
                     }}
                   >
-                    <Typography variant="body2" fontWeight="bold">
-                      {section[locale]}
-                    </Typography>
+                    <Button color={"inherit"}>{section[locale]}</Button>
                   </Link>
                 );
               }
@@ -183,16 +183,20 @@ export default function Header() {
         {Object.keys(categories).map((category) => {
           return (
             <MenuItem
+              key={category}
               sx={{
                 width: "calc(25% - 8px)",
               }}
               onClick={() => setShow(false)}
             >
               <Link
-                key={category}
                 href={"/categories/" + category + "/1"}
                 prefetch={false}
-                style={{ width: "100%" }}
+                style={{
+                  width: "100%",
+                  textDecoration: "none",
+                  color: "inherit",
+                }}
               >
                 {translateCategory(category, locale)}
               </Link>
