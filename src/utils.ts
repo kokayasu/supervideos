@@ -1,5 +1,8 @@
 import * as categoryTranslationsJson from "@src/categoryTranslations.json";
 
+const categoryTranslations: { [key: string]: { [key: string]: string } } =
+  categoryTranslationsJson;
+
 export function convertToShortFormat(num: number): string {
   const million = 1000000;
   const thousand = 1000;
@@ -63,7 +66,10 @@ export function getTitle(video: any, locale: string) {
   }
 }
 
+export function getCategories() {
+  return categoryTranslations;
+}
+
 export function translateCategory(category: string, locale: string): string {
-  const categoryTranslations: { [key: string]: { [key: string]: string } } = categoryTranslationsJson;
   return categoryTranslations[category][locale];
 }

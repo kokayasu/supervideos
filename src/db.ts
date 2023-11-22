@@ -1,7 +1,7 @@
 import { Pool } from "pg";
 import { QueryResult } from "pg";
 
-export const NUM_VIDEOS_IN_PAGE = 24
+export const NUM_VIDEOS_IN_PAGE = 24;
 
 let conn: Pool | null = null;
 if (!conn) {
@@ -31,7 +31,9 @@ export async function getCategories(locale: string): Promise<any[]> {
   return (await conn!.query(query)).rows;
 }
 
-export async function getVideoCountSearchByWords(words: string): Promise<number> {
+export async function getVideoCountSearchByWords(
+  words: string
+): Promise<number> {
   const query = `
         SELECT count(*) FROM videos
         WHERE title_en LIKE $1
@@ -39,7 +41,9 @@ export async function getVideoCountSearchByWords(words: string): Promise<number>
   return (await conn!.query(query, [`%${words}%`])).rows[0].count;
 }
 
-export async function getVideoCountSearchByCategory(category: string): Promise<number> {
+export async function getVideoCountSearchByCategory(
+  category: string
+): Promise<number> {
   const query = `
         SELECT video_count FROM categories
         WHERE id = $1
@@ -48,7 +52,10 @@ export async function getVideoCountSearchByCategory(category: string): Promise<n
   return result.rows[0].video_count;
 }
 
-export async function searchVideosByWords(words: string, locale: string): Promise<any[]> {
+export async function searchVideosByWords(
+  words: string,
+  locale: string
+): Promise<any[]> {
   const query = `
         SELECT * FROM videos
         WHERE title_${locale} LIKE $1
@@ -67,7 +74,13 @@ export async function searchVideosByCategory(
         WHERE categories @> ARRAY[$1]::character varying[]
         LIMIT $2 OFFSET $3;
     `;
-  return (await conn!.query(query, [category, NUM_VIDEOS_IN_PAGE, (page - 1) * NUM_VIDEOS_IN_PAGE])).rows;
+  return (
+    await conn!.query(query, [
+      category,
+      NUM_VIDEOS_IN_PAGE,
+      (page - 1) * NUM_VIDEOS_IN_PAGE,
+    ])
+  ).rows;
 }
 
 export async function searchVideoById(id: string): Promise<any> {

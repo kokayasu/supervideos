@@ -3,6 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
+import MenuItem from "@mui/material/MenuItem";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,7 +11,9 @@ import Typography from "@mui/material/Typography";
 import { alpha, styled } from "@mui/material/styles";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { MouseEvent, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+import { getCategories, translate, translateCategory } from "./utils";
 
 const sections: { [key: string]: string }[] = [
   { id: "home", link: "/", en: "Home", ja: "ホーム" },
@@ -36,14 +39,46 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
+const HoverPaper = styled(Paper)(({ theme }) => ({
+  position: "absolute",
+  zIndex: theme.zIndex.tooltip,
+  left: 0,
+  width: "100%",
+  elevation: 0,
+  boxShadow: "none",
+  borderRadius: 0,
+  borderTop: "1px solid #F6C7C7",
+  borderBottom: "1px solid #F6C7C7",
+}));
+
 export default function Header() {
   const router = useRouter();
   const locale = router.locale as string;
   const [searchQuery, setSearchQuery] = React.useState("");
+  const [show, setShow] = useState(false);
+
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const categories = getCategories();
+
+  useEffect(() => {
+    if (buttonRef.current) {
+      const buttonRect = buttonRef.current.getBoundingClientRect();
+      const buttonBottom = buttonRect.bottom + window.scrollY;
+      const buttonHeight = buttonRect.height;
+
+      // Calculate the top position for HoverPaper
+      const topPosition = `${buttonBottom}px`;
+
+      // Set the calculated top position
+      setTopPosition(topPosition);
+    }
+  }, [show]);
+
+  const [topPosition, setTopPosition] = useState("100%");
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.length != 0) {
+    if (searchQuery.length !== 0) {
       router.push(`/search/${searchQuery}/1`);
     }
   };
@@ -51,8 +86,6 @@ export default function Header() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
-
-  const [show, setShow] = useState(false);
 
   return (
     <>
@@ -104,38 +137,61 @@ export default function Header() {
             variant="dense"
             sx={{ justifyContent: "space-around" }}
           >
-            <Button
-              onMouseOver={() => setShow(true)}
-              onMouseOut={() => setShow(false)}
-              sx={{ height: 50 }}
-            >
-              Hover me!
-            </Button>
-            {sections.map((section) => (
-              <Link
-                key={section.id}
-                href={section.link}
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
-              >
-                <Typography variant="body2" fontWeight="bold">
-                  {section[locale]}
-                </Typography>
-              </Link>
-            ))}
+            {sections.map((section) => {
+              if (section.id == "categories") {
+                return (
+                  <Button
+                    ref={buttonRef}
+                    onMouseEnter={() => setShow(true)}
+                    onMouseLeave={() => setShow(false)}
+                    sx={{ height: 50 }}
+                  >
+                    {section[locale]}
+                  </Button>
+                );
+              } else {
+                return (
+                  <Link
+                    key={section.id}
+                    href={section.link}
+                    style={{
+                      textDecoration: "none",
+                      color: "inherit",
+                    }}
+                  >
+                    <Typography variant="body2" fontWeight="bold">
+                      {section[locale]}
+                    </Typography>
+                  </Link>
+                );
+              }
+            })}
           </Toolbar>
         </Container>
       </AppBar>
-      {show && (
-        <Paper
-          onMouseOver={() => setShow(true)}
-          onMouseOut={() => setShow(false)}
-        >
-          hello
-        </Paper>
-      )}
+      <HoverPaper
+        onMouseEnter={() => setShow(true)}
+        onMouseLeave={() => setShow(false)}
+        style={{
+          top: topPosition,
+          display: show ? "flex" : "none",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+        }}
+      >
+        {Object.keys(categories).map((category) => {
+          return (
+            <MenuItem
+              sx={{
+                width: "calc(25% - 8px)",
+              }}
+            >
+              {translateCategory(category, locale)}
+            </MenuItem>
+          );
+        })}
+      </HoverPaper>
     </>
   );
 }
