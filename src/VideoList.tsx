@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { LuThumbsDown, LuThumbsUp } from "react-icons/lu";
 import { SlEye } from "react-icons/sl";
 
 import { convertToShortFormat, getTitle } from "@src/utils";
@@ -52,21 +53,25 @@ export default function Media({ videos }: { videos: any[] }) {
                   >
                     {getTitle(video, locale)}
                   </Typography>
-                  <Box
-                    display="flex"
-                    justifyContent="flex-end"
-                    marginBottom={1}
-                  >
-                    <SlEye />
-                    <Typography variant="body2" style={{ marginRight: 10 }}>
-                      {convertToShortFormat(video.view_count)}
-                    </Typography>
-                    <Typography variant="body2" style={{ marginRight: 10 }}>
-                      {convertToShortFormat(video.like_count)}
-                    </Typography>
-                    <Typography variant="body2" style={{ marginRight: 5 }}>
-                      {convertToShortFormat(video.dislike_count)}
-                    </Typography>
+                  <Box display="flex" alignItems="center" marginBottom={1}>
+                    <Box display="flex" alignItems="center" marginRight={2}>
+                      <SlEye style={{ marginRight: 4 }} />
+                      <Typography variant="body2">
+                        {convertToShortFormat(video.view_count)}
+                      </Typography>
+                    </Box>
+                    <Box display="flex" alignItems="center" marginRight={2}>
+                      <LuThumbsUp style={{ marginRight: 4 }} />
+                      <Typography variant="body2">
+                        {convertToShortFormat(video.like_count)}
+                      </Typography>
+                    </Box>
+                    <Box display="flex" alignItems="center">
+                      <LuThumbsDown style={{ marginRight: 4 }} />
+                      <Typography variant="body2">
+                        {convertToShortFormat(video.dislike_count)}
+                      </Typography>
+                    </Box>
                   </Box>
                 </Box>
               </Paper>

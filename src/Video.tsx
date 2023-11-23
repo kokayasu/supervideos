@@ -1,6 +1,8 @@
-import { useRouter } from "next/router";
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useRouter } from "next/router";
+import { LuThumbsDown, LuThumbsUp } from "react-icons/lu";
+import { SlEye } from "react-icons/sl";
 
 import CategoryList from "@src/CategoryList";
 import { convertToShortFormat, getTitle } from "@src/utils";
@@ -25,7 +27,6 @@ export default function Video({ video }: { video: any }) {
             height: "100%",
             border: "none",
           }}
-          // src={"https://www.pornhub.com/embed/" + video.id}
           src="https://www.youtube.com/embed/x6q9AxPUTOs"
           title={getTitle(video, locale)}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -38,16 +39,26 @@ export default function Video({ video }: { video: any }) {
         </Typography>
         <CategoryList categories={video.categories} />
         <Box sx={{ m: 2 }} />
-        <Box display="flex" justifyContent="right" marginBottom={1}>
-          <Typography variant="body2" style={{ marginRight: 10 }}>
-            {convertToShortFormat(video.view_count)}
-          </Typography>
-          <Typography variant="body2" style={{ marginRight: 10 }}>
-            {convertToShortFormat(video.like_count)}
-          </Typography>
-          <Typography variant="body2">
-            {convertToShortFormat(video.dislike_count)}
-          </Typography>
+
+        <Box display="flex" alignItems="center" marginBottom={1}>
+          <Box display="flex" alignItems="center" marginRight={2}>
+            <SlEye style={{ marginRight: 4, fontSize: "1.2rem" }} />
+            <Typography variant="body2" sx={{ fontSize: "1.2rem" }}>
+              {convertToShortFormat(video.view_count)}
+            </Typography>
+          </Box>
+          <Box display="flex" alignItems="center" marginRight={2}>
+            <LuThumbsUp style={{ marginRight: 4, fontSize: "1.2rem" }} />
+            <Typography variant="body2" sx={{ fontSize: "1.2rem" }}>
+              {convertToShortFormat(video.like_count)}
+            </Typography>
+          </Box>
+          <Box display="flex" alignItems="center">
+            <LuThumbsDown style={{ marginRight: 4, fontSize: "1.2rem" }} />
+            <Typography variant="body2" sx={{ fontSize: "1.2rem" }}>
+              {convertToShortFormat(video.dislike_count)}
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </>
