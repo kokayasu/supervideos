@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { SlEye } from "react-icons/sl";
 
 import { convertToShortFormat, getTitle } from "@src/utils";
 
@@ -56,6 +57,7 @@ export default function Media({ videos }: { videos: any[] }) {
                     justifyContent="flex-end"
                     marginBottom={1}
                   >
+                    <SlEye />
                     <Typography variant="body2" style={{ marginRight: 10 }}>
                       {convertToShortFormat(video.view_count)}
                     </Typography>

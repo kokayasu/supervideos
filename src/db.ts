@@ -21,9 +21,17 @@ if (!conn) {
   });
 }
 
-export async function getVideos(): Promise<any[]> {
-  const query = `SELECT * FROM videos ORDER BY view_count DESC LIMIT $1;`;
-  return (await conn!.query(query, [NUM_VIDEOS_IN_PAGE])).rows;
+export async function getVideos(page: number): Promise<any[]> {
+  const query = `
+        SELECT * FROM videos ORDER
+        BY view_count DESC LIMIT $1 OFFSET $2;
+    `;
+  return (
+    await conn!.query(query, [
+      NUM_VIDEOS_IN_PAGE,
+      (page - 1) * NUM_VIDEOS_IN_PAGE,
+    ])
+  ).rows;
 }
 
 export async function getCategories(locale: string): Promise<any[]> {
@@ -72,6 +80,7 @@ export async function searchVideosByCategory(
   const query = `
         SELECT * FROM videos
         WHERE categories @> ARRAY[$1]::character varying[]
+        ORDER BY view_count DESC
         LIMIT $2 OFFSET $3;
     `;
   return (

@@ -8,9 +8,9 @@ import Head from "next/head";
 import { ParsedUrlQuery } from "querystring";
 
 import Ads from "@src/Ads";
+import CategoryList from "@src/CategoryList";
 import PageContainer from "@src/PageContainer";
 import Pagination from "@src/Pagination";
-import CategoryList from "@src/CategoryList";
 import VideoList from "@src/VideoList";
 import { getVideos } from "@src/db";
 import { getPopularCategories, translate } from "@src/utils";
@@ -31,7 +31,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 
   try {
-    const videos = await getVideos();
+    const videos = await getVideos(pageNum);
     const categories = getPopularCategories(videos);
     const translations = await serverSideTranslations(locale, ["common"]);
 
