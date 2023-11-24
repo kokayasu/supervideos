@@ -12,15 +12,44 @@ import { alpha, styled } from "@mui/material/styles";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import { BiCategory } from "react-icons/bi";
+import { BsCameraVideo } from "react-icons/bs";
+import { FaRegHeart } from "react-icons/fa";
+import { GrHomeRounded } from "react-icons/gr";
+import { IoGameControllerOutline } from "react-icons/io5";
 
 import { getCategories, translate, translateCategory } from "./utils";
 
-const sections: { [key: string]: string }[] = [
-  { id: "home", link: "/", en: "Home", ja: "ホーム" },
-  { id: "categories", link: "/", en: "Categories", ja: "カテゴリー" },
-  { id: "livecam", link: "/", en: "Live Cam", ja: "ライブカメラ" },
-  { id: "meetup", link: "/", en: "Online Dating", ja: "出会い" },
-  { id: "onlinegame", link: "/", en: "Online Game", ja: "オンラインゲーム" },
+const sections: { [key: string]: any }[] = [
+  { id: "home", icon: GrHomeRounded, link: "/", en: "Home", ja: "ホーム" },
+  {
+    id: "categories",
+    icon: BiCategory,
+    link: "/",
+    en: "Categories",
+    ja: "カテゴリー",
+  },
+  {
+    id: "livecam",
+    icon: BsCameraVideo,
+    link: "/",
+    en: "Live Cam",
+    ja: "ライブカメラ",
+  },
+  {
+    id: "meetup",
+    icon: FaRegHeart,
+    link: "/",
+    en: "Online Dating",
+    ja: "出会い",
+  },
+  {
+    id: "onlinegame",
+    icon: IoGameControllerOutline,
+    link: "/",
+    en: "Online Game",
+    ja: "オンラインゲーム",
+  },
 ];
 
 const Search = styled("div")(({ theme }) => ({
@@ -148,6 +177,7 @@ export default function Header() {
                     onMouseLeave={() => setShow(false)}
                     sx={{ height: 50 }}
                   >
+                    <section.icon style={{ marginRight: "4px" }} />
                     {section[locale]}
                   </Button>
                 );
@@ -161,7 +191,10 @@ export default function Header() {
                       color: "inherit",
                     }}
                   >
-                    <Button color={"inherit"}>{section[locale]}</Button>
+                    <Button color={"inherit"} sx={{ height: 50 }}>
+                      <section.icon style={{ marginRight: "4px" }} />
+                      {section[locale]}
+                    </Button>
                   </Link>
                 );
               }
