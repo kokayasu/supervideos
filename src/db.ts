@@ -39,6 +39,11 @@ export async function getCategories(locale: string): Promise<any[]> {
   return (await conn!.query(query)).rows;
 }
 
+export async function getVideoCountAll(): Promise<number> {
+  const query = `SELECT count(*) FROM videos`;
+  return (await conn!.query(query, [])).rows[0].count;
+}
+
 export async function getVideoCountSearchByWords(
   words: string
 ): Promise<number> {
