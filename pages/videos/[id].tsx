@@ -23,10 +23,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const { id } = context.params as ParsedUrlQuery;
-  const { locale } = context;
+  const locale = context.locale as string;
   try {
     const video = await searchVideoById(id as string);
-    const moreVideos = await searchVideosByCategory(video.categories[0], 1);
+    const moreVideos = await searchVideosByCategory(
+      locale,
+      video.categories[0],
+      1
+    );
     const translations = await serverSideTranslations(locale as string, [
       "common",
     ]);
