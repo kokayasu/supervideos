@@ -9,7 +9,7 @@ import Page from "./[page]";
 export async function getStaticProps(context: GetStaticPropsContext) {
   const locale = context.locale as string;
   try {
-    const videos = await getVideos(1);
+    const videos = await getVideos(1, locale);
     const categories = getPopularCategories(videos);
     const translations = await serverSideTranslations(locale, ["common"]);
 

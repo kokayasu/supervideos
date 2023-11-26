@@ -6,16 +6,22 @@ import { getVideoCountAll } from "@src/db";
 const PAGE_SIZE = 10000;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const count = await getVideoCountAll();
+  const locale = ctx.locale as string;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const count = await getVideoCountAll(locale);
   const pages = Math.ceil(count / PAGE_SIZE);
+  const xmls = [];
+  if (locale === "en") {
+    for (let i = 1; i <= pages; i += 1) {
+      xmls.push(`${siteUrl}/server-sitemap.xml/${i}`);
+    }
+  } else {
+    for (let i = 1; i <= pages; i += 1) {
+      xmls.push(`${siteUrl}/${locale}/server-sitemap.xml/${i}`);
+    }
+  }
 
-  return getServerSideSitemapIndexLegacy(
-    ctx,
-    [...new Array(pages)].map(
-      (_, i) => `http://localhost:3000/server-sitemap/${i}.xml`
-    )
-  );
+  return getServerSideSitemapIndexLegacy(ctx, xmls);
 };
 
-// Default export to prevent next.js errors
 export default function SitemapIndex() {}

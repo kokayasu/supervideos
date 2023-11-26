@@ -21,10 +21,9 @@ if (!conn) {
   });
 }
 
-export async function getVideos(page: number): Promise<any[]> {
+export async function getVideos(page: number, locale: string): Promise<any[]> {
   const query = `
-        SELECT * FROM videos ORDER
-        BY view_count DESC LIMIT $1 OFFSET $2;
+        SELECT * FROM videos WHERE title_${locale} IS NOT NULL ORDER BY view_count DESC LIMIT $1 OFFSET $2;
     `;
   return (
     await conn!.query(query, [
@@ -39,8 +38,11 @@ export async function getCategories(locale: string): Promise<any[]> {
   return (await conn!.query(query)).rows;
 }
 
-export async function getVideoCountAll(): Promise<number> {
-  const query = `SELECT count(*) FROM videos`;
+export async function getVideoCountAll(locale: string): Promise<number> {
+  const query = `
+    SELECT count(*) FROM videos
+    WHERE title_${locale} IS NOT NULL
+  `;
   return (await conn!.query(query, [])).rows[0].count;
 }
 

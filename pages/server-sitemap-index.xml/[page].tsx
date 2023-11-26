@@ -1,8 +1,8 @@
 import { GetServerSideProps } from "next";
 import { getServerSideSitemapLegacy } from "next-sitemap";
-import { useRouter } from "next/router";
 
 import { getVideos } from "@src/db";
+import { generateLocalizedUrl } from "@src/utils";
 
 function escapeXml(xmlString: string): string {
   return xmlString.replace(/[<>&"']/g, (match) => {
@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (typeof page === "undefined" || isNaN(page)) throw Error();
 
   const fields = [];
-  const videos = await getVideos(page);
+  const videos = await getVideos(page, locale);
   for (const video of videos) {
     const title = escapeXml(video[`title_${locale}`]);
     const v = `
@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 <video:player_loc>https://www.pornhub.com/embed/${video.id}</video:player_loc>
     `;
     fields.push({
-      loc: `https://example.com/videos/${video.id}`,
+      loc: generateLocalizedUrl(locale, `videos/${video.id}`),
       lastmod: new Date().toISOString(),
       "video:video": v,
     });
@@ -48,5 +48,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return getServerSideSitemapLegacy(ctx, fields);
 };
 
-// Default export to prevent next.js errors
 export default function Sitemap() {}

@@ -1,5 +1,17 @@
 import * as categoryTranslationsJson from "@src/categoryTranslations.json";
 
+export function generateLocalizedUrl(locale: string, path: string) {
+  let baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+  if (locale !== "en") {
+    baseUrl += `/${locale}`;
+  }
+
+  baseUrl += `/${path}`;
+
+  return baseUrl;
+}
+
 const categoryTranslations: { [key: string]: { [key: string]: string } } =
   categoryTranslationsJson;
 
