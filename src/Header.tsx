@@ -211,6 +211,8 @@ export default function Header() {
           flexDirection: "row",
           flexWrap: "wrap",
           justifyContent: "space-between",
+          maxHeight: "70%",
+          overflowY: "auto",
         }}
       >
         {Object.keys(categories).map((category) => {
@@ -218,7 +220,7 @@ export default function Header() {
             <MenuItem
               key={category}
               sx={{
-                width: "calc(25% - 8px)",
+                width: "calc(20% - 8px)",
               }}
               onClick={() => setShow(false)}
             >
