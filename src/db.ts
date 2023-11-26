@@ -83,7 +83,6 @@ export async function searchVideosByCategory(
   category: string,
   page: number
 ): Promise<any[]> {
-  console.log("Search Videos By " + category);
   const query = `
         SELECT * FROM videos
         WHERE categories @> ARRAY[$1]::character varying[]

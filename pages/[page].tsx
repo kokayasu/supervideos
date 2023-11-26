@@ -31,7 +31,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 
   try {
-    const videos = await getVideos(pageNum);
+    const videos = await getVideos(pageNum, locale);
     const categories = getPopularCategories(videos);
     const translations = await serverSideTranslations(locale, ["common"]);
 
