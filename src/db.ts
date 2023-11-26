@@ -23,7 +23,10 @@ if (!conn) {
 
 export async function getVideos(page: number, locale: string): Promise<any[]> {
   const query = `
-        SELECT * FROM videos WHERE title_${locale} IS NOT NULL ORDER BY view_count DESC LIMIT $1 OFFSET $2;
+        SELECT * FROM videos
+        WHERE title_${locale} IS NOT NULL
+        ORDER BY view_count DESC
+        LIMIT $1 OFFSET $2;
     `;
   return (
     await conn!.query(query, [
@@ -80,13 +83,19 @@ export async function searchVideosByWords(
 }
 
 export async function searchVideosByCategory(
+  locale: string,
   category: string,
   page: number
 ): Promise<any[]> {
   const query = `
         SELECT * FROM videos
         WHERE categories @> ARRAY[$1]::character varying[]
-        ORDER BY view_count DESC
+        ORDER BY
+        CASE
+          WHEN title_${locale} IS NOT NULL THEN 0
+          ELSE 1
+        END,
+        view_count DESC
         LIMIT $2 OFFSET $3;
     `;
   return (

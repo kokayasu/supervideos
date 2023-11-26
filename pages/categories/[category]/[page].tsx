@@ -1,25 +1,22 @@
-import React from "react";
-import { useRouter } from "next/router";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 import { GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
+import React from "react";
 
 import Ads from "@src/Ads";
+import CategoryList from "@src/CategoryList";
 import PageContainer from "@src/PageContainer";
 import Pagination from "@src/Pagination";
-import CategoryList from "@src/CategoryList";
 import VideoList from "@src/VideoList";
+import { getVideoCountSearchByCategory, searchVideosByCategory } from "@src/db";
 import {
-  searchVideosByCategory,
-  getVideoCountSearchByCategory,
-} from "@src/db";
-import {
-  getPopularCategories,
   getLastPageNum,
+  getPopularCategories,
   translate,
   translateCategory,
 } from "@src/utils";
@@ -44,18 +41,25 @@ export async function getStaticPaths() {
 // Function to get static props
 export async function getStaticProps(context: GetStaticPropsContext) {
   const { category, page } = context.params as ParsedUrlQuery;
-  const { locale } = context;
+  const locale = context.locale as string;
   const pageNum = parseInt(page as string);
-  if (!category || typeof category !== "string" || isNaN(pageNum) || pageNum <= 0) {
+  if (
+    !category ||
+    typeof category !== "string" ||
+    isNaN(pageNum) ||
+    pageNum <= 0
+  ) {
     return { notFound: true };
   }
 
   try {
     const videoCount = await getVideoCountSearchByCategory(category);
     if (pageNum > getLastPageNum(videoCount)) return { notFound: true };
-    const videos = await searchVideosByCategory(category, pageNum);
+    const videos = await searchVideosByCategory(locale, category, pageNum);
     const moreCategories = getPopularCategories(videos);
-    const translations = await serverSideTranslations(locale as string, ["common"]);
+    const translations = await serverSideTranslations(locale as string, [
+      "common",
+    ]);
 
     return {
       props: {
@@ -90,13 +94,17 @@ export default function Home({
     <PageContainer>
       <Head>
         <title>
-          {translate(t, "CategorySearchPageTitle", { category: translatedCategory, page })}
+          {translate(t, "CategorySearchPageTitle", {
+            category: translatedCategory,
+            page,
+          })}
         </title>
         <meta
           name="description"
-          content={
-            translate(t, "CategorySearchPageDescription", { category: translatedCategory, page })
-          }
+          content={translate(t, "CategorySearchPageDescription", {
+            category: translatedCategory,
+            page,
+          })}
         />
         <meta name="keywords" content={category} />
       </Head>
