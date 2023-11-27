@@ -54,7 +54,7 @@ export async function getVideoCountSearchByWords(
 ): Promise<number> {
   const query = `
         SELECT count(*) FROM videos
-        WHERE title_en LIKE $1
+        WHERE title_original LIKE $1
     `;
   return (await conn!.query(query, [`%${words}%`])).rows[0].count;
 }
@@ -89,13 +89,11 @@ export async function searchVideosByCategory(
 ): Promise<any[]> {
   const query = `
         SELECT * FROM videos
-        WHERE categories @> ARRAY[$1]::character varying[]
-        ORDER BY
-        CASE
-          WHEN title_${locale} IS NOT NULL THEN 0
-          ELSE 1
-        END,
-        view_count DESC
+        WHERE
+          categories @> ARRAY[$1]::character varying[]
+        AND
+          title_${locale} IS NOT NULL
+        ORDER BY view_count DESC
         LIMIT $2 OFFSET $3;
     `;
   return (

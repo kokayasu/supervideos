@@ -21,10 +21,9 @@ CREATE TABLE videos (
 );
 
 CREATE INDEX idx_videos ON videos USING hash (id);
-CREATE INDEX idx_categories ON videos USING GIN(categories);
-CREATE INDEX idx_view_counts ON videos (view_count);
-CREATE INDEX title_en_idx ON videos USING gin (title_en gin_bigm_ops);
-CREATE INDEX title_ja_idx ON videos USING gin (title_ja gin_bigm_ops);
+CREATE INDEX idx_title_original ON videos USING gin (title_original gin_bigm_ops);
+CREATE INDEX idx_category_view_nonnull_en ON videos (categories, view_count) WHERE title_en IS NOT NULL;
+CREATE INDEX idx_category_view_nonnull_ja ON videos (categories, view_count) WHERE title_ja IS NOT NULL;
 
 CREATE TABLE categories (
     id VARCHAR(50) PRIMARY KEY,
