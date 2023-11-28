@@ -1,17 +1,19 @@
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 import { GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
 
 import Ads from "@src/Ads";
-import PageContainer from "@src/PageContainer";
-import Pagination from "@src/Pagination";
 import CategoryList from "@src/CategoryList";
+import PageContainer from "@src/PageContainer";
 import VideoList from "@src/VideoList";
-import { searchVideosByWords, getVideoCountSearchByWords } from "@src/db";
+import { searchVideosByWords } from "@src/db";
 import { getPopularCategories, translate } from "@src/utils";
 
 export async function getStaticPaths() {
@@ -30,16 +32,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 
   try {
-    const videos = await searchVideosByWords(words, locale);
-    const videoCount = await getVideoCountSearchByWords(words);
+    const videos = await searchVideosByWords(words, pageNum);
     const moreCategories = getPopularCategories(videos);
-    const translations = await serverSideTranslations(locale as string, ["common"]);
+    const translations = await serverSideTranslations(locale as string, [
+      "common",
+    ]);
 
     return {
       props: {
         words,
         videos,
-        videoCount,
         moreCategories,
         page: pageNum,
         ...translations,
@@ -54,7 +56,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 export default function Home({
   words,
   videos,
-  videoCount,
   moreCategories,
   page,
 }: {
@@ -62,7 +63,7 @@ export default function Home({
   videos: any[];
   videoCount: number;
   moreCategories: any[];
-  page: string;
+  page: number;
 }) {
   const { t } = useTranslation();
   return (
@@ -86,7 +87,29 @@ export default function Home({
               {translate(t, "SearchResult", { words })}
             </Typography>
             <VideoList videos={videos} />
-            <Pagination page={parseInt(page)} linkPath={`/search/${words}`} videoCount={videoCount} />
+            <Box mt={2} display="flex" justifyContent="center">
+              {page > 1 && (
+                <Button variant="contained" disableElevation>
+                  <Link
+                    href={`/search/${words}/${page - 1}`}
+                    prefetch={false}
+                    style={{ color: "inherit", textDecoration: "none" }}
+                  >
+                    Prev
+                  </Link>
+                </Button>
+              )}
+              {page > 1 && <Box mx={2}></Box>}
+              <Button variant="contained" disableElevation>
+                <Link
+                  href={`/search/${words}/${page + 1}`}
+                  prefetch={false}
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
+                  Next
+                </Link>
+              </Button>
+            </Box>
           </>
         )}
         <Typography variant="h4" sx={{ my: 2 }}>

@@ -370,7 +370,7 @@ def main():
     current_tsv_file_path = "./pornhub/20231126/bulk_insert.tsv"
 
     run_copy_command(category_table_tsv_file_path, "categories")
-    run_copy_command(current_tsv_file_path, "videos")
+    # run_copy_command(current_tsv_file_path, "videos")
 
 
 if __name__ == "__main__":

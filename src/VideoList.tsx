@@ -17,7 +17,7 @@ export default function Media({ videos }: { videos: any[] }) {
     <Grid container>
       {videos.map((video, index) => {
         return (
-          <Grid key={video.id} item xs={6} sm={4} md={3}>
+          <Grid key={video.id} item xs={6} sm={4} md={2.4}>
             <Link
               href={"/videos/" + video.id}
               prefetch={false}
@@ -28,7 +28,8 @@ export default function Media({ videos }: { videos: any[] }) {
                   style={{
                     width: "100%",
                     height: 0,
-                    paddingTop: "56.25%",
+                    // paddingTop: "56.25%",
+                    paddingTop: "75%",
                     position: "relative",
                     overflow: "hidden",
                     borderTopLeftRadius: "4px",
@@ -36,8 +37,8 @@ export default function Media({ videos }: { videos: any[] }) {
                   }}
                 >
                   <Image
-                    // src={video.thumbnail}
-                    src="https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ"
+                    src={video.thumbnail}
+                    // src="https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ"
                     alt={video.title_en}
                     layout="fill"
                     objectFit="cover"

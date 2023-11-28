@@ -16,7 +16,7 @@ export default function CategoryList({ categories }: { categories: string[] }) {
           <Chip
             clickable
             color="primary"
-            sx={{ mr: 0.5, mt: 0.5, px: 1, py: 2.5 }}
+            sx={{ mr: 0.5, mt: 0.3, px: 1, py: 2.5 }}
             label={
               <Typography variant="body2" fontWeight="bold">
                 {translateCategory(category, locale)}

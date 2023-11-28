@@ -72,14 +72,20 @@ export async function getVideoCountSearchByCategory(
 
 export async function searchVideosByWords(
   words: string,
-  locale: string
+  page: number
 ): Promise<any[]> {
   const query = `
         SELECT * FROM videos
-        WHERE title_${locale} LIKE $1
-        limit $2;
+        WHERE title_original LIKE $1
+        LIMIT $2 OFFSET $3;
     `;
-  return (await conn!.query(query, [`%${words}%`, NUM_VIDEOS_IN_PAGE])).rows;
+  return (
+    await conn!.query(query, [
+      `%${words}%`,
+      NUM_VIDEOS_IN_PAGE,
+      (page - 1) * NUM_VIDEOS_IN_PAGE,
+    ])
+  ).rows;
 }
 
 export async function searchVideosByCategory(
