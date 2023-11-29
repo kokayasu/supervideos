@@ -37,8 +37,8 @@ export default function Media({ videos }: { videos: any[] }) {
                   }}
                 >
                   <Image
-                    src={video.thumbnail}
-                    // src="https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ"
+                    // src={video.thumbnail}
+                    src="https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ"
                     alt={video.title_en}
                     layout="fill"
                     objectFit="cover"

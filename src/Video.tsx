@@ -28,8 +28,8 @@ export default function Video({ video }: { video: any }) {
             height: "100%",
             border: "none",
           }}
-          src={"https://www.pornhub.com/embed/" + video.id}
-          // src="https://www.youtube.com/embed/x6q9AxPUTOs"
+          // src={"https://www.pornhub.com/embed/" + video.id}
+          src="https://www.youtube.com/embed/x6q9AxPUTOs"
           title={getTitle(video, locale)}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
