@@ -9,6 +9,8 @@ import TextField from "@mui/material/TextField";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { alpha, styled } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
@@ -81,6 +83,8 @@ const HoverPaper = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Header() {
+  const theme = useTheme();
+  const isMdScreen = useMediaQuery(theme.breakpoints.up("md"));
   const router = useRouter();
   const locale = router.locale as string;
   const [searchQuery, setSearchQuery] = React.useState("");
@@ -178,7 +182,7 @@ export default function Header() {
                     sx={{ height: 50 }}
                   >
                     <section.icon style={{ marginRight: "4px" }} />
-                    {section[locale]}
+                    {isMdScreen && section[locale]}
                   </Button>
                 );
               } else {
@@ -193,7 +197,7 @@ export default function Header() {
                   >
                     <Button color={"inherit"} sx={{ height: 50 }}>
                       <section.icon style={{ marginRight: "4px" }} />
-                      {section[locale]}
+                      {isMdScreen && section[locale]}
                     </Button>
                   </Link>
                 );
