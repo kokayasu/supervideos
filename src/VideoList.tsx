@@ -50,11 +50,11 @@ export default function Media({ videos }: { videos: any[] }) {
                     variant="h5"
                     overflow="hidden"
                     textOverflow="ellipsis"
-                    sx={{ height: "2.5em" }}
+                    sx={{ height: "2.7em" }}
                   >
                     {getTitle(video, locale)}
                   </Typography>
-                  <Box display="flex" alignItems="center" marginBottom={1}>
+                  <Box display="flex" alignItems="center">
                     <Box display="flex" alignItems="center" marginRight={2}>
                       <SlEye style={{ marginRight: 4 }} />
                       <Typography variant="body2">

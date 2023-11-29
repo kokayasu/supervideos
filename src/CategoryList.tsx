@@ -18,7 +18,6 @@ export default function CategoryList({ categories }: { categories: string[] }) {
       style={{
         overflowX: "auto",
         whiteSpace: "nowrap",
-        marginBottom: isSmallScreen ? "8px" : "0",
       }}
     >
       {categories.map((category, index) => (
@@ -29,7 +28,7 @@ export default function CategoryList({ categories }: { categories: string[] }) {
             sx={{
               mr: 0.5,
               mt: 0.3,
-              px: isSmallScreen ? 1 : 2,
+              px: isSmallScreen ? 0.5 : 2,
               py: isSmallScreen ? 0.5 : 2.5,
             }}
             label={

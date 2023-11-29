@@ -68,12 +68,34 @@ export default function Home({
         <meta name="keywords" content="" />
       </Head>
       <Grid lg={16}>
-        <Typography variant="h2" mt={2}>
+        <Typography variant="h2" my={2}>
+          <Box
+            component="span"
+            sx={{
+              backgroundColor: "secondary.main",
+              marginRight: "8px",
+              display: "inline-block",
+              width: "8px",
+              height: "25px",
+              verticalAlign: "middle",
+            }}
+          />
           {translate(t, "PopularCategories")}
         </Typography>
         <CategoryList categories={categories} />
         <Box sx={{ my: 3 }} />
-        <Typography variant="h2" mt={2}>
+        <Typography variant="h2" my={2}>
+          <Box
+            component="span"
+            sx={{
+              backgroundColor: "secondary.main",
+              marginRight: "8px",
+              display: "inline-block",
+              width: "8px",
+              height: "25px",
+              verticalAlign: "middle",
+            }}
+          />
           {translate(t, "PopularVideos")}
         </Typography>
         <VideoList videos={videos} />

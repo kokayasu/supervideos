@@ -36,22 +36,22 @@ const theme = createTheme({
     fontFamily: roboto.style.fontFamily,
     h1: {
       fontSize: "1rem",
-      fontWeight: 500,
+      fontWeight: 700,
       "@media (min-width:600px)": {
         fontSize: "1.4rem",
       },
     },
     h2: {
-      fontSize: "1.3rem",
-      fontWeight: 500,
+      fontSize: "1.2rem",
+      fontWeight: 700,
     },
     h4: {
-      fontSize: "1.3rem",
-      fontWeight: 500,
+      fontSize: "1.2rem",
+      fontWeight: 700,
     },
     h5: {
-      fontSize: "1rem",
-      fontWeight: 500,
+      fontSize: "0.9rem",
+      fontWeight: 700,
     },
   },
   components: {
