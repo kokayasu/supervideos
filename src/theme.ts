@@ -35,8 +35,11 @@ const theme = createTheme({
   typography: {
     fontFamily: roboto.style.fontFamily,
     h1: {
-      fontSize: "1.4rem",
+      fontSize: "1rem",
       fontWeight: 500,
+      "@media (min-width:600px)": {
+        fontSize: "1.4rem",
+      },
     },
     h2: {
       fontSize: "1.3rem",
@@ -57,7 +60,7 @@ const theme = createTheme({
         shape: "rounded",
         variant: "outlined",
       },
-    }
+    },
   },
 });
 

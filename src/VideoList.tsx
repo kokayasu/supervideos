@@ -17,7 +17,7 @@ export default function Media({ videos }: { videos: any[] }) {
     <Grid container>
       {videos.map((video, index) => {
         return (
-          <Grid key={video.id} item xs={6} sm={4} md={2.4}>
+          <Grid key={video.id} item xs={12} sm={4} md={2.4}>
             <Link
               href={"/videos/" + video.id}
               prefetch={false}
