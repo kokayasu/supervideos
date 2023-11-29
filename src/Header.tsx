@@ -182,7 +182,9 @@ export default function Header() {
                     sx={{ height: 50 }}
                   >
                     <section.icon style={{ marginRight: "4px" }} />
-                    {isMdScreen && section[locale]}
+                    {isMdScreen && (
+                      <Typography variant="h6">{section[locale]}</Typography>
+                    )}
                   </Button>
                 );
               } else {
@@ -197,7 +199,9 @@ export default function Header() {
                   >
                     <Button color={"inherit"} sx={{ height: 50 }}>
                       <section.icon style={{ marginRight: "4px" }} />
-                      {isMdScreen && section[locale]}
+                      {isMdScreen && (
+                        <Typography variant="h6">{section[locale]}</Typography>
+                      )}
                     </Button>
                   </Link>
                 );

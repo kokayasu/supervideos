@@ -12,6 +12,7 @@ import Ads from "@src/Ads";
 import CategoryList from "@src/CategoryList";
 import PageContainer from "@src/PageContainer";
 import Pagination from "@src/Pagination";
+import Title from "@src/Title";
 import VideoList from "@src/VideoList";
 import { getVideoCountSearchByCategory, searchVideosByCategory } from "@src/db";
 import {
@@ -109,9 +110,11 @@ export default function Home({
         <meta name="keywords" content={category} />
       </Head>
       <Grid lg={16}>
-        <Typography variant="h1" mt={2}>
-          {translate(t, "CategoryVideos", { category: translatedCategory })}
-        </Typography>
+        <Title
+          title={translate(t, "CategoryVideos", {
+            category: translatedCategory,
+          })}
+        />
         {videos.length === 0 ? (
           <Typography mt={2}>
             {translate(t, "SearchResultNotFound", { words: category })}
@@ -126,9 +129,7 @@ export default function Home({
             />
           </>
         )}
-        <Typography variant="h4" mt={2}>
-          {translate(t, "MoreCategories")}
-        </Typography>
+        <Title title={translate(t, "MoreCategories")} />
         <CategoryList categories={moreCategories} />
       </Grid>
     </PageContainer>

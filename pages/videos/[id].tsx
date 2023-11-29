@@ -9,6 +9,7 @@ import { ParsedUrlQuery } from "querystring";
 
 import Ads from "@src/Ads";
 import PageContainer from "@src/PageContainer";
+import Title from "@src/Title";
 import Video from "@src/Video";
 import VideoList from "@src/VideoList";
 import { searchVideoById, searchVideosByCategory } from "@src/db";
@@ -86,9 +87,7 @@ export default function Home({
         <Ads />
       </Grid>
       <Grid lg={16}>
-        <Typography variant="h4" gutterBottom>
-          {translate(t, "MoreVideos")}
-        </Typography>
+        <Title title={translate(t, "MoreVideos")} />
         <VideoList videos={moreVideos} />
       </Grid>
     </PageContainer>

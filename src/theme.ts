@@ -53,6 +53,13 @@ const theme = createTheme({
       fontSize: "0.9rem",
       fontWeight: 700,
     },
+    h6: {
+      fontSize: "0.8rem",
+      fontWeight: 700,
+    },
+    body2: {
+      fontSize: "0.8rem",
+    },
   },
   components: {
     MuiPagination: {

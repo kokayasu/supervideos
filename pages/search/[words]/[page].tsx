@@ -12,6 +12,7 @@ import { ParsedUrlQuery } from "querystring";
 import Ads from "@src/Ads";
 import CategoryList from "@src/CategoryList";
 import PageContainer from "@src/PageContainer";
+import Title from "@src/Title";
 import VideoList from "@src/VideoList";
 import { searchVideosByWords } from "@src/db";
 import { getPopularCategories, translate } from "@src/utils";
@@ -78,14 +79,10 @@ export default function Home({
       </Head>
       <Grid lg={16}>
         {videos.length == 0 ? (
-          <Typography variant="h4" my={2}>
-            {translate(t, "SearchReultNotFound", { words })}
-          </Typography>
+          <Title title={translate(t, "SearchReultNotFound", { words })} />
         ) : (
           <>
-            <Typography variant="h1" my={2}>
-              {translate(t, "SearchResult", { words })}
-            </Typography>
+            <Title title={translate(t, "SearchResult", { words })} />
             <VideoList videos={videos} />
             <Box mt={2} display="flex" justifyContent="center">
               {page > 1 && (
@@ -112,9 +109,7 @@ export default function Home({
             </Box>
           </>
         )}
-        <Typography variant="h4" sx={{ my: 2 }}>
-          {translate(t, "RelatedCategories")}
-        </Typography>
+        <Title title={translate(t, "RelatedCategories")} />
         <CategoryList categories={moreCategories} />
       </Grid>
     </PageContainer>

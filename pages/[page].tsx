@@ -11,6 +11,7 @@ import Ads from "@src/Ads";
 import CategoryList from "@src/CategoryList";
 import PageContainer from "@src/PageContainer";
 import Pagination from "@src/Pagination";
+import Title from "@src/Title";
 import VideoList from "@src/VideoList";
 import { getVideos } from "@src/db";
 import { getPopularCategories, translate } from "@src/utils";
@@ -68,36 +69,10 @@ export default function Home({
         <meta name="keywords" content="" />
       </Head>
       <Grid lg={16}>
-        <Typography variant="h2" my={2}>
-          <Box
-            component="span"
-            sx={{
-              backgroundColor: "secondary.main",
-              marginRight: "8px",
-              display: "inline-block",
-              width: "8px",
-              height: "25px",
-              verticalAlign: "middle",
-            }}
-          />
-          {translate(t, "PopularCategories")}
-        </Typography>
+        <Title title={translate(t, "PopularCategories")} />
         <CategoryList categories={categories} />
         <Box sx={{ my: 3 }} />
-        <Typography variant="h2" my={2}>
-          <Box
-            component="span"
-            sx={{
-              backgroundColor: "secondary.main",
-              marginRight: "8px",
-              display: "inline-block",
-              width: "8px",
-              height: "25px",
-              verticalAlign: "middle",
-            }}
-          />
-          {translate(t, "PopularVideos")}
-        </Typography>
+        <Title title={translate(t, "PopularVideos")} />
         <VideoList videos={videos} />
         <Pagination page={parseInt(page)} linkPath={""} videoCount={3000} />
       </Grid>
