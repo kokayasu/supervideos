@@ -84,7 +84,9 @@ const HoverPaper = styled(Paper)(({ theme }) => ({
 
 export default function Header() {
   const theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const isMdScreen = useMediaQuery(theme.breakpoints.up("md"));
+  const isLgScreen = useMediaQuery(theme.breakpoints.up("lg"));
   const router = useRouter();
   const locale = router.locale as string;
   const [searchQuery, setSearchQuery] = React.useState("");
@@ -92,6 +94,14 @@ export default function Header() {
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const categories = getCategories();
+  let numberOfItemsToShow = 2;
+  if (isLgScreen) {
+    numberOfItemsToShow = 5;
+  } else if (isMdScreen) {
+    numberOfItemsToShow = 4;
+  } else if (isSmScreen) {
+    numberOfItemsToShow = 3;
+  }
 
   useEffect(() => {
     if (buttonRef.current) {
@@ -228,7 +238,8 @@ export default function Header() {
             <MenuItem
               key={category}
               sx={{
-                width: "calc(20% - 8px)",
+                width: `calc(${100 / numberOfItemsToShow}% - 8px)`,
+                height: "30px",
               }}
               onClick={() => setShow(false)}
             >
