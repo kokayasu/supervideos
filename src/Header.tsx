@@ -3,6 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
@@ -11,7 +12,6 @@ import Typography from "@mui/material/Typography";
 import { alpha, styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { BiCategory } from "react-icons/bi";
@@ -245,7 +245,6 @@ export default function Header() {
             >
               <Link
                 href={"/categories/" + category + "/1"}
-                prefetch={false}
                 style={{
                   width: "100%",
                   textDecoration: "none",
