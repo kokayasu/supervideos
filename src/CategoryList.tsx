@@ -28,7 +28,7 @@ export default function CategoryList({ categories }: { categories: string[] }) {
             sx={{
               mr: 0.5,
               mt: 0.3,
-              px: isSmallScreen ? 0.5 : 2,
+              px: isSmallScreen ? 0.5 : 1.5,
               py: isSmallScreen ? 0.5 : 2.5,
             }}
             label={

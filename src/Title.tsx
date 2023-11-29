@@ -11,7 +11,7 @@ export default function Title({ title }: { title: string }) {
           marginRight: "8px",
           display: "inline-block",
           width: "8px",
-          height: "25px",
+          height: "30px",
           verticalAlign: "middle",
         }}
       />

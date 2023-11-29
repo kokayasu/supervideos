@@ -44,20 +44,20 @@ export default function Video({ video }: { video: any }) {
 
         <Box display="flex" alignItems="center" marginBottom={1}>
           <Box display="flex" alignItems="center" marginRight={2}>
-            <SlEye style={{ marginRight: 4, fontSize: "1.2rem" }} />
-            <Typography variant="body2" sx={{ fontSize: "1.2rem" }}>
+            <SlEye style={{ marginRight: 6, fontSize: "1.2rem" }} />
+            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
               {convertToShortFormat(video.view_count)}
             </Typography>
           </Box>
           <Box display="flex" alignItems="center" marginRight={2}>
-            <LuThumbsUp style={{ marginRight: 4, fontSize: "1.2rem" }} />
-            <Typography variant="body2" sx={{ fontSize: "1.2rem" }}>
+            <LuThumbsUp style={{ marginRight: 6, fontSize: "1.2rem" }} />
+            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
               {convertToShortFormat(video.like_count)}
             </Typography>
           </Box>
           <Box display="flex" alignItems="center">
-            <LuThumbsDown style={{ marginRight: 4, fontSize: "1.2rem" }} />
-            <Typography variant="body2" sx={{ fontSize: "1.2rem" }}>
+            <LuThumbsDown style={{ marginRight: 6, fontSize: "1.2rem" }} />
+            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
               {convertToShortFormat(video.dislike_count)}
             </Typography>
           </Box>
