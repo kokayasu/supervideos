@@ -13,8 +13,8 @@ export default function PageContainer({ children }: { children: ReactNode }) {
         <Grid container spacing={2} columns={16} sx={{ mx: 1 }}>
           {children}
         </Grid>
-        <Footer />
       </Container>
+      <Footer />
     </>
   );
 }
