@@ -16,7 +16,7 @@ const MyBox = styled(Box)(() => ({
 export default function Video({ video }: { video: any }) {
   const router = useRouter();
   const locale: string = router.locale as string;
-  const isReady = null;
+  const isReady = true;
   return (
     <>
       <MyBox>
