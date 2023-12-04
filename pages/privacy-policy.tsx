@@ -21,10 +21,11 @@ export default function TermsOfService() {
         <h1>Privacy Policy for [Your Website Name]</h1>
         <p>Last Updated: [Date]</p>
         <p>
-          This Privacy Policy ("Policy") describes how [Your Company/Your Name]
-          ("we," "us," or "our") collects, uses, and protects the personal
-          information of users ("you" or "user") on [Your Website Name] ("the
-          Website").
+          This Privacy Policy (&quot;Policy&quot;) describes how [Your
+          Company/Your Name] (&quot;we,&quot; &quot;us,&quot; or
+          &quot;our&quot;) collects, uses, and protects the personal information
+          of users (&quot;you&quot; or &quot;user&quot;) on [Your Website Name]
+          (&quot;the Website&quot;).
         </p>
 
         <h2>1. Information We Collect</h2>

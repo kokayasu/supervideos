@@ -21,9 +21,10 @@ export default function TermsOfService() {
         <h1>Terms of Service for [Your Website Name]</h1>
         <p>Last Updated: [Date]</p>
         <p>
-          This Terms of Service ("Agreement") is entered into between [Your
-          Company/Your Name] ("we," "us," or "our") and the user ("you" or
-          "user") regarding the use of [Your Website Name] ("the Website").
+          This Terms of Service (&quot;Agreement&quot;) is entered into between
+          [Your Company/Your Name] (&quot;we,&quot; &quot;us,&quot; or
+          &quot;our&quot;) and the user (&quot;you&quot; or &quot;user&quot;)
+          regarding the use of [Your Website Name] (&quot;the Website&quot;).
         </p>
 
         <h2>1. Acceptance of Terms</h2>
