@@ -20,20 +20,20 @@ URL = "https://www.pornhub.com/files/pornhub.com-db.zip"
 BULK_INSERT_TSV = "bulk_insert.tsv"
 CATEGORY_TABLE_TSV = "category_table.tsv"
 DB_DATA_DIR = "pornhub"
-# DB_PARAMS = {
-#     "host": "localhost",
-#     "port": "5432",
-#     "database": "supervideos",
-#     "user": "postgres",
-#     "password": "postgres",
-# }
 DB_PARAMS = {
-    "host": "database-1.c7pdgnl5hc90.us-west-1.rds.amazonaws.com",
+    "host": "localhost",
     "port": "5432",
     "database": "supervideos",
     "user": "postgres",
-    "password": "5ZacDYV4eBaXflrQfNJU",
+    "password": "postgres",
 }
+# DB_PARAMS = {
+#     "host": "database-1.c7pdgnl5hc90.us-west-1.rds.amazonaws.com",
+#     "port": "5432",
+#     "database": "supervideos",
+#     "user": "postgres",
+#     "password": "5ZacDYV4eBaXflrQfNJU",
+# }
 
 
 def download_db_file(url, destination_dir):
@@ -156,6 +156,7 @@ def generate_bulk_insert_tsv_file(
             "duration",
             "resolution",
             "categories",
+            "title_original",
             "title_en",
             "title_ja",
         ]
@@ -170,7 +171,6 @@ def generate_bulk_insert_tsv_file(
             if not line:
                 break
 
-            count += 1
             count += 1
             tokens = line.split("|")
             src = BeautifulSoup(tokens[0], "html.parser").iframe["src"]
@@ -225,9 +225,9 @@ def generate_bulk_insert_tsv_file(
         if batch:
             writer.writerows(batch)
 
-    with open("test.json", "w") as output_file:
-        json.dump(stat, output_file, indent=4, ensure_ascii=False)
-    # print(json.dumps(stat, indent=4, ensure_ascii=False))
+    # with open("test.json", "w") as output_file:
+    #     json.dump(stat, output_file, indent=4, ensure_ascii=False)
+
     logging.info(f"Generated bulk insert TSV file, {output_file_path}")
     return output_file_path
 
@@ -338,6 +338,23 @@ def run_copy_command(tsv_file_path, table_name):
     logging.info(f"Data from {tsv_file_path} inserted into videos successfully.")
 
 
+def count_categories(db_file_path, destination_dir):
+    stat = Counter()
+    with open(db_file_path, "r") as input_file:
+        while True:
+            line = input_file.readline()
+            if not line:
+                break
+
+            tokens = line.split("|")
+            for category in tokens[5].split(";"):
+                stat[category] += 1
+                pass
+
+    with open("count.json", "w") as output_file:
+        json.dump(stat, output_file, indent=4, ensure_ascii=False)
+
+
 def main():
     logging.basicConfig(
         level=logging.INFO,  # Set the desired log level
@@ -346,31 +363,24 @@ def main():
     )
 
     # # Setup variables and directory
-    current_day_str = generate_current_day_str()
-    # previous_day_str = generate_previus_day_str(current_day_str)
-    destination_dir = f"{DB_DATA_DIR}/{current_day_str}"
+    # current_day_str = generate_current_day_str()
+    # destination_dir = f"{DB_DATA_DIR}/{current_day_str}"
+    # downloaded_file = download_db_file(URL, destination_dir)
     # os.makedirs(destination_dir, exist_ok=True)
 
-    # # Download the db file from URL
-    # downloaded_file = download_db_file(URL, destination_dir)
-
-    # # Unzip the db file
+    # # # Unzip the db file
     # unziped_db_file = unzip_db_file(downloaded_file, destination_dir)
-    unziped_db_file = "./pornhub/20231126/pornhub.com-db.csv"
 
-    # Generate the bulk insert tsv file
-    # current_tsv_file_path = generate_bulk_insert_tsv_file(
-    #     unziped_db_file, "./pornhub/category_mappings.json", destination_dir
-    # )
     # category_table_tsv_file_path = generate_category_table_tsv_file(
     #     unziped_db_file, "./pornhub/category_mappings.json", destination_dir
     # )
+    # run_copy_command(category_table_tsv_file_path, "categories")
     #
-    category_table_tsv_file_path = "./pornhub/20231126/category_table.tsv"
-    current_tsv_file_path = "./pornhub/20231126/bulk_insert.tsv"
-
-    run_copy_command(category_table_tsv_file_path, "categories")
-    # run_copy_command(current_tsv_file_path, "videos")
+    # current_tsv_file_path = generate_bulk_insert_tsv_file(
+    #     unziped_db_file, "./pornhub/category_mappings.json", destination_dir
+    # )
+    current_tsv_file_path = "./pornhub/20231202/bulk_insert.tsv"
+    run_copy_command(current_tsv_file_path, "videos")
 
 
 if __name__ == "__main__":

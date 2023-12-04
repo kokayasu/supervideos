@@ -93,22 +93,18 @@ export async function searchVideosByCategory(
   category: string,
   page: number
 ): Promise<any[]> {
+  const formatted_category = category.replaceAll("-", "_");
   const query = `
-        SELECT * FROM videos
-        WHERE
-          categories @> ARRAY[$1]::character varying[]
-        AND
-          title_${locale} IS NOT NULL
-        ORDER BY view_count DESC
-        LIMIT $2 OFFSET $3;
+        SELECT * FROM mv_${formatted_category}_${locale}
+        LIMIT $1 OFFSET $2;
     `;
-  return (
+  const rows = (
     await conn!.query(query, [
-      category,
       NUM_VIDEOS_IN_PAGE,
       (page - 1) * NUM_VIDEOS_IN_PAGE,
     ])
   ).rows;
+  return rows;
 }
 
 export async function searchVideoById(id: string): Promise<any> {
