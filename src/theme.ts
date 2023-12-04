@@ -58,7 +58,10 @@ const theme = createTheme({
       fontWeight: 700,
     },
     body2: {
-      fontSize: "0.9rem",
+      fontSize: "0.75rem",
+      "@media (min-width:600px)": {
+        fontSize: "0.9rem",
+      },
     },
   },
   components: {

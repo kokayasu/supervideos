@@ -7,9 +7,8 @@ export default function Footer() {
       <Box sx={{ backgroundColor: "#F6C7C7" }}>
         <Container sx={{ mt: 10, py: 5 }}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <Link
+            <a
               href={"/sitemap.xml"}
-              prefetch={false}
               style={{ color: "inherit", textDecoration: "none" }}
             >
               <Typography
@@ -22,7 +21,7 @@ export default function Footer() {
               >
                 Sitemap
               </Typography>
-            </Link>
+            </a>
             <Link
               href={"/terms-of-service"}
               prefetch={false}
