@@ -13,7 +13,7 @@ import { convertToShortFormat, getTitle } from "@src/utils";
 export default function Media({ videos }: { videos: any[] }) {
   const router = useRouter();
   const locale: string = router.locale as string;
-  const isReady = null;
+  const isReady = true;
   return (
     <Grid container>
       {videos.map((video, index) => {
