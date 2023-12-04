@@ -74,18 +74,30 @@ export async function searchVideosByWords(
   words: string,
   page: number
 ): Promise<any[]> {
+  // Split the input words by any type of spaces
+  const searchWords = words.split(/\s+/);
+
+  // Generate placeholders for the LIKE condition
+  const likeConditions = searchWords
+    .map((_, index) => `title_original LIKE $${index + 1}`)
+    .join(" AND ");
+
+  console.log(likeConditions);
+
   const query = `
         SELECT * FROM videos
-        WHERE title_original LIKE $1
-        LIMIT $2 OFFSET $3;
+        WHERE ${likeConditions}
+        LIMIT $${searchWords.length + 1} OFFSET $${searchWords.length + 2};
     `;
-  return (
-    await conn!.query(query, [
-      `%${words}%`,
-      NUM_VIDEOS_IN_PAGE,
-      (page - 1) * NUM_VIDEOS_IN_PAGE,
-    ])
-  ).rows;
+
+  // Construct the parameter array by concatenating searchWords, NUM_VIDEOS_IN_PAGE, and OFFSET
+  const params = [
+    ...searchWords.map((word) => `%${word}%`),
+    NUM_VIDEOS_IN_PAGE,
+    (page - 1) * NUM_VIDEOS_IN_PAGE,
+  ];
+
+  return (await conn!.query(query, params)).rows;
 }
 
 export async function searchVideosByCategory(
