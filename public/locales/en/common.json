@@ -11,5 +11,8 @@
   "MoreCategories": "More Categories",
   "MoreVideos": "More Videos",
   "PopularVideos": "Popular Videos",
-  "PopularCategories": "Popular Categories"
+  "PopularCategories": "Popular Categories",
+  "AgeConfirmation": "Age Confirmation",
+  "AdultContent": "This website contains explicit adult content, including nudity and mature themes. If you are not of legal age or find explicit content offensive, please click 'No.'",
+  "AreYouLegalAge": "Are you legely allow to view adult content?"
 }
