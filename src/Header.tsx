@@ -143,18 +143,23 @@ export default function Header() {
         <Container maxWidth="xl" sx={{ p: 0 }}>
           <Toolbar variant="dense">
             <Typography
-              variant="h1"
-              sx={{ mr: 2, display: { xs: "block", sm: "none" } }}
+              variant="h2"
+              sx={{
+                padding: "10px", // Add padding or other styles as needed
+                fontWight: "bold",
+                fontSize: { xs: "1rem", md: "2.2rem" },
+                "& .videoText": {
+                  color: "#F6C7C7",
+                },
+                "& .purpleText": {
+                  color: "#4a266a",
+                },
+              }}
             >
-              SV
+              <span className="videoText">VIDEO</span>
+              <span className="purpleText">PURPLE</span>
             </Typography>
-            <Typography
-              variant="h1"
-              sx={{ mr: 2, display: { xs: "none", sm: "block" } }}
-            >
-              SuperVideos
-            </Typography>
-            <div style={{ flexGrow: 0.5 }} />
+            <div style={{ flexGrow: 0.2 }} />
             <Search>
               <form onSubmit={handleSearch}>
                 <TextField
