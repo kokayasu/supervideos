@@ -4,13 +4,10 @@ import type { NextRequest } from "next/server";
 function getLocaleFromPath(url: URL) {
   const pathSegments = url.pathname.split("/");
   const localeSegmentIndex = pathSegments.indexOf("ja"); // Change to your locale identifier
-  if (
-    localeSegmentIndex !== -1 &&
-    pathSegments.length > localeSegmentIndex + 1
-  ) {
-    return pathSegments[localeSegmentIndex];
+  if (localeSegmentIndex === 1) {
+    return "ja";
   }
-  return "en"; // Default to 'en' if no locale is found
+  return "en";
 }
 
 export function middleware(request: NextRequest) {

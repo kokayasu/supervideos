@@ -9,7 +9,6 @@ import { GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
 
 import Footer from "@src/Footer";
