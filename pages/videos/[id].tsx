@@ -69,7 +69,7 @@ export default function Home({
   return (
     <PageContainer>
       <Head>
-        <title>{title + " | SuperVideos"}</title>
+        <title>{title + " | VideoPurple"}</title>
         <meta
           name="description"
           content={translate(t, "VideoPageDescription", {
@@ -82,9 +82,6 @@ export default function Home({
       <Grid lg={12}>
         <Video video={video} />
         <Divider sx={{ my: 2 }} />
-      </Grid>
-      <Grid lg={4}>
-        <Ads />
       </Grid>
       <Grid lg={16}>
         <Title title={translate(t, "MoreVideos")} />

@@ -26,8 +26,22 @@ function LogoOnlyHeader() {
     >
       <Container maxWidth="xl" sx={{ p: 0 }}>
         <Toolbar variant="dense">
-          <Typography variant="h1" sx={{ mr: 2 }}>
-            SuperVideos
+          <Typography
+            variant="h2"
+            sx={{
+              padding: "10px", // Add padding or other styles as needed
+              fontWight: "bold",
+              fontSize: { xs: "1rem", md: "2.2rem" },
+              "& .videoText": {
+                color: "#F6C7C7",
+              },
+              "& .purpleText": {
+                color: "#4a266a",
+              },
+            }}
+          >
+            <span className="videoText">VIDEO</span>
+            <span className="purpleText">PURPLE</span>
           </Typography>
         </Toolbar>
       </Container>

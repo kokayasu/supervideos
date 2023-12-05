@@ -13,14 +13,14 @@ logging.basicConfig(
 db_params = {
     "host": "database-1.c7pdgnl5hc90.us-west-1.rds.amazonaws.com",
     "port": "5432",
-    "database": "supervideos",
+    "database": "videoPurple",
     "user": "postgres",
     "password": "5ZacDYV4eBaXflrQfNJU",
 }
 # db_params = {
 #     "host": "localhost",
 #     "port": "5432",
-#     "database": "supervideos",
+#     "database": "videoPurple",
 #     "user": "postgres",
 #     "password": "postgres",
 # }

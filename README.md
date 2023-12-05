@@ -1,4 +1,4 @@
-# SuperVideos
+# VideoPurple
 
 ## Websites to check
 

@@ -54,7 +54,7 @@ export default function Footer() {
 
       <Container sx={{ p: 5 }}>
         <Typography variant="body2" align="center" color="textSecondary">
-          &copy; {new Date().getFullYear()} SuperVideos.com All rights reserved.
+          &copy; {new Date().getFullYear()} videopurple.com All rights reserved.
         </Typography>
       </Container>
     </footer>

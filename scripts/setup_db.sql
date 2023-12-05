@@ -1,7 +1,7 @@
 -- Create the database
-CREATE DATABASE supervideos;
+CREATE DATABASE videoPurple;
 
-\c supervideos;
+\c videoPurple;
 
 CREATE EXTENSION pg_bigm;
 
