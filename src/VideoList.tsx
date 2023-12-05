@@ -71,7 +71,10 @@ export default function Media({ videos }: { videos: any[] }) {
                         {convertToShortFormat(video.like_count)}
                       </Typography>
                     </Box>
-                    <Box display="flex" alignItems="center">
+                    <Box
+                      display={{ xs: "none", sm: "flex" }}
+                      alignItems="center"
+                    >
                       <LuThumbsDown style={{ marginRight: 4 }} />
                       <Typography variant="body2">
                         {convertToShortFormat(video.dislike_count)}
