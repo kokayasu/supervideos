@@ -44,8 +44,8 @@ export default function Media({ videos }: { videos: any[] }) {
                         : "https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ"
                     }
                     alt={video.title_en}
-                    layout="fill"
-                    objectFit="cover"
+                    style={{ objectFit: "cover" }}
+                    fill
                   />
                 </Box>
                 <Box sx={{ p: 1 }}>
