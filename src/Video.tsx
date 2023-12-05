@@ -7,19 +7,19 @@ import { SlEye } from "react-icons/sl";
 import CategoryList from "@src/CategoryList";
 import { convertToShortFormat, getTitle } from "@src/utils";
 
-const MyBox = styled(Box)(() => ({
-  position: "relative",
-  // paddingTop: "56.25%",
-  paddingTop: "65.5%",
-}));
-
 export default function Video({ video }: { video: any }) {
   const router = useRouter();
   const locale: string = router.locale as string;
   const isReady = true;
   return (
     <>
-      <MyBox>
+      <Box
+        sx={{
+          position: "relative",
+          // paddingTop: "56.25%",
+          paddingTop: "65.5%",
+        }}
+      >
         <iframe
           style={{
             position: "absolute",
@@ -38,8 +38,8 @@ export default function Video({ video }: { video: any }) {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         ></iframe>
-      </MyBox>
-      <Box>
+      </Box>
+      <Box sx={{ p: { xs: 1, sm: 0 } }}>
         <Typography variant="h1" sx={{ my: 1.5 }}>
           {getTitle(video, locale)}
         </Typography>

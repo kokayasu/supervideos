@@ -79,7 +79,7 @@ export default function Home({
         />
         <meta name="keywords" content={video.categories.join(", ")} />
       </Head>
-      <Grid lg={12}>
+      <Grid lg={12} sx={{ p: { xs: 0, sm: 1 } }}>
         <Video video={video} />
         <Divider sx={{ my: 2 }} />
       </Grid>
