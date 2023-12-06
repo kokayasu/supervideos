@@ -65,7 +65,10 @@ export default function Home({
     <PageContainer>
       <Head>
         <title>VideoPurple</title>
-        <meta name="description" content="" />
+        <meta
+          name="description"
+          content={translate(t, "HomePageDescription")}
+        />
         <meta name="keywords" content="" />
       </Head>
       <Grid lg={16}>

@@ -13,7 +13,7 @@ import { convertToShortFormat, getTitle } from "@src/utils";
 export default function Media({ videos }: { videos: any[] }) {
   const router = useRouter();
   const locale: string = router.locale as string;
-  const isReady = true;
+  const isDev = process.env.NODE_ENV === "development";
   return (
     <Grid container>
       {videos.map((video, index) => {
@@ -39,9 +39,9 @@ export default function Media({ videos }: { videos: any[] }) {
                 >
                   <Image
                     src={
-                      isReady
-                        ? video.thumbnail
-                        : "https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ"
+                      isDev
+                        ? "https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ"
+                        : video.thumbnail
                     }
                     alt={video.title_en}
                     style={{ objectFit: "cover" }}

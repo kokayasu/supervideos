@@ -10,7 +10,7 @@ import { convertToShortFormat, getTitle } from "@src/utils";
 export default function Video({ video }: { video: any }) {
   const router = useRouter();
   const locale: string = router.locale as string;
-  const isReady = true;
+  const isDev = process.env.NODE_ENV === "development";
   return (
     <>
       <Box
@@ -30,9 +30,9 @@ export default function Video({ video }: { video: any }) {
             border: "none",
           }}
           src={
-            isReady
-              ? `https://www.pornhub.com/embed/${video.id}`
-              : "https://www.youtube.com/embed/x6q9AxPUTOs"
+            isDev
+              ? "https://www.youtube.com/embed/x6q9AxPUTOs"
+              : `https://www.pornhub.com/embed/${video.id}`
           }
           title={getTitle(video, locale)}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

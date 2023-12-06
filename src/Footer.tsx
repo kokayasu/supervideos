@@ -1,11 +1,20 @@
 import { Box, Container, Typography } from "@mui/material";
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
 
+import { translate } from "@src/utils";
+
 export default function Footer() {
+  const { t } = useTranslation();
   return (
     <footer>
+      <Container maxWidth={"md"} sx={{ mt: 10, mb: 2 }}>
+        <Typography variant="body1" align="center" color="textSecondary">
+          {translate(t, "HomePageDescription")} {translate(t, "AdsNote")}
+        </Typography>
+      </Container>
       <Box sx={{ backgroundColor: "#F6C7C7" }}>
-        <Container sx={{ mt: 10, py: 5 }}>
+        <Container sx={{ py: 5 }}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <a
               href={"/sitemap.xml"}
