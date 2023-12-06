@@ -94,7 +94,12 @@ export default function Home() {
         </Typography>
         <Typography
           variant="body1"
-          sx={{ fontSize: "1.2rem", fontWeight: "bold", marginBottom: 4 }}
+          sx={{
+            fontSize: "1.2rem",
+            fontWeight: "bold",
+            marginBottom: 4,
+            textAlign: "center",
+          }}
         >
           {translate(t, "AreYouLegalAge")}
         </Typography>
