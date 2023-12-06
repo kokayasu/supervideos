@@ -161,8 +161,8 @@ export default function Header() {
                   },
                 }}
               >
-                <span className="videoText">V</span>
-                <span className="purpleText">P</span>
+                <span className="videoText">VIDEO</span>
+                <span className="purpleText">PURPLE</span>
               </Typography>
             </Link>
             <div style={{ flexGrow: 0.2 }} />
