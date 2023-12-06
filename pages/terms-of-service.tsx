@@ -109,6 +109,14 @@ export default function TermsOfService() {
           use of the Website after changes are posted constitutes your
           acceptance of the modified terms.
         </p>
+        <h2>11. Advertisements</h2>
+        <p>
+          a. This Website is a free website that may include advertisements.
+        </p>
+        <p>
+          b. By using the Website, you acknowledge that advertisements may be
+          displayed during your visit.
+        </p>
       </Container>
     </PageContainer>
   );
