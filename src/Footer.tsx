@@ -9,7 +9,12 @@ export default function Footer() {
   return (
     <footer>
       <Container maxWidth={"md"} sx={{ mt: 10, mb: 2 }}>
-        <Typography variant="body1" align="center" color="textSecondary">
+        <Typography
+          variant="body1"
+          align="center"
+          color="textSecondary"
+          sx={{ fontSize: "0.75rem" }}
+        >
           {translate(t, "HomePageDescription")} {translate(t, "AdsNote")}
         </Typography>
       </Container>
