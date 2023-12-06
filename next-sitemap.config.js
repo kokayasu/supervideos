@@ -8,8 +8,12 @@ module.exports = {
   sitemapSize: 10000,
   exclude: [
     "/server-sitemap-index.xml",
-    "/age-age-age-confirmation",
-    "/ja/age-age-age-confirmation",
+    "/age-confirmation",
+    "/privacy-policy",
+    "/terms-of-service",
+    "/ja/age-confirmation",
+    "/ja/privacy-policy",
+    "/ja/terms-of-service",
   ],
   robotsTxtOptions: {
     additionalSitemaps: [`${siteUrl}/server-sitemap-index.xml`],
