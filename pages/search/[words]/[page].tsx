@@ -9,12 +9,11 @@ import Head from "next/head";
 import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
 
-import Ads from "@src/Ads";
 import CategoryList from "@src/CategoryList";
 import PageContainer from "@src/PageContainer";
 import Title from "@src/Title";
 import VideoList from "@src/VideoList";
-import { searchVideosByWords } from "@src/db";
+import { getTopCategories, searchVideosByWords } from "@src/db";
 import { getPopularCategories, translate } from "@src/utils";
 
 export async function getStaticPaths() {
@@ -35,6 +34,11 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const videos = await searchVideosByWords(words, pageNum);
     const moreCategories = getPopularCategories(videos);
+    const otherCategories = [];
+    for (const row of await getTopCategories()) {
+      otherCategories.push(row.id);
+    }
+
     const translations = await serverSideTranslations(locale as string, [
       "common",
     ]);
@@ -44,6 +48,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         words,
         videos,
         moreCategories,
+        otherCategories,
         page: pageNum,
         ...translations,
       },
@@ -58,12 +63,14 @@ export default function Home({
   words,
   videos,
   moreCategories,
+  otherCategories,
   page,
 }: {
   words: string;
   videos: any[];
   videoCount: number;
   moreCategories: any[];
+  otherCategories: any[];
   page: number;
 }) {
   const { t } = useTranslation();
@@ -79,7 +86,14 @@ export default function Home({
       </Head>
       <Grid lg={16}>
         {videos.length == 0 ? (
-          <Title title={translate(t, "SearchReultNotFound", { words })} />
+          <>
+            <Title title={translate(t, "SearchResult", { words })} />
+            <Typography sx={{ mb: 10 }}>
+              {translate(t, "SearchResultNotFound", { words })}
+            </Typography>
+            <Title title={translate(t, "MoreCategories")} />
+            <CategoryList categories={otherCategories} />
+          </>
         ) : (
           <>
             <Title title={translate(t, "SearchResult", { words })} />
@@ -107,10 +121,10 @@ export default function Home({
                 </Link>
               </Button>
             </Box>
+            <Title title={translate(t, "RelatedCategories")} />
+            <CategoryList categories={moreCategories} />
           </>
         )}
-        <Title title={translate(t, "RelatedCategories")} />
-        <CategoryList categories={moreCategories} />
       </Grid>
     </PageContainer>
   );

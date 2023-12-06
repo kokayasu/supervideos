@@ -124,9 +124,9 @@ export async function searchVideoById(id: string): Promise<any> {
   return (await conn!.query(query, [id])).rows[0];
 }
 
-export async function getTopCategories(): Promise<QueryResult> {
+export async function getTopCategories(): Promise<any> {
   const query = `
         SELECT * FROM categories LIMIT 15;
     `;
-  return await conn!.query(query);
+  return (await conn!.query(query)).rows;
 }
