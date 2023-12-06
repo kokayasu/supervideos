@@ -6,7 +6,11 @@ module.exports = {
   siteUrl,
   generateRobotsTxt: true,
   sitemapSize: 10000,
-  exclude: ["/server-sitemap-index.xml"],
+  exclude: [
+    "/server-sitemap-index.xml",
+    "/age-age-age-confirmation",
+    "/ja/age-age-age-confirmation",
+  ],
   robotsTxtOptions: {
     additionalSitemaps: [`${siteUrl}/server-sitemap-index.xml`],
   },

@@ -14,14 +14,14 @@ export function middleware(request: NextRequest) {
   const cookie = request.cookies.get("ageConfirmed");
   const locale = getLocaleFromPath(new URL(request.url));
   if (!cookie) {
-    let conformationUrl = "";
+    let ageConfirmationUrl = "";
     if (locale === "en") {
-      conformationUrl = "/age-conformation";
+      ageConfirmationUrl = "/age-confirmation";
     } else {
-      conformationUrl = `/${locale}/age-conformation`;
+      ageConfirmationUrl = `/${locale}/age-confirmation`;
     }
 
-    const url = new URL(conformationUrl, request.url);
+    const url = new URL(ageConfirmationUrl, request.url);
     url.searchParams.set("from", request.url);
     console.log(url.toString());
     return NextResponse.redirect(url);
