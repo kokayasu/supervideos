@@ -71,7 +71,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Super Videos</title>
+        <title>VideoPurple</title>
         <meta name="description" content="" />
         <meta name="keywords" content="" />
       </Head>

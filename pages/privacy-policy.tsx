@@ -13,7 +13,7 @@ export default function TermsOfService() {
   return (
     <PageContainer>
       <Head>
-        <title>Super Videos</title>
+        <title>VideoPurple</title>
         <meta name="description" content="" />
         <meta name="keywords" content="" />
       </Head>
