@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.18",
     "@mui/material": "^5.14.18",
+    "@vercel/analytics": "^1.1.1",
     "collections": "^5.1.13",
     "htmlparser2": "^9.0.0",
     "i18next": "^23.7.6",
