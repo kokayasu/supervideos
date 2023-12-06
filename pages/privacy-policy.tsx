@@ -9,23 +9,22 @@ export async function getStaticProps() {
   };
 }
 
-export default function TermsOfService() {
+export default function PrivacyPolicy() {
   return (
     <PageContainer>
       <Head>
-        <title>VideoPurple</title>
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
+        <title>Privacy Policy | VideoPurple</title>
+        <meta name="description" content="Privacy Policy" />
+        <meta name="keywords" content="Privacy Policy" />
       </Head>
       <Container maxWidth="md">
-        <h1>Privacy Policy for [Your Website Name]</h1>
-        <p>Last Updated: [Date]</p>
+        <h1>Privacy Policy for videopurple.com</h1>
+        <p>Last Updated: 2023/12/06</p>
         <p>
-          This Privacy Policy (&quot;Policy&quot;) describes how [Your
-          Company/Your Name] (&quot;we,&quot; &quot;us,&quot; or
-          &quot;our&quot;) collects, uses, and protects the personal information
-          of users (&quot;you&quot; or &quot;user&quot;) on [Your Website Name]
-          (&quot;the Website&quot;).
+          This Privacy Policy (&quot;Policy&quot;) describes how videopurple.com
+          (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) collects, uses,
+          and protects the personal information of users (&quot;you&quot; or
+          &quot;user&quot;) on videopurple.com (&quot;the Website&quot;).
         </p>
 
         <h2>1. Information We Collect</h2>

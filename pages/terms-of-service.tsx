@@ -13,18 +13,18 @@ export default function TermsOfService() {
   return (
     <PageContainer>
       <Head>
-        <title>VideoPurple</title>
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
+        <title>Terms Of Service | VideoPurple</title>
+        <meta name="description" content="Terms Of Service" />
+        <meta name="keywords" content="Terms Of Service" />
       </Head>
       <Container maxWidth="md">
-        <h1>Terms of Service for [Your Website Name]</h1>
-        <p>Last Updated: [Date]</p>
+        <h1>Terms of Service for videopurple.com</h1>
+        <p>Last Updated: 2023/12/06</p>
         <p>
           This Terms of Service (&quot;Agreement&quot;) is entered into between
-          [Your Company/Your Name] (&quot;we,&quot; &quot;us,&quot; or
-          &quot;our&quot;) and the user (&quot;you&quot; or &quot;user&quot;)
-          regarding the use of [Your Website Name] (&quot;the Website&quot;).
+          videopurple.com (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;)
+          and the user (&quot;you&quot; or &quot;user&quot;) regarding the use
+          of videopurple.com (&quot;the Website&quot;).
         </p>
 
         <h2>1. Acceptance of Terms</h2>
@@ -99,8 +99,8 @@ export default function TermsOfService() {
 
         <h2>9. Governing Law</h2>
         <p>
-          This Agreement is governed by and construed in accordance with the
-          laws of [Your Jurisdiction].
+          This Agreement is governed by and construed in accordance with
+          applicable laws, without regard to any conflict of law principles
         </p>
 
         <h2>10. Changes to Terms</h2>
