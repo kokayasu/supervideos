@@ -1,11 +1,19 @@
+import Container from "@mui/material/Container";
+import { GetStaticPropsContext } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import Container from '@mui/material/Container';
 
 import PageContainer from "@src/PageContainer";
 
-export async function getStaticProps() {
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const locale = context.locale as string;
+  const translations = await serverSideTranslations(locale as string, [
+    "common",
+  ]);
   return {
-    props: {},
+    props: {
+      ...translations,
+    },
   };
 }
 
