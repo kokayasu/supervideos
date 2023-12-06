@@ -43,7 +43,7 @@ export default function Media({ videos }: { videos: any[] }) {
                         ? "https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ"
                         : video.thumbnail
                     }
-                    alt={video.title_en}
+                    alt={getTitle(video, locale)}
                     style={{ objectFit: "cover" }}
                     fill
                   />
