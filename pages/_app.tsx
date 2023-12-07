@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { appWithTranslation } from "next-i18next";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import Script from "next/script";
 
 import createEmotionCache from "../src/createEmotionCache";
 import theme from "../src/theme";
@@ -24,6 +25,20 @@ function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <meta name="rating" content="adult" />
         <link rel="icon" href="/favicon.ico" />
+        <Script
+          strategy="lazyOnload"
+          src={"https://www.googletagmanager.com/gtag/js?id=G-RKVZKVMXS3"}
+        />
+        <Script strategy="lazyOnload">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-RKVZKVMXS3', {
+            page_path: window.location.pathname,
+            });
+          `}
+        </Script>
       </Head>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
