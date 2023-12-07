@@ -25,12 +25,14 @@ function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <meta name="rating" content="adult" />
         <link rel="icon" href="/favicon.ico" />
-        <Script
-          strategy="lazyOnload"
-          src={"https://www.googletagmanager.com/gtag/js?id=G-RKVZKVMXS3"}
-        />
-        <Script strategy="lazyOnload">
-          {`
+      </Head>
+      <Script
+        id="ga"
+        strategy="lazyOnload"
+        src={"https://www.googletagmanager.com/gtag/js?id=G-RKVZKVMXS3"}
+      />
+      <Script id="ga2" strategy="lazyOnload">
+        {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
@@ -38,8 +40,7 @@ function MyApp(props: MyAppProps) {
             page_path: window.location.pathname,
             });
           `}
-        </Script>
-      </Head>
+      </Script>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
