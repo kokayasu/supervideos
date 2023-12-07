@@ -32,7 +32,7 @@ export default function Video({ video }: { video: any }) {
           src={
             isDev
               ? "https://www.youtube.com/embed/x6q9AxPUTOs"
-              : `https://www.pornhub.com/embed/${video.id}`
+              : `https://www.pornhub.com/embed/${video.id.slice(1)}`
           }
           title={getTitle(video, locale)}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
