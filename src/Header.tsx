@@ -210,13 +210,14 @@ export default function Header() {
                 );
               } else {
                 return (
-                  <Link
+                  <a
                     key={section.id}
                     href={section.link}
                     style={{
                       textDecoration: "none",
                       color: "inherit",
                     }}
+                    target="_blank"
                   >
                     <Button color={"inherit"} sx={{ height: 50 }}>
                       <section.icon style={{ marginRight: "4px" }} />
@@ -224,7 +225,7 @@ export default function Header() {
                         <Typography variant="h6">{section[locale]}</Typography>
                       )}
                     </Button>
-                  </Link>
+                  </a>
                 );
               }
             })}
@@ -240,7 +241,7 @@ export default function Header() {
           flexDirection: "row",
           flexWrap: "wrap",
           justifyContent: "space-between",
-          maxHeight: "70%",
+          maxHeight: "65%",
           overflowY: "auto",
         }}
       >
