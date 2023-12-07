@@ -217,7 +217,7 @@ export default function Header() {
                       textDecoration: "none",
                       color: "inherit",
                     }}
-                    target="_blank"
+                    target={section.id === "home" ? undefined : "_blank"}
                   >
                     <Button color={"inherit"} sx={{ height: 50 }}>
                       <section.icon style={{ marginRight: "4px" }} />
