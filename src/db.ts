@@ -24,7 +24,7 @@ if (!conn) {
 export async function getVideos(
   page: number,
   locale: string,
-  pageSize: number
+  pageSize: number = NUM_VIDEOS_IN_PAGE
 ): Promise<any[]> {
   const query = `
         SELECT * FROM videos
@@ -32,11 +32,7 @@ export async function getVideos(
         ORDER BY view_count DESC
         LIMIT $1 OFFSET $2;
     `;
-  if (pageSize == undefined) {
-    pageSize = NUM_VIDEOS_IN_PAGE;
-  }
-  return (await conn!.query(query, [pageSize, (page - 1) * NUM_VIDEOS_IN_PAGE]))
-    .rows;
+  return (await conn!.query(query, [pageSize, (page - 1) * pageSize])).rows;
 }
 
 export async function getCategories(locale: string): Promise<any[]> {
