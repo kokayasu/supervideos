@@ -3,7 +3,7 @@ import { getServerSideSitemapIndexLegacy } from "next-sitemap";
 
 import { getVideoCountAll } from "@src/db";
 
-const PAGE_SIZE = 10000;
+const PAGE_SIZE = 1000;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const locale = ctx.locale as string;

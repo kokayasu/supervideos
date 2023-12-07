@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (typeof page === "undefined" || isNaN(page)) throw Error();
 
   const fields = [];
-  const videos = await getVideos(page, locale, 10000);
+  const videos = await getVideos(page, locale, 1000);
   for (const video of videos) {
     const title = escapeXml(video[`title_${locale}`]);
     const v = `
