@@ -110,7 +110,7 @@ def create_materialized_views():
 
 
 def main():
-    create_indexes()
+    # create_indexes()
     create_materialized_views()
 
 

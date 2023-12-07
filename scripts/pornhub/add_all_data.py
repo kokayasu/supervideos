@@ -28,13 +28,13 @@ DB_PARAMS = {
     "user": "postgres",
     "password": "postgres",
 }
-# DB_PARAMS = {
-#     "host": "database-1.c7pdgnl5hc90.us-west-1.rds.amazonaws.com",
-#     "port": "5432",
-#     "database": "supervideos",
-#     "user": "postgres",
-#     "password": "5ZacDYV4eBaXflrQfNJU",
-# }
+DB_PARAMS = {
+    "host": "database-1.c7pdgnl5hc90.us-west-1.rds.amazonaws.com",
+    "port": "5432",
+    "database": "videopurple",
+    "user": "postgres",
+    "password": "5ZacDYV4eBaXflrQfNJU",
+}
 
 
 def generate_current_day_str():
