@@ -21,19 +21,22 @@ if (!conn) {
   });
 }
 
-export async function getVideos(page: number, locale: string): Promise<any[]> {
+export async function getVideos(
+  page: number,
+  locale: string,
+  pageSize: number
+): Promise<any[]> {
   const query = `
         SELECT * FROM videos
         WHERE title_${locale} IS NOT NULL
         ORDER BY view_count DESC
         LIMIT $1 OFFSET $2;
     `;
-  return (
-    await conn!.query(query, [
-      NUM_VIDEOS_IN_PAGE,
-      (page - 1) * NUM_VIDEOS_IN_PAGE,
-    ])
-  ).rows;
+  if (pageSize == undefined) {
+    pageSize = NUM_VIDEOS_IN_PAGE;
+  }
+  return (await conn!.query(query, [pageSize, (page - 1) * NUM_VIDEOS_IN_PAGE]))
+    .rows;
 }
 
 export async function getCategories(locale: string): Promise<any[]> {

@@ -13,11 +13,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const xmls = [];
   if (locale === "en") {
     for (let i = 1; i <= pages; i += 1) {
-      xmls.push(`${siteUrl}/server-sitemap.xml/${i}`);
+      xmls.push(`${siteUrl}/server-sitemap-index.xml/${i}`);
     }
   } else {
     for (let i = 1; i <= pages; i += 1) {
-      xmls.push(`${siteUrl}/${locale}/server-sitemap.xml/${i}`);
+      xmls.push(`${siteUrl}/${locale}/server-sitemap-index.xml/${i}`);
     }
   }
 
