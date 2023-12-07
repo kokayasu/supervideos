@@ -1,4 +1,4 @@
-import { Divider, Typography } from "@mui/material";
+import { Divider } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import { GetStaticPropsContext } from "next";
@@ -8,13 +8,12 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 
-import Ads from "@src/Ads";
 import PageContainer from "@src/PageContainer";
 import Title from "@src/Title";
 import Video from "@src/Video";
 import VideoList from "@src/VideoList";
 import { searchVideoById, searchVideosByCategory } from "@src/db";
-import { getTitle, translate } from "@src/utils";
+import { getTitle, shuffleArray, translate } from "@src/utils";
 
 export async function getStaticPaths() {
   return {
@@ -28,10 +27,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const locale = context.locale as string;
   try {
     const video = await searchVideoById(id as string);
-    const moreVideos = await searchVideosByCategory(
-      locale,
-      video.categories[0],
-      1
+    const moreVideos = shuffleArray(
+      await searchVideosByCategory(locale, video.categories[0], 1)
     );
     const translations = await serverSideTranslations(locale as string, [
       "common",

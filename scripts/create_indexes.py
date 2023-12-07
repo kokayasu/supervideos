@@ -13,17 +13,17 @@ logging.basicConfig(
 db_params = {
     "host": "database-1.c7pdgnl5hc90.us-west-1.rds.amazonaws.com",
     "port": "5432",
-    "database": "videoPurple",
+    "database": "videopurple",
     "user": "postgres",
     "password": "5ZacDYV4eBaXflrQfNJU",
 }
-# db_params = {
-#     "host": "localhost",
-#     "port": "5432",
-#     "database": "videoPurple",
-#     "user": "postgres",
-#     "password": "postgres",
-# }
+db_params = {
+    "host": "localhost",
+    "port": "5432",
+    "database": "videopurple",
+    "user": "postgres",
+    "password": "postgres",
+}
 
 
 def create_indexes():
@@ -33,8 +33,7 @@ def create_indexes():
         with conn.cursor(cursor_factory=RealDictCursor) as cursor:
             # Build and execute the SQL query
             index_queries = [
-                "CREATE INDEX idx_videos ON videos USING hash (id);",
-                "CREATE INDEX idx_title_original ON videos USING gin (title_original gin_bigm_ops);",
+                "CREATE INDEX idx_title_orig ON videos USING gin (title_orig gin_bigm_ops);",
                 "CREATE INDEX idx_view_nonnull_en ON videos (view_count) WHERE title_en IS NOT NULL;",
                 "CREATE INDEX idx_view_nonnull_ja ON videos (view_count) WHERE title_ja IS NOT NULL;",
                 "CREATE INDEX idx_categories_en ON videos using gin(categories) WHERE title_en IS NOT NULL;",
@@ -58,22 +57,24 @@ def create_materialized_views():
             categories = json.load(file)
 
         with conn.cursor(cursor_factory=RealDictCursor) as cursor:
-            # for category in categories:
-            #     formatted_category = category.replace("-", "_")
-            #     sql_template = """
-            #         CREATE MATERIALIZED VIEW mv_{formatted_category}_en AS
-            #         SELECT *
-            #         FROM videos
-            #         WHERE categories @> ARRAY['{category}']::character varying[]
-            #         AND title_en IS NOT NULL
-            #         ORDER BY view_count DESC;
-            #     """
-            #     sql_statement = sql_template.format(
-            #         formatted_category=formatted_category, category=category
-            #     )
-            #     cursor.execute(sql_statement)
-            #     conn.commit()
-            #     logging.info(f"Materialized view for {category} en created successfully.")
+            for category in categories:
+                formatted_category = category.replace("-", "_")
+                sql_template = """
+                    CREATE MATERIALIZED VIEW mv_{formatted_category}_en AS
+                    SELECT *
+                    FROM videos
+                    WHERE categories @> ARRAY['{category}']::character varying[]
+                    AND title_en IS NOT NULL
+                    ORDER BY view_count DESC;
+                """
+                sql_statement = sql_template.format(
+                    formatted_category=formatted_category, category=category
+                )
+                cursor.execute(sql_statement)
+                conn.commit()
+                logging.info(
+                    f"Materialized view for {category} en created successfully."
+                )
 
             for category in categories:
                 formatted_category = category.replace("-", "_")
@@ -109,6 +110,7 @@ def create_materialized_views():
 
 
 def main():
+    create_indexes()
     create_materialized_views()
 
 

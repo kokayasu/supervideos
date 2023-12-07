@@ -1,12 +1,13 @@
 -- Create the database
-CREATE DATABASE videoPurple;
+CREATE DATABASE videopurple;
 
-\c videoPurple;
+\c videopurple;
 
 CREATE EXTENSION pg_bigm;
 
 CREATE TABLE videos (
-    id VARCHAR(20) PRIMARY KEY,
+    id VARCHAR(22) PRIMARY KEY,
+    source_id VARCHAR(2),
     thumbnail VARCHAR(150),
     view_count INT,
     like_count INT,
@@ -15,7 +16,8 @@ CREATE TABLE videos (
     duration INTERVAL,
     resolution VARCHAR(7),
     categories VARCHAR(50)[] NOT NULL,
-    title_original text,
+    title_orig_locale VARCHAR(2),
+    title_orig text,
     title_en text,
     title_ja text
 );

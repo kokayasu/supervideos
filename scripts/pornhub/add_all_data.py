@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 import requests
 from collections import Counter
@@ -17,13 +17,14 @@ import json
 
 BUCKET_NAME = "db_data"
 URL = "https://www.pornhub.com/files/pornhub.com-db.zip"
+CATEGORY_MAPPING_JSON_PATH = "./pornhub/category_mappings.json"
 BULK_INSERT_TSV = "bulk_insert.tsv"
 CATEGORY_TABLE_TSV = "category_table.tsv"
 DB_DATA_DIR = "pornhub"
 DB_PARAMS = {
     "host": "localhost",
     "port": "5432",
-    "database": "supervideos",
+    "database": "videopurple",
     "user": "postgres",
     "password": "postgres",
 }
@@ -34,6 +35,17 @@ DB_PARAMS = {
 #     "user": "postgres",
 #     "password": "5ZacDYV4eBaXflrQfNJU",
 # }
+
+
+def generate_current_day_str():
+    current_date = datetime.datetime.now()
+    return current_date.strftime("%Y%m%d")
+
+
+def generate_previus_day_str(current_date_str):
+    formatted_date = datetime.datetime.strptime(current_date_str, "%Y%m%d")
+    previous_day = formatted_date - datetime.timedelta(days=1)
+    return previous_day.strftime("%Y%m%d")
 
 
 def download_db_file(url, destination_dir):
@@ -68,17 +80,6 @@ def unzip_db_file(zip_file_path, destination_dir):
         f"File '{zip_file_path}' successfully extracted to '{destination_dir}'."
     )
     return f"{destination_dir}/{first_file_name}"
-
-
-def load_category_table_tsv(cateogry_table_tsv_file_path):
-    category_dict = {}
-    with open(cateogry_table_tsv_file_path, newline="") as tsv_file:
-        tsv_reader = csv.DictReader(tsv_file, delimiter="\t")
-        for row in tsv_reader:
-            name_en = row["name_en"]
-            id_value = row["id"]
-            category_dict[name_en] = id_value
-    return category_dict
 
 
 def load_category_mappings_json(cateogry_mapping_json_path):
@@ -149,6 +150,7 @@ def generate_bulk_insert_tsv_file(
 
         batch = []
 
+        source_id = "0"
         while True:
             line = input_file.readline()
             if not line:
@@ -157,11 +159,11 @@ def generate_bulk_insert_tsv_file(
             count += 1
             tokens = line.split("|")
             src = BeautifulSoup(tokens[0], "html.parser").iframe["src"]
-            id = src.rsplit("/", 1)[-1]
+            id = source_id + src.rsplit("/", 1)[-1]
             thumbnail = tokens[1]
             title = tokens[3].replace("/", "").replace("\\", "")
             title_locale = language_mapping.get(
-                detector.detect_language_of(title), "Unknown"
+                detector.detect_language_of(title), "--"
             )
             stat[title_locale].append(title)
 
@@ -185,7 +187,7 @@ def generate_bulk_insert_tsv_file(
             # Create a list with the values and write it to the TSV file
             row = [
                 id,
-                "0",
+                source_id,
                 thumbnail,
                 view_count,
                 like_count,
@@ -215,65 +217,6 @@ def generate_bulk_insert_tsv_file(
 
     logging.info(f"Generated bulk insert TSV file, {output_file_path}")
     return output_file_path
-
-
-def upload_file_to_s3(file_path):
-    s3 = boto3.client("s3")
-    s3.upload_file(file_path, BUCKET_NAME, file_path)
-
-
-def download_file_from_s3(date_str, destination_dir):
-    file_path = f"{destination_dir}/{date_str}/{BULK_INSERT_TSV}"
-    if os.path.exists(file_path):
-        logging.info(f"The file {file_path} already exists, won't download the file")
-    else:
-        logging.info(f"Start updating the db")
-        os.makedirs(os.path.dirname(file_path))
-        s3 = boto3.client("s3")
-        s3.download_file(BUCKET_NAME, file_path, file_path)
-
-
-def generate_current_day_str():
-    current_date = datetime.datetime.now()
-    return current_date.strftime("%Y%m%d")
-
-
-def generate_previus_day_str(current_date_str):
-    formatted_date = datetime.datetime.strptime(current_date_str, "%Y%m%d")
-    previous_day = formatted_date - datetime.timedelta(days=1)
-    return previous_day.strftime("%Y%m%d")
-
-
-def update_db(current_tsv_file_path, previous_tsv_file_path):
-    logging.info(f"Start updating the db")
-    if previous_tsv_file_path == "":
-        return
-
-    previous_data = pd.read_csv(previous_tsv_file_path, delimiter="\t")
-    current_data = pd.read_csv(current_tsv_file_path, delimiter="\t")
-
-    current_data_keys = set(current_data["key"])
-    previous_data_keys = set(previous_data["key"])
-
-    added_data_keys = current_data_keys - previous_data_keys
-    print(f"Added: {len(added_data_keys)}")
-
-    deleted_data_keys = previous_data_keys - current_data_keys
-    print(f"Deleted: {len(deleted_data_keys)}")
-
-    common_keys = current_data_keys & previous_data_keys
-    print(f"Num Common Keys: {len(common_keys)}")
-    for key in common_keys:
-        previous_row = previous_data[previous_data["key"] == key]
-        current_row = current_data[current_data["key"] == key]
-
-        if not previous_row.equals(current_row):
-            print(f"Row with key {key} is different.")
-            print(previous_row.to_string(index=False))
-            print(current_row.to_string(index=False))
-            break
-
-    logging.info(f"Updated the db")
 
 
 def generate_category_table_tsv_file(
@@ -323,23 +266,6 @@ def run_copy_command(tsv_file_path, table_name):
     logging.info(f"Data from {tsv_file_path} inserted into videos successfully.")
 
 
-def count_categories(db_file_path, destination_dir):
-    stat = Counter()
-    with open(db_file_path, "r") as input_file:
-        while True:
-            line = input_file.readline()
-            if not line:
-                break
-
-            tokens = line.split("|")
-            for category in tokens[5].split(";"):
-                stat[category] += 1
-                pass
-
-    with open("count.json", "w") as output_file:
-        json.dump(stat, output_file, indent=4, ensure_ascii=False)
-
-
 def main():
     logging.basicConfig(
         level=logging.INFO,  # Set the desired log level
@@ -347,24 +273,26 @@ def main():
         handlers=[logging.StreamHandler()],  # Log to the console
     )
 
-    # # Setup variables and directory
-    # current_day_str = generate_current_day_str()
-    # destination_dir = f"{DB_DATA_DIR}/{current_day_str}"
+    # Setup variables and directory
+    current_day_str = generate_current_day_str()
+    destination_dir = f"{DB_DATA_DIR}/{current_day_str}"
+    os.makedirs(destination_dir, exist_ok=True)
+
+    # # Download the DB file
     # downloaded_file = download_db_file(URL, destination_dir)
-    # os.makedirs(destination_dir, exist_ok=True)
 
-    # # # Unzip the db file
+    # # Unzip the db file
     # unziped_db_file = unzip_db_file(downloaded_file, destination_dir)
+    unziped_db_file = "./pornhub/20231207/pornhub.com-db.csv"
 
-    # category_table_tsv_file_path = generate_category_table_tsv_file(
-    #     unziped_db_file, "./pornhub/category_mappings.json", destination_dir
-    # )
-    # run_copy_command(category_table_tsv_file_path, "categories")
-    #
-    # current_tsv_file_path = generate_bulk_insert_tsv_file(
-    #     unziped_db_file, "./pornhub/category_mappings.json", destination_dir
-    # )
-    current_tsv_file_path = "./pornhub/20231202/bulk_insert.tsv"
+    category_table_tsv_file_path = generate_category_table_tsv_file(
+        unziped_db_file, CATEGORY_MAPPING_JSON_PATH, destination_dir
+    )
+    run_copy_command(category_table_tsv_file_path, "categories")
+
+    current_tsv_file_path = generate_bulk_insert_tsv_file(
+        unziped_db_file, CATEGORY_MAPPING_JSON_PATH, destination_dir
+    )
     run_copy_command(current_tsv_file_path, "videos")
 
 
