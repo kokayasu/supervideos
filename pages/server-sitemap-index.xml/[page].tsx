@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   for (const video of videos) {
     const title = escapeXml(video[`title_${locale}`]);
     const v = `
-<video:thumnail_loc>${video.thumbnail}</video:thumnail_loc>
+<video:thumbnail_loc>${video.thumbnail}</video:thumbnail_loc >
 <video:title>${title}</video:title>
 <video:description>${title}</video:description>
 <video:player_loc>https://www.pornhub.com/embed/${video.id}</video:player_loc>
