@@ -43,7 +43,7 @@ export async function getVideosForSitemap(
         SELECT * FROM videos
         WHERE title_${locale} IS NOT NULL
            AND id > (select id from pagination_info_sitemap_${locale} where page_number = ${page})
-        LIMIT ${NUM_VIDEOS_IN_PAGE};
+        LIMIT 1000;
     `;
   return (await conn!.query(query, [])).rows;
 }
