@@ -35,6 +35,19 @@ export async function getVideos(
   return (await conn!.query(query, [pageSize, (page - 1) * pageSize])).rows;
 }
 
+export async function getVideosForSitemap(
+  page: number,
+  locale: string
+): Promise<any[]> {
+  const query = `
+        SELECT * FROM videos
+        WHERE title_${locale} IS NOT NULL
+           AND id > (select id from pagination_info_sitemap_${locale} where page_number = ${page})
+        LIMIT ${NUM_VIDEOS_IN_PAGE};
+    `;
+  return (await conn!.query(query, [])).rows;
+}
+
 export async function getCategories(locale: string): Promise<any[]> {
   const query = `SELECT id, video_count, name_${locale} as name FROM categories;`;
   return (await conn!.query(query)).rows;
