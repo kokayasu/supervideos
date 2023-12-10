@@ -74,7 +74,7 @@ export function getTitle(video: any, locale: string) {
   if (video[dynamicTitleKey] && video[dynamicTitleKey].trim() !== "") {
     return video[dynamicTitleKey];
   } else {
-    return video["title_original"];
+    return video["title_orig"];
   }
 }
 
