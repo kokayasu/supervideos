@@ -6,9 +6,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import React from "react";
 
-import Ads from "@src/Ads";
 import CategoryList from "@src/CategoryList";
 import PageContainer from "@src/PageContainer";
 import Pagination from "@src/Pagination";
@@ -18,6 +16,7 @@ import { getVideoCountSearchByCategory, searchVideosByCategory } from "@src/db";
 import {
   getLastPageNum,
   getPopularCategories,
+  shuffleArray,
   translate,
   translateCategory,
 } from "@src/utils";
@@ -56,7 +55,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const videoCount = await getVideoCountSearchByCategory(category);
     if (pageNum > getLastPageNum(videoCount)) return { notFound: true };
-    const videos = await searchVideosByCategory(locale, category, pageNum);
+    const videos = shuffleArray(
+      await searchVideosByCategory(locale, category, pageNum)
+    );
     const moreCategories = getPopularCategories(videos);
     const translations = await serverSideTranslations(locale as string, [
       "common",

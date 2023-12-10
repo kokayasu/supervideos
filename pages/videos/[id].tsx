@@ -47,12 +47,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export function generateDescription(title: string, categories: string[]) {
-  const tagText = categories.join(", ");
-  const description = `Watch the "${title}" video for ${tagText} and more.`;
-  return description;
-}
-
 export default function Home({
   video,
   moreVideos,
