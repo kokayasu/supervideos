@@ -11,6 +11,12 @@ function getLocaleFromPath(url: URL) {
 }
 
 export function middleware(request: NextRequest) {
+  const userAgent = request.headers.get("user-agent") || "None";
+  const isCrawler = /bot|crawler|spider/i.test(userAgent);
+  if (isCrawler) {
+    return NextResponse.next();
+  }
+
   const cookie = request.cookies.get("ageConfirmed");
   const locale = getLocaleFromPath(new URL(request.url));
   if (!cookie) {
@@ -23,7 +29,6 @@ export function middleware(request: NextRequest) {
 
     const url = new URL(ageConfirmationUrl, request.url);
     url.searchParams.set("from", request.url);
-    console.log(url.toString());
     return NextResponse.redirect(url);
   }
 }
