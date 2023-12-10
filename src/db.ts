@@ -66,7 +66,7 @@ export async function getVideoCountSearchByWords(
 ): Promise<number> {
   const query = `
         SELECT count(*) FROM videos
-        WHERE title_original LIKE $1
+        WHERE title_orig LIKE $1
     `;
   return (await conn!.query(query, [`%${words}%`])).rows[0].count;
 }
@@ -91,7 +91,7 @@ export async function searchVideosByWords(
 
   // Generate placeholders for the LIKE condition
   const likeConditions = searchWords
-    .map((_, index) => `title_original LIKE $${index + 1}`)
+    .map((_, index) => `title_orig LIKE $${index + 1}`)
     .join(" AND ");
 
   console.log(likeConditions);

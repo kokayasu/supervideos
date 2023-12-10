@@ -1,24 +1,29 @@
+#!/usr/bin/env python3
 import os
 import psycopg2
 import boto3
 import logging
 from psycopg2 import sql
 
-# Set up logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
-# Get database parameters from environment variables
-DB_PARAMS = {
+db_params = {
     "host": os.getenv("DB_HOST"),
     "port": os.getenv("DB_PORT"),
     "database": os.getenv("DB_NAME"),
     "user": os.getenv("DB_USER"),
     "password": os.getenv("DB_PASSWORD"),
 }
+db_params = {
+    "host": "database-1.c7pdgnl5hc90.us-west-1.rds.amazonaws.com",
+    "port": "5432",
+    "database": "videopurple",
+    "user": "postgres",
+    "password": "5ZacDYV4eBaXflrQfNJU",
+}
 
-# Get AWS region from environment variable
 AWS_REGION = os.getenv("AWS_REGION", "us-west-1")
 
 
@@ -39,7 +44,7 @@ def update_translations(limit):
     logging.info("Start translating titles")
 
     # Establish a connection to the PostgreSQL database
-    with psycopg2.connect(**DB_PARAMS) as connection:
+    with psycopg2.connect(**db_params) as connection:
         try:
             # Create a cursor to execute SQL queries
             with connection.cursor() as cursor:
@@ -86,4 +91,8 @@ def update_translations(limit):
 
 
 def lambda_handler(event, context):
-    update_translations(200)
+    update_translations(600000)
+
+
+if __name__ == "__main__":
+    lambda_handler(None, None)
