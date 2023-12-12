@@ -91,7 +91,7 @@ def update_translations(limit):
 
 
 def lambda_handler(event, context):
-    update_translations(600000)
+    update_translations(650000)
 
 
 if __name__ == "__main__":
