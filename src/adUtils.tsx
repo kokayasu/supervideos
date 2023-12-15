@@ -1,4 +1,7 @@
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import Image from "next/image";
 
 export function getAdLink(id: string, locale: string) {
@@ -288,4 +291,137 @@ export function getVideoSideBanners(locale: string) {
       </Box>
     );
   }
+}
+
+export function getVideoListBanners(locale: string) {
+  const bannersJa = [
+    <a
+      key={1}
+      href="https://click.dtiserv2.com/Click190/1006021-6-233441"
+      target="_blank"
+      rel="noopener"
+    >
+      <Image
+        src="https://affiliate.dtiserv.com/image/carib/1006021.jpg"
+        alt="advertisement"
+        style={{ objectFit: "scale-down" }}
+        fill
+      />
+    </a>,
+    <a
+      key={2}
+      href="https://click.dtiserv2.com/Click/2103057-103-233441"
+      target="_blank"
+      rel="noopener"
+    >
+      <Image
+        src="https://affiliate.dtiserv.com/image/dxlive/2103057.gif"
+        alt="advertisement"
+        style={{ objectFit: "scale-down" }}
+        fill
+      />
+    </a>,
+    <a
+      key={3}
+      href="https://click.dtiserv2.com/Click190/2320005-320-233441"
+      target="_blank"
+      rel="noopener"
+    >
+      <Image
+        src="https://affiliate.dtiserv.com/image/paco/3day_300_250.jpg"
+        alt="advertisement"
+        style={{ objectFit: "scale-down" }}
+        fill
+      />
+    </a>,
+    <a
+      key={4}
+      href="https://click.dtiserv2.com/Click190/1292019-292-233441"
+      target="_blank"
+      rel="noopener"
+    >
+      <Image
+        src="https://affiliate.dtiserv.com/image/10musume/3day_300_250.jpg"
+        alt="advertisement"
+        style={{ objectFit: "scale-down" }}
+        fill
+      />
+    </a>,
+    <a
+      key={5}
+      href="https://click.dtiserv2.com/Click2/1018023-18-233441"
+      target="_blank"
+      rel="noopener"
+    >
+      <Image
+        src="https://affiliate.dtiserv.com/image/1pondo/300_250.jpg"
+        alt="advertisement"
+        style={{ objectFit: "scale-down" }}
+        fill
+      />
+    </a>,
+    <a
+      key={6}
+      href="https://click.dtiserv2.com/Click2/1006033-6-233441"
+      target="_blank"
+      rel="noopener"
+    >
+      <Image
+        src="https://affiliate.dtiserv.com/image/carib/300_250.jpg"
+        alt="advertisement"
+        style={{ objectFit: "scale-down" }}
+        fill
+      />
+    </a>,
+  ];
+
+  const bannersDefault = [];
+
+  let adComponent = null;
+  if (locale === "ja") {
+    const randomIndex = Math.floor(Math.random() * bannersJa.length);
+    adComponent = bannersJa[randomIndex];
+  } else {
+    const randomIndex = Math.floor(Math.random() * bannersDefault.length);
+    adComponent = bannersJa[randomIndex];
+  }
+
+  return (
+    <Grid item xs={6} md={4} lg={3} xl={2.4}>
+      <Paper variant="outlined" sx={{ m: 0.5, borderRadius: "4px" }}>
+        <Box
+          style={{
+            position: "relative",
+            overflow: "hidden",
+            borderTopLeftRadius: "4px",
+            borderTopRightRadius: "4px",
+          }}
+        >
+          <div
+            style={{
+              paddingTop: "75%",
+              position: "relative",
+              backgroundColor: "black",
+            }}
+          >
+            {adComponent}
+          </div>
+        </Box>
+        <Box sx={{ p: 1 }}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            overflow="hidden"
+            textOverflow="ellipsis"
+            sx={{ height: "2.7em" }}
+          ></Typography>
+          <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="left">
+              <Typography variant="body2">Advertisement</Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Paper>
+    </Grid>
+  );
 }

@@ -8,62 +8,8 @@ import { useRouter } from "next/router";
 import { LuThumbsDown, LuThumbsUp } from "react-icons/lu";
 import { SlEye } from "react-icons/sl";
 
+import { getVideoListBanners } from "@src/adUtils";
 import { convertToShortFormat, getTitle } from "@src/utils";
-
-function Advertisement() {
-  return (
-    <Grid item xs={6} md={4} lg={3} xl={2.4}>
-      <Paper variant="outlined" sx={{ m: 0.5, borderRadius: "4px" }}>
-        <Box
-          style={{
-            position: "relative",
-            overflow: "hidden",
-            borderTopLeftRadius: "4px",
-            borderTopRightRadius: "4px",
-          }}
-        >
-          <div
-            style={{
-              paddingTop: "75%", // Adjust this value to change the aspect ratio
-              position: "relative",
-            }}
-          >
-            <iframe
-              src="https://www.mmaaxx.com/carib/vb/index300x250.html?affid=233441"
-              width="100%"
-              height="100%"
-              frameBorder="no"
-              scrolling="no"
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-              }}
-            />
-          </div>
-        </Box>
-        <Box sx={{ p: 1 }}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            overflow="hidden"
-            textOverflow="ellipsis"
-            sx={{ height: "2.7em" }}
-          >
-            Your Wildest Fantasy
-          </Typography>
-          <Box display="flex" alignItems="center">
-            <Box display="flex" alignItems="left">
-              <Typography variant="body2">Advertisement</Typography>
-            </Box>
-          </Box>
-        </Box>
-      </Paper>
-    </Grid>
-  );
-}
 
 export default function Media({ videos }: { videos: any[] }) {
   const router = useRouter();
@@ -74,7 +20,7 @@ export default function Media({ videos }: { videos: any[] }) {
       {videos.map((video, index) => {
         return (
           <>
-            {index % 6 == 1 && <Advertisement />}
+            {index % 6 == 1 && getVideoListBanners(locale)}
             <Grid key={video.id} item xs={6} md={4} lg={3} xl={2.4}>
               <Link
                 href={"/videos/" + video.id}

@@ -8,7 +8,7 @@ export default function Footer() {
   const { t } = useTranslation();
   return (
     <footer>
-      <Container maxWidth={"md"} sx={{ mt: 10, mb: 2 }}>
+      <Container maxWidth={"md"} sx={{ mt: 6, mb: 2 }}>
         <Typography
           variant="body1"
           align="center"
