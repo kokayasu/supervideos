@@ -12,6 +12,7 @@ import PageContainer from "@src/PageContainer";
 import Title from "@src/Title";
 import Video from "@src/Video";
 import VideoList from "@src/VideoList";
+import { getThinHorizontalBanner, getVideoSideBanners } from "@src/adUtils";
 import { searchVideoById, searchVideosByCategory } from "@src/db";
 import { getTitle, shuffleArray, translate } from "@src/utils";
 
@@ -75,21 +76,14 @@ export default function Home({
         <Video video={video} />
         <Divider sx={{ my: 2 }} />
       </Grid>
+
       <Grid lg={4} sx={{ p: { xs: 0, sm: 1 } }}>
-        <Box sx={{ textAlign: "center" }}>
-          <iframe
-            src="https://sefsdvc.com/en/us/media/dynamic/id?zid=11922&pid=0&custom1=&custom2=60670&custom3=%7Btransaction_id%7D&custom6=&custom7=PUB_295130&cturl=https://t.irtyf.com/ihxg01j1ds?file_id=252623&aff_id=295130&offer_id=3788&aff_sub=&url="
-            width="300"
-            height="250"
-          ></iframe>
-          <iframe
-            src="https://sefsdvc.com/en/us/media/dynamic/id?zid=11922&pid=0&custom1=&custom2=60670&custom3=%7Btransaction_id%7D&custom6=&custom7=PUB_295130&cturl=https://t.irtyf.com/ihxg01j1ds?file_id=252623&aff_id=295130&offer_id=3788&aff_sub=&url="
-            width="300"
-            height="250"
-          ></iframe>
-        </Box>
+        {getVideoSideBanners(locale)}
       </Grid>
       <Grid lg={16}>
+        <Box sx={{ textAlign: "center" }}>
+          {getThinHorizontalBanner(locale)}
+        </Box>
         <Title title={translate(t, "MoreVideos")} />
         <VideoList videos={moreVideos} />
       </Grid>

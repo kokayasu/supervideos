@@ -24,6 +24,18 @@ module.exports = {
         port: "",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "www.imglnkd.com",
+        port: "",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "affiliate.dtiserv.com",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
 };

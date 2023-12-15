@@ -1,3 +1,6 @@
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/system";
+
 import * as categoryTranslationsJson from "@src/categoryTranslations.json";
 
 export function generateLocalizedUrl(locale: string, path: string) {

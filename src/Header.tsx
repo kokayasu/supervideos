@@ -20,6 +20,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { GrHomeRounded } from "react-icons/gr";
 import { IoGameControllerOutline } from "react-icons/io5";
 
+import { getAdLink } from "./adUtils";
 import { getCategories, translate, translateCategory } from "./utils";
 
 const sections: { [key: string]: any }[] = [
@@ -34,21 +35,18 @@ const sections: { [key: string]: any }[] = [
   {
     id: "livecam",
     icon: BsCameraVideo,
-    link: "https://t.acam-2.com/295130/2676/0?bo=2779,2778,2777,2776,2775&po=6533",
     en: "Live Cam",
     ja: "ライブカメラ",
   },
   {
     id: "meetup",
     icon: FaRegHeart,
-    link: "https://t.affenhance.com/295130/6954/0?bo=2753,2754,2755,2756&po=6456",
     en: "Online Dating",
     ja: "出会い",
   },
   {
     id: "onlinegame",
     icon: IoGameControllerOutline,
-    link: "https://t.aagm.link/295130/7538/0?bo=3511,3512,3521,3522",
     en: "Online Game",
     ja: "オンラインゲーム",
   },
@@ -212,7 +210,7 @@ export default function Header() {
                 return (
                   <a
                     key={section.id}
-                    href={section.link}
+                    href={getAdLink(section.id, locale)}
                     style={{
                       textDecoration: "none",
                       color: "inherit",
