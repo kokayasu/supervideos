@@ -1,3 +1,4 @@
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 import { GetStaticPropsContext } from "next";
@@ -12,6 +13,7 @@ import PageContainer from "@src/PageContainer";
 import Pagination from "@src/Pagination";
 import Title from "@src/Title";
 import VideoList from "@src/VideoList";
+import { getThinHorizontalBanner } from "@src/adUtils";
 import { getVideoCountSearchByCategory, searchVideosByCategory } from "@src/db";
 import {
   getLastPageNum,
@@ -111,6 +113,9 @@ export default function Home({
         <meta name="keywords" content={category} />
       </Head>
       <Grid lg={16}>
+        <Box display={{ xs: "none", md: "block" }}>
+          {getThinHorizontalBanner(locale)}
+        </Box>
         <Title
           title={translate(t, "CategoryVideos", {
             category: translatedCategory,
