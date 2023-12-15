@@ -73,29 +73,27 @@ export function getThinHorizontalBanner(locale: string) {
       <>
         <Box display={{ xs: "block", md: "none" }} sx={{ textAlign: "center" }}>
           <a
-            href="https://click.dtiserv2.com/Click190/1018041-18-233441"
+            href="https://t.ajrkm1.com/295130/6224/0?bo=2779,2778,2777,2776,2775&file_id=595531&po=6533&aff_sub4=AT_0002"
             target="_blank"
-            rel="noopener"
           >
             <Image
-              alt="広告"
-              src="https://affiliate.dtiserv.com/image/1pondo/1018041.jpg"
-              width={300}
-              height={250}
+              src="https://www.imglnkd.com/6224/SHOWS-638_DESIGN-14568_November13th_300x250_v3.gif"
+              alt="jerkmake advertisement"
+              width="300"
+              height="250"
             />
           </a>
         </Box>
         <Box display={{ xs: "none", md: "block" }} sx={{ textAlign: "center" }}>
           <a
-            href="https://click.dtiserv2.com/Direct/1352031-352-233441"
+            href="https://t.ajrkm1.com/295130/6224/0?bo=2779,2778,2777,2776,2775&file_id=594929&po=6533&aff_sub4=AT_0002"
             target="_blank"
-            rel="noopener"
           >
             <Image
-              src="https://affiliate.dtiserv.com/image/heydouga/728_90.jpg"
-              alt="広告"
-              width={728}
-              height={90}
+              src="https://www.imglnkd.com/6224/007422A_JRKM_18_ALL_EN_125_L.gif"
+              alt="jerkmake advertisement"
+              width="728"
+              height="90"
             />
           </a>
         </Box>
@@ -143,29 +141,27 @@ export function getThickHorizontalBanner(locale: string) {
       <>
         <Box display={{ xs: "block", md: "none" }} sx={{ textAlign: "center" }}>
           <a
-            href="https://click.dtiserv2.com/Click190/1018041-18-233441"
+            href="https://t.acam-2.com/295130/7946/0?bo=2779,2778,2777,2776,2775&file_id=547013&po=6533&aff_sub4=AT_0002"
             target="_blank"
-            rel="noopener"
           >
             <Image
-              alt="広告"
-              src="https://affiliate.dtiserv.com/image/1pondo/1018041.jpg"
-              width={300}
-              height={250}
+              src="https://www.imglnkd.com/7946/AliceGif300xx250.gif"
+              alt="bimbim advertisement"
+              width="300"
+              height="250"
             />
           </a>
         </Box>
         <Box display={{ xs: "none", md: "block" }} sx={{ textAlign: "center" }}>
           <a
-            href="https://click.dtiserv2.com/Click/1290020-290-233441"
+            href="https://t.ajrkm1.com/295130/8780/0?bo=2779,2778,2777,2776,2775&file_id=593930&po=6533&aff_sub4=AT_0002"
             target="_blank"
-            rel="noopener"
           >
             <Image
-              alt="広告"
-              src="https://affiliate.dtiserv.com/image/carib_ppv/900_250.jpg"
-              width={900}
-              height={250}
+              src="https://www.imglnkd.com/8780/009946A_JRKM_18_ALL_EN_125_L.gif"
+              alt="jarkmate advertisement"
+              width="728"
+              height="90"
             />
           </a>
         </Box>
@@ -375,7 +371,44 @@ export function getVideoListBanners(locale: string) {
     </a>,
   ];
 
-  const bannersDefault = [];
+  const bannersDefault = [
+    <a
+      key={1}
+      href="https://t.acam-2.com/295130/1639/0?bo=2779,2778,2777,2776,2775&file_id=180980&po=6533&aff_sub4=AT_0002"
+      target="_blank"
+    >
+      <Image
+        src="https://www.imglnkd.com/1639/002807A_SODA_18_ALL_EN_71_E.gif"
+        alt="cam soda advertisement"
+        style={{ objectFit: "scale-down" }}
+        fill
+      />
+    </a>,
+    <a
+      key={2}
+      href="https://t.acam-2.com/295130/1639/0?bo=2779,2778,2777,2776,2775&file_id=180955&po=6533&aff_sub4=AT_0002"
+      target="_blank"
+    >
+      <Image
+        src="https://www.imglnkd.com/1639/002804A_SODA_18_ALL_EN_71_E.gif"
+        alt="cam soda advertisement"
+        style={{ objectFit: "scale-down" }}
+        fill
+      />
+    </a>,
+    <a
+      key={3}
+      href="https://t.acam-2.com/295130/1639/0?bo=2779,2778,2777,2776,2775&file_id=181005&po=6533&aff_sub4=AT_0002"
+      target="_blank"
+    >
+      <Image
+        src="https://www.imglnkd.com/1639/002812A_SODA_18_ALL_EN_71_E.gif"
+        alt="cam soda advertisement"
+        style={{ objectFit: "scale-down" }}
+        fill
+      />
+    </a>,
+  ];
 
   let adComponent = null;
   if (locale === "ja") {
@@ -383,7 +416,7 @@ export function getVideoListBanners(locale: string) {
     adComponent = bannersJa[randomIndex];
   } else {
     const randomIndex = Math.floor(Math.random() * bannersDefault.length);
-    adComponent = bannersJa[randomIndex];
+    adComponent = bannersDefault[randomIndex];
   }
 
   return (

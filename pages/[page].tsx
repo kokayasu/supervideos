@@ -1,18 +1,18 @@
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 import { GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 
-import Ads from "@src/Ads";
 import CategoryList from "@src/CategoryList";
 import PageContainer from "@src/PageContainer";
 import Pagination from "@src/Pagination";
 import Title from "@src/Title";
 import VideoList from "@src/VideoList";
+import { getThinHorizontalBanner } from "@src/adUtils";
 import { getVideos } from "@src/db";
 import { getPopularCategories, translate } from "@src/utils";
 
@@ -60,6 +60,8 @@ export default function Home({
   page: string;
 }) {
   const { t } = useTranslation();
+  const router = useRouter();
+  const locale: string = router.locale as string;
 
   return (
     <PageContainer>
@@ -72,12 +74,15 @@ export default function Home({
         <meta name="keywords" content="" />
       </Head>
       <Grid lg={16}>
+        <Box display={{ xs: "none", md: "block" }}>
+          {getThinHorizontalBanner(locale)}
+        </Box>
         <Title title={translate(t, "PopularCategories")} />
         <CategoryList categories={categories} />
         <Box sx={{ my: 3 }} />
         <Title title={translate(t, "PopularVideos")} />
         <VideoList videos={videos} />
-        <Pagination page={parseInt(page)} linkPath={""} videoCount={3000} />
+        <Pagination page={parseInt(page)} linkPath={""} videoCount={2000} />
       </Grid>
     </PageContainer>
   );
