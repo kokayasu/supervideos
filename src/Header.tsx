@@ -20,6 +20,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { GrHomeRounded } from "react-icons/gr";
 import { IoGameControllerOutline } from "react-icons/io5";
 
+import LanguageDropdown from "./LanguageDropdown";
 import { getAdLink } from "./adUtils";
 import { getCategories, translate, translateCategory } from "./utils";
 
@@ -182,6 +183,7 @@ export default function Header() {
               </form>
             </Search>
             <div style={{ flexGrow: 1 }} />
+            <LanguageDropdown />
           </Toolbar>
           <Toolbar
             component="nav"
