@@ -114,7 +114,7 @@ export default function Home({
       </Head>
       <Grid lg={16}>
         <Box display={{ xs: "none", md: "block" }}>
-          {getThinHorizontalBanner(locale)}
+          {getThinHorizontalBanner(locale, true)}
         </Box>
         <Title
           title={translate(t, "CategoryVideos", {

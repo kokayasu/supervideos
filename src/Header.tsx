@@ -105,7 +105,6 @@ export default function Header() {
     if (buttonRef.current) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
       const buttonBottom = buttonRect.bottom + window.scrollY;
-      const buttonHeight = buttonRect.height;
 
       // Calculate the top position for HoverPaper
       const topPosition = `${buttonBottom}px`;
@@ -198,12 +197,13 @@ export default function Header() {
                     ref={buttonRef}
                     onMouseEnter={() => setShow(true)}
                     onMouseLeave={() => setShow(false)}
+                    aria-label={section[locale]}
                     sx={{ height: 50 }}
                   >
-                    <section.icon style={{ marginRight: "4px" }} />
                     {isMdScreen && (
-                      <Typography variant="h6">{section[locale]}</Typography>
+                      <section.icon style={{ marginRight: "4px" }} />
                     )}
+                    <Typography variant="h6">{section[locale]}</Typography>
                   </Button>
                 );
               } else {
@@ -217,11 +217,15 @@ export default function Header() {
                     }}
                     target={section.id === "home" ? undefined : "_blank"}
                   >
-                    <Button color={"inherit"} sx={{ height: 50 }}>
-                      <section.icon style={{ marginRight: "4px" }} />
+                    <Button
+                      color={"inherit"}
+                      sx={{ height: 50 }}
+                      aria-label={section[locale]}
+                    >
                       {isMdScreen && (
-                        <Typography variant="h6">{section[locale]}</Typography>
+                        <section.icon style={{ marginRight: "4px" }} />
                       )}
+                      <Typography variant="h6">{section[locale]}</Typography>
                     </Button>
                   </a>
                 );

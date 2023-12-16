@@ -34,7 +34,10 @@ export function getOnlineGameAdLink(locale: string) {
   return "https://t.aagm.link/295130/7538/0?bo=3511,3512,3521,3522";
 }
 
-export function getThinHorizontalBanner(locale: string) {
+export function getThinHorizontalBanner(
+  locale: string,
+  priority: boolean = false
+) {
   if (locale === "ja") {
     return (
       <>
@@ -45,6 +48,7 @@ export function getThinHorizontalBanner(locale: string) {
             rel="noopener"
           >
             <Image
+              priority={priority}
               src="https://affiliate.dtiserv.com/image/1pondo/1018041.jpg"
               alt="広告"
               width={300}
@@ -59,6 +63,7 @@ export function getThinHorizontalBanner(locale: string) {
             rel="noopener"
           >
             <Image
+              priority={priority}
               src="https://affiliate.dtiserv.com/image/heydouga/728_90.jpg"
               alt="広告"
               width={728}
@@ -77,6 +82,7 @@ export function getThinHorizontalBanner(locale: string) {
             target="_blank"
           >
             <Image
+              priority={priority}
               src="https://www.imglnkd.com/6224/SHOWS-638_DESIGN-14568_November13th_300x250_v3.gif"
               alt="jerkmake advertisement"
               width="300"
@@ -90,6 +96,7 @@ export function getThinHorizontalBanner(locale: string) {
             target="_blank"
           >
             <Image
+              priority={priority}
               src="https://www.imglnkd.com/6224/007422A_JRKM_18_ALL_EN_125_L.gif"
               alt="jerkmake advertisement"
               width="728"
@@ -300,7 +307,6 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://affiliate.dtiserv.com/image/carib/1006021.jpg"
         alt="advertisement"
-        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -313,7 +319,6 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://affiliate.dtiserv.com/image/dxlive/2103057.gif"
         alt="advertisement"
-        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -326,7 +331,6 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://affiliate.dtiserv.com/image/paco/3day_300_250.jpg"
         alt="advertisement"
-        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -339,7 +343,6 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://affiliate.dtiserv.com/image/10musume/3day_300_250.jpg"
         alt="advertisement"
-        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -352,7 +355,6 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://affiliate.dtiserv.com/image/1pondo/300_250.jpg"
         alt="advertisement"
-        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -365,7 +367,6 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://affiliate.dtiserv.com/image/carib/300_250.jpg"
         alt="advertisement"
-        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -380,7 +381,6 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://www.imglnkd.com/1639/002807A_SODA_18_ALL_EN_71_E.gif"
         alt="cam soda advertisement"
-        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -392,7 +392,6 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://www.imglnkd.com/1639/002804A_SODA_18_ALL_EN_71_E.gif"
         alt="cam soda advertisement"
-        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -404,7 +403,6 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://www.imglnkd.com/1639/002812A_SODA_18_ALL_EN_71_E.gif"
         alt="cam soda advertisement"
-        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,

@@ -41,12 +41,14 @@ export default function Media({ videos }: { videos: any[] }) {
                     }}
                   >
                     <Image
+                      priority={index <= 8}
                       src={
                         isDev
                           ? "https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ"
                           : video.thumbnail
                       }
                       alt={getTitle(video, locale)}
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                       style={{ objectFit: "cover" }}
                       fill
                     />
