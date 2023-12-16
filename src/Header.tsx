@@ -210,7 +210,11 @@ export default function Header() {
                 return (
                   <a
                     key={section.id}
-                    href={getAdLink(section.id, locale)}
+                    href={
+                      section.id === "home"
+                        ? "/"
+                        : getAdLink(section.id, locale)
+                    }
                     style={{
                       textDecoration: "none",
                       color: "inherit",

@@ -307,6 +307,7 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://affiliate.dtiserv.com/image/carib/1006021.jpg"
         alt="advertisement"
+        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -319,6 +320,7 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://affiliate.dtiserv.com/image/dxlive/2103057.gif"
         alt="advertisement"
+        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -331,6 +333,7 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://affiliate.dtiserv.com/image/paco/3day_300_250.jpg"
         alt="advertisement"
+        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -343,6 +346,7 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://affiliate.dtiserv.com/image/10musume/3day_300_250.jpg"
         alt="advertisement"
+        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -355,6 +359,7 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://affiliate.dtiserv.com/image/1pondo/300_250.jpg"
         alt="advertisement"
+        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -367,6 +372,7 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://affiliate.dtiserv.com/image/carib/300_250.jpg"
         alt="advertisement"
+        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -381,6 +387,7 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://www.imglnkd.com/1639/002807A_SODA_18_ALL_EN_71_E.gif"
         alt="cam soda advertisement"
+        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -392,6 +399,7 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://www.imglnkd.com/1639/002804A_SODA_18_ALL_EN_71_E.gif"
         alt="cam soda advertisement"
+        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
@@ -403,6 +411,7 @@ export function getVideoListBanners(locale: string) {
       <Image
         src="https://www.imglnkd.com/1639/002812A_SODA_18_ALL_EN_71_E.gif"
         alt="cam soda advertisement"
+        style={{ objectFit: "scale-down" }}
         fill
       />
     </a>,
