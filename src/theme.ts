@@ -45,6 +45,13 @@ const theme = createTheme({
       fontSize: "1.2rem",
       fontWeight: 700,
     },
+    h3: {
+      fontWeight: 700,
+      fontSize: ".7rem",
+      "@media (min-width:600px)": {
+        fontSize: ".8rem",
+      },
+    },
     h4: {
       fontSize: "1.2rem",
       fontWeight: 700,

@@ -203,7 +203,7 @@ export default function Header() {
                     {isMdScreen && (
                       <section.icon style={{ marginRight: "4px" }} />
                     )}
-                    <Typography variant="h6">{section[locale]}</Typography>
+                    <Typography variant="h3">{section[locale]}</Typography>
                   </Button>
                 );
               } else {
@@ -229,7 +229,7 @@ export default function Header() {
                       {isMdScreen && (
                         <section.icon style={{ marginRight: "4px" }} />
                       )}
-                      <Typography variant="h6">{section[locale]}</Typography>
+                      <Typography variant="h3">{section[locale]}</Typography>
                     </Button>
                   </a>
                 );
