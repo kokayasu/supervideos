@@ -210,7 +210,8 @@ export default function Header() {
                 );
               } else {
                 return (
-                  <a
+                  <Link
+                    prefetch={false}
                     key={section.id}
                     href={
                       section.id === "home"
@@ -233,7 +234,7 @@ export default function Header() {
                       )}
                       <Typography variant="h3">{section[locale]}</Typography>
                     </Button>
-                  </a>
+                  </Link>
                 );
               }
             })}

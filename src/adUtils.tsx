@@ -11,6 +11,8 @@ export function getAdLink(id: string, locale: string) {
     return getMeetupAdLink(locale);
   } else if (id === "onlinegame") {
     return getOnlineGameAdLink(locale);
+  } else {
+    return "";
   }
 }
 
