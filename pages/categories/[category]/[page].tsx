@@ -126,7 +126,9 @@ export default function Home({
         />
         {videos.length === 0 ? (
           <Typography mt={2}>
-            {translate(t, "SearchResultNotFound", { words: category })}
+            {translate(t, "SearchResultNotFound", {
+              words: translatedCategory,
+            })}
           </Typography>
         ) : (
           <>
