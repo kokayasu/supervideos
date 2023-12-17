@@ -22,14 +22,13 @@ import { IoGameControllerOutline } from "react-icons/io5";
 
 import LanguageDropdown from "./LanguageDropdown";
 import { getAdLink } from "./adUtils";
-import { getCategories, translate, translateCategory } from "./utils";
+import { getCategories, translateCategory } from "./utils";
 
 const sections: { [key: string]: any }[] = [
   { id: "home", icon: GrHomeRounded, link: "/", en: "Home", ja: "ホーム" },
   {
     id: "categories",
     icon: BiCategory,
-    link: "/",
     en: "Categories",
     ja: "カテゴリー",
   },
