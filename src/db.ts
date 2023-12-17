@@ -72,14 +72,15 @@ export async function getVideoCountSearchByWords(
 }
 
 export async function getVideoCountSearchByCategory(
-  category: string
+  category: string,
+  locale: string
 ): Promise<number> {
+  const formatted_category = category.replaceAll("-", "_");
   const query = `
-        SELECT video_count FROM categories
-        WHERE id = $1
+        SELECT count(*) FROM mv_${formatted_category}_${locale}
     `;
-  const result = await conn!.query(query, [category]);
-  return result.rows[0].video_count;
+  const result = await conn!.query(query, []);
+  return result.rows[0].count;
 }
 
 export async function searchVideosByWords(
@@ -141,4 +142,8 @@ export async function getTopCategories(): Promise<any> {
         SELECT * FROM categories LIMIT 15;
     `;
   return (await conn!.query(query)).rows;
+}
+
+export function getLastPageNum(videoCount: number) {
+  return Math.ceil(videoCount / NUM_VIDEOS_IN_PAGE);
 }

@@ -14,9 +14,12 @@ import Pagination from "@src/Pagination";
 import Title from "@src/Title";
 import VideoList from "@src/VideoList";
 import { getThinHorizontalBanner } from "@src/adUtils";
-import { getVideoCountSearchByCategory, searchVideosByCategory } from "@src/db";
 import {
   getLastPageNum,
+  getVideoCountSearchByCategory,
+  searchVideosByCategory,
+} from "@src/db";
+import {
   getPopularCategories,
   shuffleArray,
   translate,
@@ -55,7 +58,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 
   try {
-    const videoCount = await getVideoCountSearchByCategory(category);
+    const videoCount = await getVideoCountSearchByCategory(category, locale);
     if (pageNum > getLastPageNum(videoCount)) return { notFound: true };
     const videos = shuffleArray(
       await searchVideosByCategory(locale, category, pageNum)

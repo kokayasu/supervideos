@@ -68,10 +68,6 @@ export function getPopularCategories(rows: any): string[] {
   return sortedCategories.slice(0, 15);
 }
 
-export function getLastPageNum(videoCount: number) {
-  return Math.ceil(videoCount / 30);
-}
-
 export function getTitle(video: any, locale: string) {
   const dynamicTitleKey = `title_${locale}`;
   if (video[dynamicTitleKey] && video[dynamicTitleKey].trim() !== "") {
