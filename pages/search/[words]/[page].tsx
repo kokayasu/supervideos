@@ -33,7 +33,18 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
   try {
     const videos = await searchVideosByWords(words, pageNum);
+    if (pageNum > 1 && videos.length === 0) {
+      const encodedWords = encodeURIComponent(words as string);
+      return {
+        redirect: {
+          destination: `/${locale}/search/${encodedWords}/1`,
+          permanent: false,
+        },
+      };
+    }
+    const nextPagevideos = await searchVideosByWords(words, pageNum + 1);
     const moreCategories = getPopularCategories(videos);
+    const nextPageExist = nextPagevideos.length > 0;
     const otherCategories = [];
     for (const row of await getTopCategories()) {
       otherCategories.push(row.id);
@@ -50,6 +61,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         moreCategories,
         otherCategories,
         page: pageNum,
+        nextPageExist,
         ...translations,
       },
     };
@@ -59,12 +71,13 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default function Home({
+export default function SearchByWords({
   words,
   videos,
   moreCategories,
   otherCategories,
   page,
+  nextPageExist,
 }: {
   words: string;
   videos: any[];
@@ -72,6 +85,7 @@ export default function Home({
   moreCategories: any[];
   otherCategories: any[];
   page: number;
+  nextPageExist: boolean;
 }) {
   const { t } = useTranslation();
   return (
@@ -88,9 +102,16 @@ export default function Home({
         {videos.length == 0 ? (
           <>
             <Title title={translate(t, "SearchResult", { words })} />
-            <Typography sx={{ mb: 10 }}>
-              {translate(t, "SearchResultNotFound", { words })}
-            </Typography>
+            {page == 1 ? (
+              <Typography sx={{ mb: 10 }}>
+                {translate(t, "SearchResultNotFound", { words })}
+              </Typography>
+            ) : (
+              <Typography sx={{ mb: 10 }}>
+                hello???
+                {translate(t, "SearchResultNotFound", { words })}
+              </Typography>
+            )}
             <Title title={translate(t, "MoreCategories")} />
             <CategoryList categories={otherCategories} />
           </>
@@ -110,16 +131,18 @@ export default function Home({
                   </Link>
                 </Button>
               )}
-              {page > 1 && <Box mx={2}></Box>}
-              <Button variant="contained" disableElevation>
-                <Link
-                  href={`/search/${words}/${page + 1}`}
-                  prefetch={false}
-                  style={{ color: "inherit", textDecoration: "none" }}
-                >
-                  Next
-                </Link>
-              </Button>
+              {page > 1 && nextPageExist && <Box mx={2}></Box>}
+              {nextPageExist && (
+                <Button variant="contained" disableElevation>
+                  <Link
+                    href={`/search/${words}/${page + 1}`}
+                    prefetch={false}
+                    style={{ color: "inherit", textDecoration: "none" }}
+                  >
+                    Next
+                  </Link>
+                </Button>
+              )}
             </Box>
             <Title title={translate(t, "RelatedCategories")} />
             <CategoryList categories={moreCategories} />
