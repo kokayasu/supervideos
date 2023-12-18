@@ -298,172 +298,61 @@ export function getVideoSideBanners(locale: string) {
   }
 }
 
-export function getVideoListBanners(locale: string) {
+export function getVideoListAd(locale: string, idx: number) {
   const bannersJa = [
-    <a
-      key={1}
-      href="https://click.dtiserv2.com/Click190/1006021-6-233441"
-      target="_blank"
-      rel="noopener"
-    >
-      <Image
-        src="https://affiliate.dtiserv.com/image/carib/1006021.jpg"
-        alt="advertisement"
-        style={{ objectFit: "scale-down" }}
-        fill
-      />
-    </a>,
-    <a
-      key={2}
-      href="https://click.dtiserv2.com/Click/2103057-103-233441"
-      target="_blank"
-      rel="noopener"
-    >
-      <Image
-        src="https://affiliate.dtiserv.com/image/dxlive/2103057.gif"
-        alt="advertisement"
-        style={{ objectFit: "scale-down" }}
-        fill
-      />
-    </a>,
-    <a
-      key={3}
-      href="https://click.dtiserv2.com/Click190/2320005-320-233441"
-      target="_blank"
-      rel="noopener"
-    >
-      <Image
-        src="https://affiliate.dtiserv.com/image/paco/3day_300_250.jpg"
-        alt="advertisement"
-        style={{ objectFit: "scale-down" }}
-        fill
-      />
-    </a>,
-    <a
-      key={4}
-      href="https://click.dtiserv2.com/Click190/1292019-292-233441"
-      target="_blank"
-      rel="noopener"
-    >
-      <Image
-        src="https://affiliate.dtiserv.com/image/10musume/3day_300_250.jpg"
-        alt="advertisement"
-        style={{ objectFit: "scale-down" }}
-        fill
-      />
-    </a>,
-    <a
-      key={5}
-      href="https://click.dtiserv2.com/Click2/1018023-18-233441"
-      target="_blank"
-      rel="noopener"
-    >
-      <Image
-        src="https://affiliate.dtiserv.com/image/1pondo/300_250.jpg"
-        alt="advertisement"
-        style={{ objectFit: "scale-down" }}
-        fill
-      />
-    </a>,
-    <a
-      key={6}
-      href="https://click.dtiserv2.com/Click2/1006033-6-233441"
-      target="_blank"
-      rel="noopener"
-    >
-      <Image
-        src="https://affiliate.dtiserv.com/image/carib/300_250.jpg"
-        alt="advertisement"
-        style={{ objectFit: "scale-down" }}
-        fill
-      />
-    </a>,
+    {
+      href: "https://click.dtiserv2.com/Click190/1006021-6-233441",
+      description: "",
+      imageSrc: "https://affiliate.dtiserv.com/image/carib/1006021.jpg",
+    },
+    {
+      href: "https://click.dtiserv2.com/Click/2103057-103-233441",
+      description: "",
+      imageSrc: "https://affiliate.dtiserv.com/image/dxlive/2103057.gif",
+    },
+    {
+      href: "https://click.dtiserv2.com/Click190/2320005-320-233441",
+      description: "",
+      imageSrc: "https://affiliate.dtiserv.com/image/paco/3day_300_250.jpg",
+    },
+    {
+      href: "https://click.dtiserv2.com/Click190/1292019-292-233441",
+      description: "",
+      imageSrc: "https://affiliate.dtiserv.com/image/10musume/3day_300_250.jpg",
+    },
+    {
+      href: "https://click.dtiserv2.com/Click2/1018023-18-233441",
+      description: "",
+      imageSrc: "https://affiliate.dtiserv.com/image/1pondo/300_250.jpg",
+    },
+    {
+      href: "https://click.dtiserv2.com/Click2/1006033-6-233441",
+      description: "",
+      imageSrc: "https://affiliate.dtiserv.com/image/carib/300_250.jpg",
+    },
   ];
 
   const bannersDefault = [
-    <a
-      key={1}
-      href="https://t.acam-2.com/295130/1639/0?bo=2779,2778,2777,2776,2775&file_id=180980&po=6533&aff_sub4=AT_0002"
-      target="_blank"
-    >
-      <Image
-        src="https://www.imglnkd.com/1639/002807A_SODA_18_ALL_EN_71_E.gif"
-        alt="cam soda advertisement"
-        style={{ objectFit: "scale-down" }}
-        fill
-      />
-    </a>,
-    <a
-      key={2}
-      href="https://t.acam-2.com/295130/1639/0?bo=2779,2778,2777,2776,2775&file_id=180955&po=6533&aff_sub4=AT_0002"
-      target="_blank"
-    >
-      <Image
-        src="https://www.imglnkd.com/1639/002804A_SODA_18_ALL_EN_71_E.gif"
-        alt="cam soda advertisement"
-        style={{ objectFit: "scale-down" }}
-        fill
-      />
-    </a>,
-    <a
-      key={3}
-      href="https://t.acam-2.com/295130/1639/0?bo=2779,2778,2777,2776,2775&file_id=181005&po=6533&aff_sub4=AT_0002"
-      target="_blank"
-    >
-      <Image
-        src="https://www.imglnkd.com/1639/002812A_SODA_18_ALL_EN_71_E.gif"
-        alt="cam soda advertisement"
-        style={{ objectFit: "scale-down" }}
-        fill
-      />
-    </a>,
+    {
+      description: "cam soda advertisement 1",
+      href: "https://t.acam-2.com/295130/1639/0?bo=2779,2778,2777,2776,2775&file_id=180980&po=6533&aff_sub4=AT_0002",
+      imageSrc: "https://www.imglnkd.com/1639/002807A_SODA_18_ALL_EN_71_E.gif",
+    },
+    {
+      description: "cam soda advertisement 2",
+      href: "https://t.acam-2.com/295130/1639/0?bo=2779,2778,2777,2776,2775&file_id=180955&po=6533&aff_sub4=AT_0002",
+      imageSrc: "https://www.imglnkd.com/1639/002804A_SODA_18_ALL_EN_71_E.gif",
+    },
+    {
+      description: "cam soda advertisement 3",
+      href: "https://t.acam-2.com/295130/1639/0?bo=2779,2778,2777,2776,2775&file_id=181005&po=6533&aff_sub4=AT_0002",
+      imageSrc: "https://www.imglnkd.com/1639/002812A_SODA_18_ALL_EN_71_E.gif",
+    },
   ];
 
-  let adComponent = null;
   if (locale === "ja") {
-    const randomIndex = Math.floor(Math.random() * bannersJa.length);
-    adComponent = bannersJa[randomIndex];
+    return bannersJa[idx];
   } else {
-    const randomIndex = Math.floor(Math.random() * bannersDefault.length);
-    adComponent = bannersDefault[randomIndex];
+    return bannersDefault[idx];
   }
-
-  return (
-    <Grid item xs={6} md={4} lg={3} xl={2.4}>
-      <Paper variant="outlined" sx={{ m: 0.5, borderRadius: "4px" }}>
-        <Box
-          style={{
-            position: "relative",
-            overflow: "hidden",
-            borderTopLeftRadius: "4px",
-            borderTopRightRadius: "4px",
-          }}
-        >
-          <div
-            style={{
-              paddingTop: "75%",
-              position: "relative",
-              backgroundColor: "black",
-            }}
-          >
-            {adComponent}
-          </div>
-        </Box>
-        <Box sx={{ p: 1 }}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            overflow="hidden"
-            textOverflow="ellipsis"
-            sx={{ height: "2.7em" }}
-          ></Typography>
-          <Box display="flex" alignItems="center">
-            <Box display="flex" alignItems="left">
-              <Typography variant="body2">Advertisement</Typography>
-            </Box>
-          </Box>
-        </Box>
-      </Paper>
-    </Grid>
-  );
 }

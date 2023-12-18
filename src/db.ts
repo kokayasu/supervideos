@@ -1,7 +1,7 @@
 import { Pool } from "pg";
 import { QueryResult } from "pg";
 
-export const NUM_VIDEOS_IN_PAGE = 20;
+export const NUM_VIDEOS_IN_PAGE = 19;
 
 let conn: Pool | null = null;
 if (!conn) {
