@@ -19,7 +19,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
 export default function TermsOfService() {
   return (
-    <PageContainer>
+    <PageContainer includeTopAd={false} includeBottomAd={false}>
       <Head>
         <title>Terms Of Service | VideoPurple</title>
         <meta name="description" content="Terms Of Service" />

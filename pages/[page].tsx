@@ -12,7 +12,6 @@ import PageContainer from "@src/PageContainer";
 import Pagination from "@src/Pagination";
 import Title from "@src/Title";
 import VideoList from "@src/VideoList";
-import { getThinHorizontalBanner } from "@src/adUtils";
 import { getVideos } from "@src/db";
 import { getPopularCategories, translate } from "@src/utils";
 
@@ -61,7 +60,6 @@ export default function Home({
 }) {
   const { t } = useTranslation();
   const router = useRouter();
-  const locale: string = router.locale as string;
 
   return (
     <PageContainer>
@@ -74,9 +72,6 @@ export default function Home({
         <meta name="keywords" content="" />
       </Head>
       <Grid lg={16}>
-        <Box display={{ xs: "none", md: "block" }}>
-          {getThinHorizontalBanner(locale)}
-        </Box>
         <Title title={translate(t, "PopularCategories")} />
         <CategoryList categories={categories} />
         <Box sx={{ my: 3 }} />

@@ -13,7 +13,6 @@ import PageContainer from "@src/PageContainer";
 import Pagination from "@src/Pagination";
 import Title from "@src/Title";
 import VideoList from "@src/VideoList";
-import { getThinHorizontalBanner } from "@src/adUtils";
 import {
   getLastPageNum,
   getVideoCountSearchByCategory,
@@ -116,9 +115,6 @@ export default function Home({
         <meta name="keywords" content={category} />
       </Head>
       <Grid lg={16}>
-        <Box display={{ xs: "none", md: "block" }}>
-          {getThinHorizontalBanner(locale, true)}
-        </Box>
         <Title
           title={translate(t, "CategoryVideos", {
             category: translatedCategory,

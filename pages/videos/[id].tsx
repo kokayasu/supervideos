@@ -12,7 +12,7 @@ import PageContainer from "@src/PageContainer";
 import Title from "@src/Title";
 import Video from "@src/Video";
 import VideoList from "@src/VideoList";
-import { getThinHorizontalBanner, getVideoSideBanners } from "@src/adUtils";
+import { getVideoSideBanners } from "@src/adUtils";
 import { searchVideoById, searchVideosByCategory } from "@src/db";
 import { getTitle, shuffleArray, translate } from "@src/utils";
 
@@ -60,7 +60,7 @@ export default function Home({
   const locale: string = router.locale as string;
   const title = getTitle(video, locale);
   return (
-    <PageContainer>
+    <PageContainer includeTopAd={false}>
       <Head>
         <title>{title + " | VideoPurple"}</title>
         <meta
@@ -81,9 +81,6 @@ export default function Home({
         {getVideoSideBanners(locale)}
       </Grid>
       <Grid lg={16}>
-        <Box sx={{ textAlign: "center" }}>
-          {getThinHorizontalBanner(locale)}
-        </Box>
         <Title title={translate(t, "MoreVideos")} />
         <VideoList videos={moreVideos} />
       </Grid>

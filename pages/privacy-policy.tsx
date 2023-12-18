@@ -19,7 +19,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
 export default function PrivacyPolicy() {
   return (
-    <PageContainer>
+    <PageContainer includeTopAd={false} includeBottomAd={false}>
       <Head>
         <title>Privacy Policy | VideoPurple</title>
         <meta name="description" content="Privacy Policy" />
