@@ -1,7 +1,4 @@
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 import Image from "next/image";
 
 export function getAdLink(id: string, locale: string) {

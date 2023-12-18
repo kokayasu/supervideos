@@ -95,8 +95,6 @@ export async function searchVideosByWords(
     .map((_, index) => `title_orig LIKE $${index + 1}`)
     .join(" AND ");
 
-  console.log(likeConditions);
-
   const query = `
         SELECT * FROM videos
         WHERE ${likeConditions}
