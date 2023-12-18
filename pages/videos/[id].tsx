@@ -76,8 +76,7 @@ export default function Home({
         <Video video={video} />
         <Divider sx={{ my: 2 }} />
       </Grid>
-
-      <Grid lg={4} sx={{ p: { xs: 0, sm: 1 } }}>
+      <Grid xs={16} lg={4} sx={{ p: { xs: 0, sm: 1 } }}>
         {getVideoSideBanners(locale)}
       </Grid>
       <Grid lg={16}>

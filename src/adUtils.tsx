@@ -41,19 +41,12 @@ export function getThinHorizontalBanner(
     return (
       <>
         <Box display={{ xs: "block", md: "none" }} sx={{ textAlign: "center" }}>
-          <a
-            href="https://click.dtiserv2.com/Click190/1018041-18-233441"
-            target="_blank"
-            rel="noopener"
-          >
-            <Image
-              priority={priority}
-              src="https://affiliate.dtiserv.com/image/1pondo/1018041.jpg"
-              alt="広告"
-              width={300}
-              height={250}
-            />
-          </a>
+          <iframe
+            src="https://www.mmaaxx.com/genre/944400X/index300.html?affid=233441?genre=adult"
+            width="300"
+            height="60"
+            frameBorder="no"
+          ></iframe>
         </Box>
         <Box display={{ xs: "none", md: "block" }} sx={{ textAlign: "center" }}>
           <a
@@ -77,15 +70,14 @@ export function getThinHorizontalBanner(
       <>
         <Box display={{ xs: "block", md: "none" }} sx={{ textAlign: "center" }}>
           <a
-            href="https://t.ajrkm1.com/295130/6224/0?bo=2779,2778,2777,2776,2775&file_id=595531&po=6533&aff_sub4=AT_0002"
+            href="https://t.acam-2.com/295130/7946/0?bo=2779,2778,2777,2776,2775&file_id=547002&po=6533&aff_sub4=AT_0002"
             target="_blank"
           >
             <Image
-              priority={priority}
-              src="https://www.imglnkd.com/6224/SHOWS-638_DESIGN-14568_November13th_300x250_v3.gif"
-              alt="jerkmake advertisement"
+              alt="bimbim advertisement w300 h250"
+              src="https://www.imglnkd.com/7946/Brittney300xx100.jpg"
               width="300"
-              height="250"
+              height="100"
             />
           </a>
         </Box>
@@ -188,14 +180,27 @@ function getVideoSideBanner1(locale: string) {
     ></iframe>,
   ];
 
-  const bannersDefault = [];
+  const bannersDefault = [
+    <a
+      key={1}
+      href="https://t.ajrkm1.com/295130/8780/0?bo=2779,2778,2777,2776,2775&file_id=593936&po=6533&aff_sub4=AT_0002"
+      target="_blank"
+    >
+      <Image
+        alt="jarkmate advertisement w300 h250"
+        src="https://www.imglnkd.com/8780/008861B_JRKM_18_ALL_EN_71_L.gif"
+        width="300"
+        height="250"
+      />
+    </a>,
+  ];
 
   if (locale === "ja") {
     const randomIndex = Math.floor(Math.random() * bannersJa.length);
     return bannersJa[randomIndex];
   } else {
     const randomIndex = Math.floor(Math.random() * bannersDefault.length);
-    return bannersJa[randomIndex];
+    return bannersDefault[randomIndex];
   }
 }
 
@@ -210,14 +215,27 @@ function getVideoSideBanner2(locale: string) {
     ></iframe>,
   ];
 
-  const bannersDefault = [];
+  const bannersDefault = [
+    <a
+      key={1}
+      href="https://t.acam-2.com/295130/5409/0?bo=2779,2778,2777,2776,2775&file_id=300217&po=6533&aff_sub4=AT_0002"
+      target="_blank"
+    >
+      <Image
+        alt={"CAM4 advertisement w300 h250"}
+        src="https://www.imglnkd.com/5409/005869B_CAM4_18_ALL_EN_71_L.gif"
+        width="300"
+        height="250"
+      />
+    </a>,
+  ];
 
   if (locale === "ja") {
     const randomIndex = Math.floor(Math.random() * bannersJa.length);
     return bannersJa[randomIndex];
   } else {
     const randomIndex = Math.floor(Math.random() * bannersDefault.length);
-    return bannersJa[randomIndex];
+    return bannersDefault[randomIndex];
   }
 }
 
@@ -264,33 +282,71 @@ function getVideoSideBanner3(locale: string) {
     </a>,
   ];
 
-  const bannersDefault = [];
+  const bannersDefault = [
+    <a
+      key={1}
+      href="https://t.acam-2.com/295130/7946/0?bo=2779,2778,2777,2776,2775&file_id=547013&po=6533&aff_sub4=AT_0002"
+      target="_blank"
+    >
+      <Image
+        alt="bimbim w300 h250"
+        src="https://www.imglnkd.com/7946/AliceGif300xx250.gif"
+        width="300"
+        height="250"
+      />
+    </a>,
+  ];
 
   if (locale === "ja") {
     const randomIndex = Math.floor(Math.random() * bannersJa.length);
     return bannersJa[randomIndex];
   } else {
     const randomIndex = Math.floor(Math.random() * bannersDefault.length);
-    return bannersJa[randomIndex];
+    return bannersDefault[randomIndex];
   }
 }
 
 export function getVideoSideBanners(locale: string) {
   if (locale === "ja") {
     return (
-      <Box display={{ xs: "none", lg: "block" }} sx={{ textAlign: "center" }}>
-        {getVideoSideBanner1(locale)}
-        {getVideoSideBanner2(locale)}
-        {getVideoSideBanner3(locale)}
-      </Box>
+      <>
+        <Box display={{ xs: "block", lg: "none" }} sx={{ textAlign: "center" }}>
+          <iframe
+            src="https://www.mmaaxx.com/genre/944400X/index300.html?affid=233441?genre=adult"
+            width="300"
+            height="60"
+            frameBorder="no"
+          ></iframe>
+        </Box>
+        <Box display={{ xs: "none", lg: "block" }} sx={{ textAlign: "center" }}>
+          {getVideoSideBanner1(locale)}
+          {getVideoSideBanner2(locale)}
+          {getVideoSideBanner3(locale)}
+        </Box>
+      </>
     );
   } else {
     return (
-      <Box display={{ xs: "none", lg: "block" }}>
-        {getVideoSideBanner1(locale)}
-        {getVideoSideBanner2(locale)}
-        {getVideoSideBanner3(locale)}
-      </Box>
+      <>
+        <Box display={{ xs: "block", lg: "none" }} sx={{ textAlign: "center" }}>
+          <a
+            href="https://t.ajrkm1.com/295130/8780/0?bo=2779,2778,2777,2776,2775&file_id=593880&po=6533&aff_sub4=AT_0002"
+            target="_blank"
+          >
+            <Image
+              alt="jarkmate advertisement w300 h100"
+              src="https://www.imglnkd.com/8780/DESIGN_10636_BANN1.gif"
+              width="300"
+              height="100"
+            />
+          </a>
+        </Box>
+        <Box display={{ xs: "none", lg: "block" }}>
+          {getVideoSideBanner1(locale)}
+          {getVideoSideBanner2(locale)}
+          {getVideoSideBanner3(locale)}
+        </Box>
+      </>
     );
   }
 }

@@ -20,13 +20,10 @@ function generateVideoListItem(components: any, key: string) {
       item
       xs={6}
       lg={3}
+      xl={2.4}
       style={{ display: "flex", flexDirection: "column" }}
     >
-      <Paper
-        elevation={0}
-        variant={key.startsWith("ad-") ? "elevation" : "outlined"}
-        sx={{ m: 0.5, borderRadius: "4px", flex: 1 }}
-      >
+      <Paper variant={"outlined"} sx={{ m: 0.5, borderRadius: "4px", flex: 1 }}>
         {components}
       </Paper>
     </Grid>
@@ -44,8 +41,8 @@ function generateVideoComponent(video: any, priority: boolean, locale: string) {
         style={{
           width: "100%",
           height: 0,
-          paddingTop: "56.25%",
-          // paddingTop: "75%",
+          // paddingTop: "56.25%",
+          paddingTop: "75%",
           position: "relative",
           overflow: "hidden",
           borderTopLeftRadius: "4px",
@@ -61,7 +58,7 @@ function generateVideoComponent(video: any, priority: boolean, locale: string) {
           }
           alt={getTitle(video, locale)}
           sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-          style={{ objectFit: "fill" }}
+          style={{ objectFit: "cover" }}
           fill
         />
       </Box>
@@ -114,7 +111,8 @@ function generateAdComponent(ad: any) {
           paddingTop: "83.3%",
           position: "relative",
           overflow: "hidden",
-          borderRadius: "4px",
+          borderTopLeftRadius: "4px",
+          borderTopRightRadius: "4px",
         }}
       >
         <Image
@@ -129,6 +127,23 @@ function generateAdComponent(ad: any) {
           fill
         />
       </Box>
+      <Box sx={{ p: 1 }}>
+        <Typography
+          gutterBottom
+          variant="h5"
+          overflow="hidden"
+          textOverflow="ellipsis"
+          sx={{
+            backgroundColor: "orange",
+            borderRadius: "4px",
+            py: "2px",
+            px: "6px",
+            display: "inline-block",
+          }}
+        >
+          AD
+        </Typography>
+      </Box>
     </Link>
   );
 }
@@ -139,8 +154,13 @@ export default function VideoList({ videos }: { videos: any[] }) {
 
   let videoList = [];
   for (let i = 0; i < videos.length; i++) {
-    if (i == 3) {
+    if (i == 4) {
       const ad = getVideoListAd(locale, 0);
+      videoList.push(
+        generateVideoListItem(generateAdComponent(ad), "ad-" + ad.imageSrc)
+      );
+    } else if (i == 13) {
+      const ad = getVideoListAd(locale, 1);
       videoList.push(
         generateVideoListItem(generateAdComponent(ad), "ad-" + ad.imageSrc)
       );
