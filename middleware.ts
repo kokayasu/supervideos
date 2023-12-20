@@ -12,7 +12,7 @@ function getLocaleFromPath(url: URL) {
 
 export function middleware(request: NextRequest) {
   const userAgent = request.headers.get("user-agent") || "None";
-  const isCrawler = /bot|crawler|spider/i.test(userAgent);
+  const isCrawler = /google|bot|crawler|spider/i.test(userAgent);
   if (isCrawler) {
     return NextResponse.next();
   }
