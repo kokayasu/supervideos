@@ -106,11 +106,7 @@ export default function Header() {
     if (buttonRef.current) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
       const buttonBottom = buttonRect.bottom + window.scrollY;
-
-      // Calculate the top position for HoverPaper
       const topPosition = `${buttonBottom}px`;
-
-      // Set the calculated top position
       setTopPosition(topPosition);
     }
   }, [show]);
@@ -148,7 +144,7 @@ export default function Header() {
               <Typography
                 variant="h2"
                 sx={{
-                  padding: "10px", // Add padding or other styles as needed
+                  padding: "10px",
                   fontWight: "bold",
                   fontSize: { xs: "1rem", md: "2.2rem" },
                   "& .videoText": {
