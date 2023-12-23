@@ -64,7 +64,9 @@ export default function Home() {
   const router = useRouter();
 
   const handleYes = () => {
-    Cookies.set("ageConfirmed", "true");
+    const oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+    Cookies.set("ageConfirmed", "true", { expires: oneYearFromNow });
     router.push(router.query.from!.toString());
   };
 
