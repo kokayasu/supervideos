@@ -1,5 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
@@ -207,21 +208,45 @@ export default function Header() {
                     <Typography variant="h3">{section[locale]}</Typography>
                   </Button>
                 );
+              } else if (section.id == "home") {
+                return (
+                  <Box
+                    key={section.id}
+                    display={{ xs: "none", sm: "block" }}
+                    alignItems="center"
+                  >
+                    <Link
+                      prefetch={false}
+                      href={"/"}
+                      style={{
+                        textDecoration: "none",
+                        color: "inherit",
+                      }}
+                    >
+                      <Button
+                        color={"inherit"}
+                        sx={{ height: 50 }}
+                        aria-label={section[locale]}
+                      >
+                        {isMdScreen && (
+                          <section.icon style={{ marginRight: "4px" }} />
+                        )}
+                        <Typography variant="h3">{section[locale]}</Typography>
+                      </Button>
+                    </Link>
+                  </Box>
+                );
               } else {
                 return (
                   <Link
                     prefetch={false}
                     key={section.id}
-                    href={
-                      section.id === "home"
-                        ? "/"
-                        : getAdLink(section.id, locale)
-                    }
+                    href={getAdLink(section.id, locale)}
                     style={{
                       textDecoration: "none",
                       color: "inherit",
                     }}
-                    target={section.id === "home" ? undefined : "_blank"}
+                    target={"_blank"}
                   >
                     <Button
                       color={"inherit"}
