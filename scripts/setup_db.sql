@@ -1,9 +1,5 @@
 -- Create the database
-CREATE DATABASE videopurple;
-
-\c videopurple;
-
-CREATE EXTENSION pg_bigm;
+CREATE EXTENSION IF NOT EXISTS pg_bigm;
 
 CREATE TABLE IF NOT EXISTS videos (
     id VARCHAR(22) PRIMARY KEY,
@@ -13,13 +9,13 @@ CREATE TABLE IF NOT EXISTS videos (
     like_count INT,
     dislike_count INT,
     created_at DATE,
-    duration INTERVAL,
+    duration INT,
     resolution VARCHAR(7),
     categories VARCHAR(50)[] NOT NULL,
     title_orig_locale VARCHAR(2),
-    title_orig text,
-    title_en text,
-    title_ja text
+    title_orig TEXT,
+    title_en TEXT,
+    title_ja TEXT
 );
 
 CREATE TABLE IF NOT EXISTS pagination_info_sitemap_en (
@@ -33,8 +29,8 @@ CREATE TABLE IF NOT EXISTS pagination_info_sitemap_ja (
 );
 
 CREATE TABLE IF NOT EXISTS categories (
-    id VARCHAR(50) PRIMARY KEY,
-    video_count INT NOT NULL,
-    name_en VARCHAR(50),
-    name_ja VARCHAR(50)
+    category VARCHAR(50),
+    locale VARCHAR(2),
+    count INT NOT NULL,
+    PRIMARY KEY (category, locale)
 );

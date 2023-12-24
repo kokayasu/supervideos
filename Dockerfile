@@ -25,8 +25,9 @@ RUN wget https://osdn.dl.osdn.net/pgbigm/72448/pg_bigm-1.2-20200228.tar.gz --no-
 RUN echo "shared_preload_libraries='pg_bigm'" >> /usr/share/postgresql/postgresql.conf.sample
 
 # Copy the SQL script to initialize the database
-COPY ./scripts/setup_db.sql /docker-entrypoint-initdb.d/
+# COPY ./scripts/setup_db.sql /docker-entrypoint-initdb.d/
 
 # Set environment variables
+ENV POSTGRES_DB videopurple
 ENV POSTGRES_USER postgres
 ENV POSTGRES_PASSWORD postgres
