@@ -75,12 +75,16 @@ export async function getVideoCountSearchByCategory(
   category: string,
   locale: string
 ): Promise<number> {
-  const formatted_category = category.replaceAll("-", "_");
   const query = `
-        SELECT count(*) FROM mv_${formatted_category}_${locale}
+        SELECT count FROM categories WHERE category = $1 AND locale = $2
     `;
-  const result = await conn!.query(query, []);
-  return result.rows[0].count;
+  const result = await conn!.query(query, [category, locale]);
+
+  if (result.rows.length > 0) {
+    return result.rows[0].count;
+  } else {
+    throw new Error("No count found for the specified category and locale.");
+  }
 }
 
 export async function searchVideosByWords(
