@@ -15,9 +15,7 @@ if (!conn) {
     host: process.env.PGSQL_HOST,
     port: port,
     database: process.env.PGSQL_DATABASE,
-    ssl: {
-      rejectUnauthorized: false,
-    },
+    ssl: false,
   });
 }
 
