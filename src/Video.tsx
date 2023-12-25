@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import { LuThumbsDown, LuThumbsUp } from "react-icons/lu";
 import { SlEye } from "react-icons/sl";
