@@ -89,3 +89,16 @@ export function shuffleArray(array: any[]) {
   }
   return array;
 }
+
+export function generateVideoSrc(video: any) {
+  if (process.env.NODE_ENV === "development") {
+    return "https://www.youtube.com/embed/x6q9AxPUTOs";
+  }
+
+  if (video.source_id == "0") {
+    return `https://www.pornhub.com/embed/${video.id.slice(1)}`;
+  }
+  if (video.source_id == "1") {
+    return `https://www.xvideos.com/embedframe/${video.id.slice(1)}`;
+  }
+}

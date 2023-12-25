@@ -5,12 +5,11 @@ import { LuThumbsDown, LuThumbsUp } from "react-icons/lu";
 import { SlEye } from "react-icons/sl";
 
 import CategoryList from "@src/CategoryList";
-import { convertToShortFormat, getTitle } from "@src/utils";
+import { convertToShortFormat, generateVideoSrc, getTitle } from "@src/utils";
 
 export default function Video({ video }: { video: any }) {
   const router = useRouter();
   const locale: string = router.locale as string;
-  const isDev = process.env.NODE_ENV === "development";
   return (
     <>
       <Box
@@ -29,11 +28,7 @@ export default function Video({ video }: { video: any }) {
             height: "100%",
             border: "none",
           }}
-          src={
-            isDev
-              ? "https://www.youtube.com/embed/x6q9AxPUTOs"
-              : `https://www.pornhub.com/embed/${video.id.slice(1)}`
-          }
+          src={generateVideoSrc(video)}
           title={getTitle(video, locale)}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen

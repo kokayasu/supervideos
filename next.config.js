@@ -36,6 +36,12 @@ module.exports = {
         port: "",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "*.xvideos-cdn.com",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
 };
