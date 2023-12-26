@@ -49,7 +49,7 @@ export async function getVideosForSitemap(
 }
 
 export async function getCategories(locale: string): Promise<any[]> {
-  const query = `SELECT id, video_count, name_${locale} as name FROM categories;`;
+  const query = `SELECT id, count, name_${locale} as name FROM categories;`;
   return (await conn!.query(query)).rows;
 }
 
