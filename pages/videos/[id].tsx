@@ -28,9 +28,22 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const locale = context.locale as string;
   try {
     const video = await searchVideoById(id as string);
-    const moreVideos = shuffleArray(
-      await searchVideosByCategory(locale, video.categories[0], 1)
-    );
+    let moreVideos = null;
+    if (video.categories.length == 0) {
+      if (locale == "ja") {
+        moreVideos = shuffleArray(
+          await searchVideosByCategory(locale, "japanese", 1)
+        );
+      } else {
+        moreVideos = shuffleArray(
+          await searchVideosByCategory(locale, "amateur", 1)
+        );
+      }
+    } else {
+      moreVideos = shuffleArray(
+        await searchVideosByCategory(locale, video.categories[0], 1)
+      );
+    }
     const translations = await serverSideTranslations(locale as string, [
       "common",
     ]);
