@@ -5,6 +5,7 @@ module.exports = {
   i18n,
   reactStrictMode: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
