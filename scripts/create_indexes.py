@@ -20,6 +20,9 @@ def create_indexes():
                 "CREATE INDEX idx_categories_ja ON videos using gin(categories) WHERE title_ja IS NOT NULL;",
                 # This is for word search.
                 "CREATE INDEX idx_title_orig ON videos USING gin (title_orig gin_bigm_ops);",
+                # This is for site-map
+                "CREATE INDEX idx_id_nonnull_en ON videos (id) WHERE title_en IS NOT NULL;"
+                "CREATE INDEX idx_id_nonnull_ja ON videos (id) WHERE title_ja IS NOT NULL;",
             ]
 
             for query in index_queries:
