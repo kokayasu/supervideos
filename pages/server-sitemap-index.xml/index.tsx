@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { getServerSideSitemapIndexLegacy } from "next-sitemap";
 
-import { getVideoCountAll } from "@src/db";
+import { getVideoCountAll } from "@src/opensearch";
 
 const PAGE_SIZE = 1000;
 

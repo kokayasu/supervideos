@@ -1,42 +1,18 @@
 #!/usr/bin/env python3
 import os
-import psycopg2
 import boto3
 import logging
-from psycopg2 import sql
-
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
-
-db_params = {
-    "host": os.getenv("DB_HOST"),
-    "port": os.getenv("DB_PORT"),
-    "database": os.getenv("DB_NAME"),
-    "user": os.getenv("DB_USER"),
-    "password": os.getenv("DB_PASSWORD"),
-}
-db_params = {
-    "host": "database-1.c7pdgnl5hc90.us-west-1.rds.amazonaws.com",
-    "port": "5432",
-    "database": "videopurple",
-    "user": "postgres",
-    "password": "5ZacDYV4eBaXflrQfNJU",
-}
 
 AWS_REGION = os.getenv("AWS_REGION", "us-west-1")
 
 
-def translate_text(text, source_lang, target_lang, region):
-    # Initialize the AWS Translate client
-    translate_client = boto3.client("translate", region_name=region)
+translate_client = boto3.client("translate", region_name=AWS_REGION)
 
-    # Translate the text
+
+def translate_text(text, source_lang, target_lang, region):
     response = translate_client.translate_text(
         Text=text, SourceLanguageCode=source_lang, TargetLanguageCode=target_lang
     )
-
-    # Return the translated text
     return response["TranslatedText"]
 
 

@@ -13,6 +13,7 @@ from scripts.utils import (
     download_db_file,
     unzip_db_file,
     generate_bulk_insert_tsv_file,
+    generate_bulk_insert_csv,
     get_locale,
     run_copy_command,
     split_and_run_copy_command,
@@ -44,8 +45,8 @@ def parse_line(line):
     thumbnail = tokens[1]
     title = tokens[3].replace("/", "").replace("\\", "")
     title_locale = get_locale(title)
-    title_en = title if title_locale == "en" else ""
-    title_ja = title if title_locale == "ja" else ""
+    title_en = title if title_locale == "en" else None
+    title_ja = title if title_locale == "ja" else None
     # labels = tokens[4].split(";")
     category_ids = [
         category_id_mapping.get(category, "")
@@ -86,5 +87,17 @@ def run():
     run_copy_command(current_tsv_file_path, "videos")
 
 
-if __name__ == "__main__":
-    run()
+def generate_bulk_insert_tsv():
+    current_day_str = generate_current_day_str()
+    destination_dir = f"./scripts/{DB_DATA_DIR}/{current_day_str}"
+    os.makedirs(destination_dir, exist_ok=True)
+    downloaded_file = download_db_file(URL, destination_dir)
+    unziped_db_file = unzip_db_file(downloaded_file, destination_dir)
+    current_tsv_file_path = generate_bulk_insert_tsv_file(
+        unziped_db_file, destination_dir, parse_line
+    )
+    return current_tsv_file_path
+
+
+# if __name__ == "__main__":
+#     print(generate_bulk_insert_tsv())

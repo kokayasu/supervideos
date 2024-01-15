@@ -166,6 +166,59 @@ def generate_bulk_insert_tsv_file(db_file_path, destination_dir, parse_line):
     return output_file_path
 
 
+def generate_bulk_insert_csv(db_file_path, destination_dir, parse_line):
+    logging.info(f"Checking if bulk_insert.csv already exists in {destination_dir}")
+    output_file_path = f"{destination_dir}/bulk_insert.csv"
+    if os.path.exists(output_file_path):
+        logging.info(
+            f"File '{output_file_path}' already exists. Skipping generating the csv file."
+        )
+        return output_file_path
+
+    BATCH_SIZE = 100000
+    count = 0
+    logging.info(f"Start generating bulk insert csc file, {output_file_path}")
+    with open(db_file_path, "r") as input_file, open(
+        output_file_path, "w", newline=""
+    ) as output_file:
+        header_order = [
+            "id",
+            "source_id",
+            "thumbnail",
+            "view_count",
+            "like_count",
+            "dislike_count",
+            "created_at",
+            "duration",
+            "resolution",
+            "categories",
+            "title_orig_locale",
+            "title_orig",
+            "title_en",
+            "title_ja",
+        ]
+        writer = csv.DictWriter(output_file, fieldnames=header_order)
+        writer.writeheader()
+        batch = []
+        while True:
+            line = input_file.readline().strip()
+            if not line:
+                break
+
+            try:
+                batch.append(parse_line(line))
+                if len(batch) == BATCH_SIZE:
+                    count += len(batch)
+                    logging.info(f"{count} records processed {db_file_path}")
+                    writer.writerows(batch)
+                    batch = []
+            except Exception as e:
+                logging.warning(f"'{line}' has an issue with '{e}'")
+        if batch:
+            writer.writerows(batch)
+    return output_file_path
+
+
 languages = [
     Language.ENGLISH,
     Language.FRENCH,

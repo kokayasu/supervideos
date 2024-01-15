@@ -1,5 +1,4 @@
 import { Divider } from "@mui/material";
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import { GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
@@ -13,8 +12,8 @@ import Title from "@src/Title";
 import Video from "@src/Video";
 import VideoList from "@src/VideoList";
 import { getVideoSideBanners } from "@src/adUtils";
-import { searchVideoById, searchVideosByCategory } from "@src/db";
-import { getTitle, shuffleArray, translate } from "@src/utils";
+import { searchVideoById, searchVideosByWords } from "@src/opensearch";
+import { getNumVideosInPage, getTitle, translate } from "@src/utils";
 
 export async function getStaticPaths() {
   return {
@@ -28,22 +27,14 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const locale = context.locale as string;
   try {
     const video = await searchVideoById(id as string);
-    let moreVideos = null;
-    if (video.categories.length == 0) {
-      if (locale == "ja") {
-        moreVideos = shuffleArray(
-          await searchVideosByCategory(locale, "japanese", 1)
-        );
-      } else {
-        moreVideos = shuffleArray(
-          await searchVideosByCategory(locale, "amateur", 1)
-        );
-      }
-    } else {
-      moreVideos = shuffleArray(
-        await searchVideosByCategory(locale, video.categories[0], 1)
-      );
-    }
+    const { videos } = await searchVideosByWords(
+      getTitle(video, locale),
+      locale,
+      1,
+      getNumVideosInPage(),
+      "or",
+      id as string
+    );
     const translations = await serverSideTranslations(locale as string, [
       "common",
     ]);
@@ -51,7 +42,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       props: {
         video,
-        moreVideos,
+        moreVideos: videos,
         ...translations,
       },
     };

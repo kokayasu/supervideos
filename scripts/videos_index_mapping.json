@@ -1,0 +1,75 @@
+{
+  "settings": {
+    "index": {
+      "analysis": {
+        "tokenizer": {
+          "sudachi_tokenizer": {
+            "type": "sudachi_tokenizer"
+          }
+        },
+        "analyzer": {
+          "sudachi_analyzer": {
+            "filter": ["my_searchfilter"],
+            "tokenizer": "sudachi_tokenizer",
+            "type": "custom"
+          }
+        },
+        "filter": {
+          "my_searchfilter": {
+            "type": "sudachi_split",
+            "mode": "search"
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "source_id": {
+        "type": "keyword"
+      },
+      "thumbnail": {
+        "type": "keyword"
+      },
+      "view_count": {
+        "type": "integer"
+      },
+      "like_count": {
+        "type": "integer"
+      },
+      "dislike_count": {
+        "type": "integer"
+      },
+      "created_at": {
+        "type": "date"
+      },
+      "duration": {
+        "type": "integer"
+      },
+      "resolution": {
+        "type": "keyword"
+      },
+      "categories": {
+        "type": "keyword"
+      },
+      "title_orig_locale": {
+        "type": "keyword"
+      },
+      "title_orig": {
+        "type": "text",
+        "analyzer": "standard"
+      },
+      "title_en": {
+        "type": "text",
+        "analyzer": "english"
+      },
+      "title_ja": {
+        "type": "text",
+        "analyzer": "sudachi_analyzer"
+      }
+    }
+  }
+}

@@ -1,34 +1,16 @@
 #!/usr/bin/env python3
-import psycopg2
-from utils import configure_logging, DB_PARAMS
-import logging
+import pandas as pd
 
-configure_logging()
+# Load tsv_file into a DataFrame
+tsv_df = pd.read_csv("./scripts/pornhub/20240109/test.tsv", sep="\t")
 
+# Load translations.txt into a dictionary for quick lookup
+translations = {}
+with open("translate.txt", "r") as file:
+    for line in file:
+        line = line.strip().split("|")
+        translations[line[0].strip()] = line[1].strip()
 
-translation_file_path = "./translate.txt"
-
-
-def move_translations():
-    conn = psycopg2.connect(**DB_PARAMS)
-    cursor = conn.cursor()
-    with open(translation_file_path, "r", encoding="utf-8") as file:
-        for line in file:
-            try:
-                video_id, title_ja = line.strip().split("|", 1)
-                video_id = video_id.strip()
-                title_ja = title_ja.strip()
-
-                sql = "UPDATE videos SET title_ja = %s WHERE id = %s"
-                cursor.execute(sql, (title_ja, video_id))
-                conn.commit()
-                logging.info(f"Successfully updated ID {video_id}")
-            except Exception as e:
-                logging.error(f"Error updating ID {video_id}: {str(e)}")
-                raise e
-    cursor.close()
-    conn.close()
-
-
-if __name__ == "__main__":
-    move_translations()
+# Update 'translation' column in tsv_df
+tsv_df["title_ja"] = tsv_df["id"].map(translations)
+tsv_df.to_csv("./scripts/pornhub/20240109/test_2.tsv", sep="\t", index=False)

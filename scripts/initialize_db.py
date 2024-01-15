@@ -53,10 +53,10 @@ def populate_videos_table():
 
 if __name__ == "__main__":
     configure_logging()
-    # create_tables()
-    # populate_videos_table()
-    # move_translations()
-    # create_indexes()
-    # create_materialized_views()
+    create_tables()
+    populate_videos_table()
+    move_translations()
+    create_indexes()
+    create_materialized_views()
     populate_categories_table()
-    # populate_pagination_tables()
+    populate_pagination_tables()

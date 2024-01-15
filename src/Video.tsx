@@ -29,7 +29,7 @@ export default function Video({ video }: { video: any }) {
           }}
           src={generateVideoSrc(video)}
           title={getTitle(video, locale)}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
           allowFullScreen
         ></iframe>
       </Box>

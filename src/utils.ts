@@ -1,5 +1,9 @@
 import * as categoryTranslationsJson from "@src/categoryTranslations.json";
 
+export function getNumVideosInPage() {
+  return 18;
+}
+
 export function generateLocalizedUrl(locale: string, path: string) {
   let baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
@@ -95,10 +99,14 @@ export function generateVideoSrc(video: any) {
     return "https://www.youtube.com/embed/x6q9AxPUTOs";
   }
 
-  if (video.source_id == "0") {
+  if (video.source_id == 0) {
     return `https://www.pornhub.com/embed/${video.id.slice(1)}`;
   }
-  if (video.source_id == "1") {
+  if (video.source_id == 1) {
     return `https://www.xvideos.com/embedframe/${video.id.slice(1)}`;
   }
+}
+
+export function getLastPageNum(videoCount: number) {
+  return Math.ceil(videoCount / getNumVideosInPage());
 }

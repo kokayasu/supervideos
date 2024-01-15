@@ -1,5 +1,3 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 import { GetStaticPropsContext } from "next";
@@ -11,9 +9,10 @@ import { ParsedUrlQuery } from "querystring";
 
 import CategoryList from "@src/CategoryList";
 import PageContainer from "@src/PageContainer";
+import Pagination from "@src/Pagination";
 import Title from "@src/Title";
 import VideoList from "@src/VideoList";
-import { getTopCategories, searchVideosByWords } from "@src/db";
+import { getTopCategories, searchVideosByWords } from "@src/opensearch";
 import { getPopularCategories, translate } from "@src/utils";
 
 export async function getStaticPaths() {
@@ -32,7 +31,12 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 
   try {
-    const videos = await searchVideosByWords(words, pageNum);
+    const { videoCount, videos } = await searchVideosByWords(
+      words,
+      locale,
+      pageNum
+    );
+
     if (pageNum > 1 && videos.length === 0) {
       const encodedWords = encodeURIComponent(words as string);
       return {
@@ -42,13 +46,11 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         },
       };
     }
-    const nextPagevideos = await searchVideosByWords(words, pageNum + 1);
-    const moreCategories = getPopularCategories(videos);
-    const nextPageExist = nextPagevideos.length > 0;
-    const otherCategories = [];
-    for (const row of await getTopCategories()) {
-      otherCategories.push(row.id);
-    }
+
+    const moreCategories =
+      videos.length === 0
+        ? await getTopCategories()
+        : getPopularCategories(videos);
 
     const translations = await serverSideTranslations(locale as string, [
       "common",
@@ -58,10 +60,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       props: {
         words,
         videos,
+        videoCount,
         moreCategories,
-        otherCategories,
         page: pageNum,
-        nextPageExist,
         ...translations,
       },
     };
@@ -74,20 +75,18 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 export default function SearchByWords({
   words,
   videos,
+  videoCount,
   moreCategories,
-  otherCategories,
   page,
-  nextPageExist,
 }: {
   words: string;
   videos: any[];
   videoCount: number;
   moreCategories: any[];
-  otherCategories: any[];
   page: number;
-  nextPageExist: boolean;
 }) {
   const { t } = useTranslation();
+  const encodedWords = encodeURIComponent(words as string);
   return (
     <PageContainer>
       <Head>
@@ -108,42 +107,21 @@ export default function SearchByWords({
               </Typography>
             ) : (
               <Typography sx={{ mb: 10 }}>
-                hello???
                 {translate(t, "SearchResultNotFound", { words })}
               </Typography>
             )}
             <Title title={translate(t, "MoreCategories")} />
-            <CategoryList categories={otherCategories} />
+            <CategoryList categories={moreCategories} />
           </>
         ) : (
           <>
             <Title title={translate(t, "SearchResult", { words })} />
             <VideoList videos={videos} />
-            <Box mt={2} display="flex" justifyContent="center">
-              {page > 1 && (
-                <Button variant="contained" disableElevation>
-                  <Link
-                    href={`/search/${words}/${page - 1}`}
-                    prefetch={false}
-                    style={{ color: "inherit", textDecoration: "none" }}
-                  >
-                    Prev
-                  </Link>
-                </Button>
-              )}
-              {page > 1 && nextPageExist && <Box mx={2}></Box>}
-              {nextPageExist && (
-                <Button variant="contained" disableElevation>
-                  <Link
-                    href={`/search/${words}/${page + 1}`}
-                    prefetch={false}
-                    style={{ color: "inherit", textDecoration: "none" }}
-                  >
-                    Next
-                  </Link>
-                </Button>
-              )}
-            </Box>
+            <Pagination
+              page={page}
+              linkPath={`/search/${encodedWords}`}
+              videoCount={videoCount}
+            />
             <Title title={translate(t, "RelatedCategories")} />
             <CategoryList categories={moreCategories} />
           </>

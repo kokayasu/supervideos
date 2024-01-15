@@ -3,6 +3,10 @@ import { QueryResult } from "pg";
 
 export const NUM_VIDEOS_IN_PAGE = 18;
 
+export function getNumVideosInPage() {
+  return 18;
+}
+
 let conn: Pool | null = null;
 if (!conn) {
   const port = process.env.PGSQL_PORT
@@ -15,9 +19,10 @@ if (!conn) {
     host: process.env.PGSQL_HOST,
     port: port,
     database: process.env.PGSQL_DATABASE,
-    ssl: {
-      rejectUnauthorized: false,
-    },
+    // ssl: {
+    //   rejectUnauthorized: false,
+    // },
+    ssl: false,
   });
 }
 
@@ -144,8 +149,4 @@ export async function getTopCategories(): Promise<any> {
         SELECT * FROM categories LIMIT 15;
     `;
   return (await conn!.query(query)).rows;
-}
-
-export function getLastPageNum(videoCount: number) {
-  return Math.ceil(videoCount / NUM_VIDEOS_IN_PAGE);
 }

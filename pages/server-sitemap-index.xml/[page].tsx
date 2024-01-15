@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { getServerSideSitemapLegacy } from "next-sitemap";
 
-import { getVideosForSitemap } from "@src/db";
+import { getVideosForSitemap } from "@src/opensearch";
 import { generateLocalizedUrl } from "@src/utils";
 
 function escapeXml(xmlString: string): string {
@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (typeof page === "undefined" || isNaN(page)) throw Error();
 
   const fields = [];
-  const videos = await getVideosForSitemap(page, locale);
+  const { videos } = await getVideosForSitemap(locale, page);
   for (const video of videos) {
     const title = escapeXml(video[`title_${locale}`]);
     const v = `

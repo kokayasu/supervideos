@@ -4,3 +4,4 @@ requests
 beautifulsoup4
 pandas
 psycopg2
+opensearch-py

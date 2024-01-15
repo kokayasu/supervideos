@@ -3,6 +3,8 @@ import MuiPagination from "@mui/material/Pagination";
 import MuiPaginationItem from "@mui/material/PaginationItem";
 import Link from "next/link";
 
+import { getNumVideosInPage } from "@src/utils";
+
 function renderPaginationLink(page: number | null, linkPath: string): string {
   if (page === null) {
     return "#";
@@ -22,14 +24,14 @@ export default function Pagination({
   linkPath: string;
   videoCount: number;
 }) {
-  const pageCount = Math.ceil(videoCount / 21);
+  const pageCount = Math.ceil(videoCount / getNumVideosInPage());
   return (
     <Box display="flex" justifyContent="center" sx={{ mt: 2 }}>
       <MuiPagination
         page={page}
         count={pageCount}
         renderItem={(item) => {
-          if (item.page && (item.page > 0 && item.page <= pageCount)) {
+          if (item.page && item.page > 0 && item.page <= pageCount) {
             return (
               <Link
                 href={renderPaginationLink(item.page, linkPath)}

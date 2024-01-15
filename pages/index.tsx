@@ -1,21 +1,22 @@
 import { GetStaticPropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-import { getVideos } from "@src/db";
-import { getPopularCategories, shuffleArray } from "@src/utils";
+import { getVideos } from "@src/opensearch";
+import { getPopularCategories } from "@src/utils";
 
 import Page from "./[page]";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const locale = context.locale as string;
   try {
-    const videos = shuffleArray(await getVideos(1, locale));
+    const { videoCount, videos } = await getVideos(locale, 1);
     const categories = getPopularCategories(videos);
     const translations = await serverSideTranslations(locale, ["common"]);
 
     return {
       props: {
         videos,
+        videoCount,
         categories,
         page: 1,
         ...translations,

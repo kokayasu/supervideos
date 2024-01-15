@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 import { GetStaticPropsContext } from "next";
@@ -13,19 +12,15 @@ import PageContainer from "@src/PageContainer";
 import Pagination from "@src/Pagination";
 import Title from "@src/Title";
 import VideoList from "@src/VideoList";
+import { searchVideosByCategory } from "@src/opensearch";
 import {
   getLastPageNum,
-  getVideoCountSearchByCategory,
-  searchVideosByCategory,
-} from "@src/db";
-import {
   getPopularCategories,
   shuffleArray,
   translate,
   translateCategory,
 } from "@src/utils";
 
-// Define props and interfaces
 interface HomeProps {
   category: string;
   videos: any[];
@@ -34,7 +29,6 @@ interface HomeProps {
   page: number;
 }
 
-// Function to get static paths
 export async function getStaticPaths() {
   return {
     paths: [],
@@ -42,7 +36,6 @@ export async function getStaticPaths() {
   };
 }
 
-// Function to get static props
 export async function getStaticProps(context: GetStaticPropsContext) {
   const { category, page } = context.params as ParsedUrlQuery;
   const locale = context.locale as string;
@@ -57,11 +50,13 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 
   try {
-    const videoCount = await getVideoCountSearchByCategory(category, locale);
-    if (pageNum > getLastPageNum(videoCount)) return { notFound: true };
-    const videos = shuffleArray(
-      await searchVideosByCategory(locale, category, pageNum)
+    let { videoCount, videos } = await searchVideosByCategory(
+      category,
+      locale,
+      pageNum
     );
+    if (pageNum > getLastPageNum(videoCount)) return { notFound: true };
+    videos = shuffleArray(videos);
     const moreCategories = getPopularCategories(videos);
     const translations = await serverSideTranslations(locale as string, [
       "common",
@@ -83,7 +78,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-// Main component
 export default function Home({
   category,
   videos,

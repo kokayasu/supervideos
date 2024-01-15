@@ -4,7 +4,6 @@ import { GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 
 import CategoryList from "@src/CategoryList";
@@ -12,7 +11,7 @@ import PageContainer from "@src/PageContainer";
 import Pagination from "@src/Pagination";
 import Title from "@src/Title";
 import VideoList from "@src/VideoList";
-import { getVideos } from "@src/db";
+import { getVideos } from "@src/opensearch";
 import { getPopularCategories, translate } from "@src/utils";
 
 export async function getStaticPaths() {
@@ -31,13 +30,14 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 
   try {
-    const videos = await getVideos(pageNum, locale);
+    const { videoCount, videos } = await getVideos(locale, pageNum);
     const categories = getPopularCategories(videos);
     const translations = await serverSideTranslations(locale, ["common"]);
 
     return {
       props: {
         videos,
+        videoCount,
         categories,
         page: pageNum,
         ...translations,
@@ -50,16 +50,17 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 }
 
 export default function Home({
-  categories,
   videos,
+  videoCount,
+  categories,
   page,
 }: {
-  categories: string[];
   videos: any[];
+  videoCount: number;
+  categories: string[];
   page: string;
 }) {
   const { t } = useTranslation();
-  const router = useRouter();
 
   return (
     <PageContainer>
@@ -77,7 +78,11 @@ export default function Home({
         <Box sx={{ my: 3 }} />
         <Title title={translate(t, "PopularVideos")} />
         <VideoList videos={videos} />
-        <Pagination page={parseInt(page)} linkPath={""} videoCount={2000} />
+        <Pagination
+          page={parseInt(page)}
+          linkPath={""}
+          videoCount={videoCount}
+        />
       </Grid>
     </PageContainer>
   );
