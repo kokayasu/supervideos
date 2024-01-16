@@ -40,6 +40,8 @@ next-env.d.ts
 **/venv/**
 *.tsv
 .data
+data
+tmp
 
 **/__pycache__/**
 **/[0-9]*/**

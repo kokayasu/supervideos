@@ -6,14 +6,15 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
+import { useEffect, useState } from "react";
 
 import PageContainer from "@src/PageContainer";
 import Title from "@src/Title";
 import Video from "@src/Video";
 import VideoList from "@src/VideoList";
 import { getVideoSideBanners } from "@src/adUtils";
-import { searchVideoById, searchVideosByWords } from "@src/opensearch";
-import { getNumVideosInPage, getTitle, translate } from "@src/utils";
+import { searchVideoById } from "@src/opensearch";
+import { getTitle, translate } from "@src/utils";
 
 export async function getStaticPaths() {
   return {
@@ -27,14 +28,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const locale = context.locale as string;
   try {
     const video = await searchVideoById(id as string);
-    const { videos } = await searchVideosByWords(
-      getTitle(video, locale),
-      locale,
-      1,
-      getNumVideosInPage(),
-      "or",
-      id as string
-    );
     const translations = await serverSideTranslations(locale as string, [
       "common",
     ]);
@@ -42,7 +35,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       props: {
         video,
-        moreVideos: videos,
         ...translations,
       },
     };
@@ -52,17 +44,29 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default function Home({
-  video,
-  moreVideos,
-}: {
-  video: any;
-  moreVideos: any[];
-}) {
+export default function Home({ video }: { video: any }) {
   const { t } = useTranslation();
   const router = useRouter();
   const locale: string = router.locale as string;
   const title = getTitle(video, locale);
+  const [moreVideos, setMoreVideos] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchMoreVideos = async () => {
+      try {
+        const title = getTitle(video, locale);
+        const response = await fetch(
+          `/api/search-related-videos?title=${title}&id=${video.id}&locale=${locale}`
+        );
+        const { videos } = await response.json();
+        setMoreVideos(videos);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchMoreVideos();
+  }, [video, locale]);
+
   return (
     <PageContainer includeTopAd={false}>
       <Head>

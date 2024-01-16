@@ -1,14 +1,18 @@
 import axios, { AxiosResponse } from "axios";
 
 export const NUM_VIDEOS_IN_PAGE = 18;
+// const opensearch_endpoint =
+//   "https://search-videopurple-test-qz6qdmolhry4o42bix3j77pfe4.us-west-2.es.amazonaws.com";
+// const username = "videopurple-test";
 const opensearch_endpoint =
   "https://search-videopurple-uwhp3imf4bgstzu3h4rpxxb2oi.us-west-2.es.amazonaws.com";
-const index_name = "videos";
 const username = "videopurple";
+const index_name = "videos";
 const password = "NA7vF9j!";
 
 export async function performQuery(
-  query: any
+  query: any,
+  from: string
 ): Promise<{ videoCount: number; videos: any[] }> {
   if (query.from + query.size > 10000) {
     query.size = 10000 - query.from;
@@ -28,8 +32,9 @@ export async function performQuery(
       }
     );
 
-    console.log(`Took ${response.data.took}`);
-    console.log(`Hits ${response.data.hits.total.value}`);
+    console.log(
+      `${from}: Took ${response.data.took}, Hits ${response.data.hits.total.value}`
+    );
     const videoCount = response.data.hits.total.value;
     const videos = response.data.hits.hits.map((hit: any) => hit._source);
     return { videoCount, videos };
@@ -97,7 +102,7 @@ export async function getVideos(
       },
     },
   };
-  return performQuery(query);
+  return performQuery(query, `getVideos '${locale}' '${page}'`);
 }
 
 export async function searchVideoById(id: string): Promise<any> {
@@ -156,7 +161,10 @@ export async function searchVideosByWords(
     from: (page - 1) * pageSize,
     query: query,
   };
-  return performQuery(search);
+  return performQuery(
+    search,
+    `searchVideosByWords '${words}' '${locale}' '${page}'`
+  );
 }
 
 export async function searchVideosByCategory(
@@ -182,7 +190,10 @@ export async function searchVideosByCategory(
       },
     },
   };
-  return performQuery(query);
+  return performQuery(
+    query,
+    `searchVideosByCategory '${category}' '${locale}' '${page}'`
+  );
 }
 
 export async function getVideoCountAll(locale: string) {
@@ -244,5 +255,5 @@ export async function getVideosForSitemap(
     const last_id_value = await getLastId(locale, page);
     body.search_after = [last_id_value];
   }
-  return performQuery(body);
+  return performQuery(body, "getVideosForSitemap");
 }

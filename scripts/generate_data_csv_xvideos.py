@@ -3,29 +3,14 @@ import sys
 import os
 import json
 from bs4 import BeautifulSoup
+import utils
 
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.append(project_root)
-
-from scripts.utils import (
-    configure_logging,
-    generate_current_day_str,
-    download_db_file,
-    unzip_db_file,
-    generate_bulk_insert_tsv_file,
-    generate_bulk_insert_csv,
-    get_locale,
-    run_copy_command,
-    split_and_run_copy_command,
-    count_categories,
-    update_categories_table,
-)
-
-configure_logging()
-
+utils.configure_logging()
 
 URL = "https://webmaster-tools.xvideos.com/xvideos.com-export-full.csv.zip"
-DB_DATA_DIR = "xvideos"
+RAW_DATA_DIR = "./raw/xvideos"
 
 
 class TrieNode:
@@ -96,7 +81,7 @@ def parse_line(line):
         category = find_category(categories_tri, tag)
         if category is not None and category not in categories:
             categories.append(category)
-    title_locale = get_locale(title)
+    title_locale = utils.get_locale(title)
     title_en = title if title_locale == "en" else None
     title_ja = title if title_locale == "ja" else None
 
@@ -118,29 +103,15 @@ def parse_line(line):
     }
 
 
-def run():
-    current_day_str = generate_current_day_str()
-    destination_dir = f"./scripts/{DB_DATA_DIR}/{current_day_str}"
+def generate_data_csv():
+    current_day_str = utils.generate_current_day_str()
+    destination_dir = f"{RAW_DATA_DIR}/{current_day_str}"
     os.makedirs(destination_dir, exist_ok=True)
-    downloaded_file = download_db_file(URL, destination_dir)
-    unziped_db_file = unzip_db_file(downloaded_file, destination_dir)
-    current_tsv_file_path = generate_bulk_insert_tsv_file(
-        unziped_db_file, destination_dir, parse_line
-    )
-    run_copy_command(current_tsv_file_path, "videos")
-
-
-def generate_bulk_insert_tsv():
-    current_day_str = generate_current_day_str()
-    destination_dir = f"./scripts/{DB_DATA_DIR}/{current_day_str}"
-    os.makedirs(destination_dir, exist_ok=True)
-    downloaded_file = download_db_file(URL, destination_dir)
-    unziped_db_file = unzip_db_file(downloaded_file, destination_dir)
-    current_tsv_file_path = generate_bulk_insert_tsv_file(
-        unziped_db_file, destination_dir, parse_line
-    )
-    return current_tsv_file_path
+    downloaded_file = utils.download_db_file(URL, destination_dir)
+    unziped_db_file = utils.unzip_db_file(downloaded_file, destination_dir)
+    data_csv_path = utils.generate_data_csv(unziped_db_file, "xvideos", parse_line)
+    return data_csv_path
 
 
 if __name__ == "__main__":
-    print(generate_bulk_insert_tsv())
+    generate_data_csv()
